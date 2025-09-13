@@ -1,0 +1,261 @@
+# Township Green - Project Rules & Design System
+
+## 🎯 Project Overview
+**Township Community** - A cannabis consumption lounge website focusing on art sessions and community events.
+
+### Business Requirements
+- Cannabis consumption lounge (separate from dispensary)
+- Art session booking system
+- Community event calendar
+- Safe, welcoming environment branding
+- Legal compliance considerations
+- Professional, trustworthy appearance
+
+---
+
+## 🎨 Design System
+
+### Color Palette
+```css
+:root {
+  --primary-color: #23a867;      /* Green - primary brand */
+  --secondary-color: #1d554c;    /* Dark teal - secondary */
+  --background-dark: #12211a;    /* Main dark background */
+  --background-card: #1d2d25;    /* Card/section background */
+  --text-primary: #ffffff;       /* Primary text */
+  --text-secondary: #9ca3af;     /* Secondary text (gray-400) */
+  --text-muted: #6b7280;         /* Muted text (gray-500) */
+}
+```
+
+### Typography
+- **Primary Font**: Space Grotesk (headings, buttons)
+- **Secondary Font**: Noto Sans (body text)
+- **Font Weights**: 400 (normal), 500 (medium), 700 (bold), 900 (black)
+
+### Component Standards
+
+#### Buttons
+- **Primary**: `bg-[var(--primary-color)]` with hover opacity 90%
+- **Height**: h-10 (small), h-12 (large)
+- **Padding**: px-6 (small), px-8 (large)
+- **Border Radius**: rounded-lg
+- **Typography**: font-bold with tracking-[0.015em]
+- **Transitions**: transition-all for smooth interactions
+
+#### Cards/Sections
+- **Background**: `bg-[#1d2d25]` for elevated content
+- **Padding**: p-6 for cards, py-20 px-10 for sections
+- **Border Radius**: rounded-lg
+- **Shadow**: shadow-2xl for cards
+
+#### Layout
+- **Max Width**: max-w-4xl (content), max-w-5xl (wide sections)
+- **Centering**: mx-auto
+- **Spacing**: gap-6 (small), gap-8 (medium), gap-12 (large)
+
+---
+
+## 🏗️ Technical Architecture
+
+### Frontend Stack
+- **Framework**: React 18+ with TypeScript
+- **Build Tool**: Vite
+- **Styling**: Tailwind CSS
+- **Form Handling**: EmailJS
+- **Icons**: Material Symbols Outlined
+- **Fonts**: Google Fonts (Space Grotesk, Noto Sans)
+
+### Project Structure
+```
+src/
+├── components/
+│   ├── Header.tsx
+│   ├── Hero.tsx
+│   ├── About.tsx
+│   ├── Events/
+│   │   ├── EventsSection.tsx
+│   │   ├── Calendar.tsx
+│   │   └── BookingForm.tsx
+│   └── Footer.tsx
+├── hooks/
+│   └── useEmailJS.ts
+├── types/
+│   └── index.ts
+├── styles/
+│   └── globals.css
+├── App.tsx
+└── main.tsx
+```
+
+### Component Guidelines
+
+#### Component Naming
+- PascalCase for component files
+- Descriptive, feature-based names
+- Single responsibility principle
+
+#### Props Interface
+```typescript
+interface ComponentProps {
+  className?: string;
+  children?: React.ReactNode;
+  // Specific props...
+}
+```
+
+#### State Management
+- React useState for local state
+- Custom hooks for complex logic
+- Props drilling for simple data flow
+
+---
+
+## 📱 Responsive Design Rules
+
+### Breakpoints (Tailwind defaults)
+- **Mobile**: < 768px (default)
+- **Tablet**: md: >= 768px
+- **Desktop**: lg: >= 1024px
+
+### Responsive Patterns
+- Mobile-first approach
+- Flexible grid systems (flex, grid)
+- Responsive typography (text-lg md:text-xl)
+- Progressive enhancement
+
+### Layout Rules
+- **Mobile**: Single column, stack elements
+- **Tablet**: Adjust spacing, some 2-column layouts
+- **Desktop**: Full multi-column layouts, larger text
+
+---
+
+## 🎭 Animation & Interaction Standards
+
+### Hover Effects
+- **Colors**: hover:text-[var(--primary-color)]
+- **Opacity**: hover:bg-opacity-90
+- **Scale**: hover:scale-105 (subtle)
+- **Transitions**: transition-colors, transition-all
+
+### Focus States
+- Visible focus rings for accessibility
+- Consistent focus styling across components
+
+### Loading States
+- Skeleton loading for content
+- Button loading states
+- Smooth transitions
+
+---
+
+## 📋 Form Standards
+
+### EmailJS Integration
+- Contact forms for booking sessions
+- Event registration forms
+- Newsletter signup
+- Error handling and validation
+- Success feedback
+
+### Form Validation
+- Client-side validation
+- Clear error messages
+- Accessible form labels
+- Required field indicators
+
+---
+
+## ♿ Accessibility Requirements
+
+### WCAG 2.1 AA Compliance
+- Color contrast ratios
+- Keyboard navigation
+- Screen reader compatibility
+- Focus management
+- Alternative text for images
+
+### Semantic HTML
+- Proper heading hierarchy (h1, h2, h3...)
+- Semantic elements (header, main, section, footer)
+- ARIA labels where needed
+
+---
+
+## 🚀 Deployment Standards
+
+### Vite Configuration
+- Environment variables for EmailJS
+- Production optimizations
+- Asset optimization
+- Modern browser support
+
+### Hosting
+- Static site deployment (Vercel/Netlify recommended)
+- Custom domain configuration
+- SSL/HTTPS enforcement
+- Performance monitoring
+
+---
+
+## 🧪 Quality Standards
+
+### Code Quality
+- TypeScript strict mode
+- ESLint + Prettier configuration
+- Consistent naming conventions
+- Comment complex logic
+
+### Performance
+- Image optimization
+- Code splitting
+- Lazy loading
+- Bundle size monitoring
+
+### Testing (Future)
+- Component testing (React Testing Library)
+- E2E testing (Playwright)
+- Accessibility testing
+
+---
+
+## 📝 Content Guidelines
+
+### Tone & Voice
+- **Welcoming**: Inclusive, friendly language
+- **Professional**: Trustworthy, reliable
+- **Community-focused**: Emphasize togetherness
+- **Safe space**: Stress safety and comfort
+
+### Legal Considerations
+- Cannabis consumption lounge compliance
+- Age verification implications
+- Local regulation compliance
+- Clear terms of service
+
+### Content Structure
+- Clear navigation
+- Scannable content
+- Strong calls-to-action
+- Contact information prominence
+
+---
+
+## 🔄 Development Workflow
+
+### Git Workflow
+- Feature branches
+- Descriptive commit messages
+- Regular commits
+- Clean merge history
+
+### Code Review
+- Peer review for major features
+- Design system compliance
+- Accessibility checks
+- Performance considerations
+
+---
+
+This document serves as the single source of truth for all design and development decisions in the Township Green project.
