@@ -3,7 +3,7 @@ const Footer = () => {
     <footer className="bg-[#1d2d25] py-8 px-10" id="contact">
       <div className="max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-6">
         <div className="text-center md:text-left">
-          <p className="text-gray-400">© 2024 Township Community. All rights reserved.</p>
+          <p className="text-gray-400">© 2024 Top of the Green. All rights reserved.</p>
           <div className="flex justify-center md:justify-start gap-4 mt-2">
             <a 
               href="#" 

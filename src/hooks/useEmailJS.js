@@ -27,7 +27,7 @@ const useEmailJS = () => {
 
       if (templateType === 'booking') {
         templateParams = {
-          to_name: 'Township Community',
+          to_name: 'Top of the Green',
           from_name: data.name,
           from_email: data.email,
           phone: data.phone,
@@ -38,7 +38,7 @@ const useEmailJS = () => {
         };
       } else {
         templateParams = {
-          to_name: 'Township Community',
+          to_name: 'Top of the Green',
           from_name: data.name,
           from_email: data.email,
           subject: data.subject,

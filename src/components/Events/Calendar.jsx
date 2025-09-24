@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 const Calendar = ({ selectedDate, onDateSelect, events }) => {
-  const [currentMonth, setCurrentMonth] = useState(new Date());
+  const [currentMonth, setCurrentMonth] = useState(new Date(2025, 9, 1)); // Start at October 2025
 
   const monthNames = [
     'January', 'February', 'March', 'April', 'May', 'June',
@@ -109,19 +109,21 @@ const Calendar = ({ selectedDate, onDateSelect, events }) => {
                 <button
                   onClick={() => onDateSelect(date)}
                   className={`
-                    h-12 w-full text-white text-base font-medium rounded-full transition-colors relative
+                    h-10 w-10 mx-auto text-white text-sm font-medium rounded-md transition-colors relative
                     ${dateIsSelected 
-                      ? 'bg-[var(--primary-color)]' 
-                      : dateIsToday 
-                        ? 'bg-[var(--secondary-color)]' 
-                        : 'hover:bg-[var(--secondary-color)]'
+                      ? 'bg-[var(--primary-color)] ring-2 ring-[var(--primary-color)] ring-opacity-50' 
+                      : hasEvents
+                        ? 'bg-[var(--primary-color)] bg-opacity-30 border-2 border-[var(--primary-color)] hover:bg-opacity-50'
+                        : dateIsToday 
+                          ? 'bg-[var(--secondary-color)]' 
+                          : 'hover:bg-[var(--secondary-color)]'
                     }
                   `}
                 >
                   {date.getDate()}
-                  {hasEvents && (
-                    <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2">
-                      <div className="w-1.5 h-1.5 bg-[var(--primary-color)] rounded-full"></div>
+                  {hasEvents && !dateIsSelected && (
+                    <div className="absolute -top-1 -right-1">
+                      <div className="w-3 h-3 bg-[var(--primary-color)] rounded-full border-2 border-[#1d2d25]"></div>
                     </div>
                   )}
                 </button>

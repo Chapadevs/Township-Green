@@ -3,10 +3,10 @@ const About = () => {
     <section className="py-20 px-10" id="about">
       <div className="max-w-4xl mx-auto text-center">
         <h2 className="text-white text-4xl font-bold leading-tight tracking-tight">
-          About Township Community
+          About Top of the Green
         </h2>
         <p className="text-gray-300 text-lg leading-relaxed mt-6">
-          Township Community is more than just a space; it's a vibrant hub for creativity and relaxation. 
+          Top of the Green is more than just a space; it's a vibrant hub for creativity and relaxation. 
           We provide a safe and welcoming environment for stoners to come together, share their passion for art, 
           and enjoy the company of fellow enthusiasts. Our events are designed to foster a sense of community, 
           encourage artistic expression, and provide a unique experience that blends the joy of drawing with the 

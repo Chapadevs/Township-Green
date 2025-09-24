@@ -20,7 +20,7 @@ const Hero = () => {
             Gather, Draw, and Elevate Your Creativity
           </h1>
           <p className="text-gray-300 text-lg md:text-xl font-normal leading-normal mt-4 max-w-2xl mx-auto">
-            Township Community offers a unique space for stoners to gather, smoke, and unleash their artistic talents. 
+            Top of the Green offers a unique space for stoners to gather, smoke, and unleash their artistic talents. 
             Book your session today and join a community of like-minded individuals.
           </p>
         </div>

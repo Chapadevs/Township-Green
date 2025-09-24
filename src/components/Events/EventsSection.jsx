@@ -9,46 +9,46 @@ const EventsSection = () => {
   const [events] = useState([
     {
       id: '1',
-      title: 'Open Drawing Session',
-      description: 'Bring your own materials and vibes. Perfect for beginners and experienced artists alike.',
-      date: new Date(2024, 6, 5), // July 5, 2024
-      startTime: '7:00 PM',
-      endTime: '10:00 PM',
+      title: 'PUFF-N-PAINT',
+      description: 'Art session with all materials provided. Perfect for creative relaxation.',
+      date: new Date(2025, 9, 4), // October 4, 2025
+      startTime: '6:00 PM',
+      endTime: '9:00 PM',
       capacity: 20,
       registered: 12,
       price: 25
     },
     {
       id: '2',
-      title: 'Watercolor Workshop',
-      description: 'Guided watercolor session with all materials provided. Learn techniques while you relax.',
-      date: new Date(2024, 6, 12), // July 12, 2024
-      startTime: '6:00 PM',
-      endTime: '9:00 PM',
-      capacity: 15,
-      registered: 8,
-      price: 35
+      title: 'RIVERSIDE CAR SHOW',
+      description: 'Community car show with special Top of the Green discount.',
+      date: new Date(2025, 9, 11), // October 11, 2025
+      startTime: '12:00 PM',
+      endTime: '5:00 PM',
+      capacity: 100,
+      registered: 45,
+      price: 0
     },
     {
       id: '3',
-      title: 'Canvas & Chill',
-      description: 'Free-form painting session on canvas. All skill levels welcome.',
-      date: new Date(2024, 6, 19), // July 19, 2024
-      startTime: '7:30 PM',
-      endTime: '10:30 PM',
-      capacity: 18,
-      registered: 15,
-      price: 30
+      title: 'JUST A WOMAN PRODUCT LAUNCH',
+      description: 'Educational event featuring women-focused cannabis products.',
+      date: new Date(2025, 9, 12), // October 12, 2025
+      startTime: '1:00 PM',
+      endTime: '4:00 PM',
+      capacity: 30,
+      registered: 18,
+      price: 15
     },
     {
       id: '4',
-      title: 'Sketch & Smoke',
-      description: 'Focused sketching session with live model. Drawing pads and pencils provided.',
-      date: new Date(2024, 6, 26), // July 26, 2024
-      startTime: '8:00 PM',
-      endTime: '11:00 PM',
-      capacity: 12,
-      registered: 5,
+      title: 'HALLOWEED PARTY',
+      description: 'Halloween celebration with food truck, games, and more!',
+      date: new Date(2025, 9, 25), // October 25, 2025
+      startTime: '12:00 PM',
+      endTime: '9:00 PM',
+      capacity: 50,
+      registered: 35,
       price: 20
     }
   ]);
@@ -85,28 +85,13 @@ const EventsSection = () => {
   };
 
   return (
-    <section className="py-20 px-10 bg-[var(--secondary-color)] bg-opacity-20" id="events">
-      <div className="max-w-5xl mx-auto">
-        <h2 className="text-white text-4xl font-bold leading-tight tracking-tight text-center mb-12">
+    <section className="py-20 px-10 bg-[var(--secondary-color)] bg-opacity-20" id="booking">
+              <h2 className="text-white text-4xl font-bold leading-tight tracking-tight text-center mb-12">
           Upcoming Events
         </h2>
-        
-        <div className="flex flex-wrap items-start justify-center gap-12">
-          <Calendar 
-            selectedDate={selectedDate}
-            onDateSelect={handleDateSelect}
-            events={events}
-          />
-          
-          <BookingForm 
-            selectedEvent={getSelectedEvent()}
-            selectedDate={selectedDate}
-            onBookingSubmit={handleBookingSubmit}
-          />
-        </div>
-
-        {/* Event Features */}
-        <div className="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="max-w-5xl mx-auto">
+              {/* Event Features */}
+      <div className="mb-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <div className="text-center">
             <div className="text-[var(--primary-color)] mb-3">
               <span className="material-symbols-outlined text-3xl">brush</span>
@@ -139,6 +124,22 @@ const EventsSection = () => {
             <p className="text-gray-400 text-sm">Legal, clean, and professionally managed space</p>
           </div>
         </div>
+        
+        <div className="flex flex-wrap items-start justify-center gap-12">
+          <Calendar 
+            selectedDate={selectedDate}
+            onDateSelect={handleDateSelect}
+            events={events}
+          />
+          
+          <BookingForm 
+            selectedEvent={getSelectedEvent()}
+            selectedDate={selectedDate}
+            onBookingSubmit={handleBookingSubmit}
+          />
+        </div>
+
+        
       </div>
     </section>
   );
