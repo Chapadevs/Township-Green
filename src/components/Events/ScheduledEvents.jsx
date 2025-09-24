@@ -5,6 +5,8 @@ const ScheduledEvents = () => {
       date: "Sat 4th",
       title: "PUFF-N-PAINT",
       time: "6–9PM",
+      description: "Top of the Green Entertainment",
+      address: "17 E Scott Street, Riverside, New Jersey",
       highlight: "Art Session",
       isSpecial: false
     },
@@ -13,6 +15,8 @@ const ScheduledEvents = () => {
       date: "Sat 11th",
       title: "RIVERSIDE CAR SHOW",
       time: "12–5PM",
+      description: "– 20% OFF AT TOWNSHIP GREEN!",
+      address: "Scott Street, Riverside",
       highlight: "20% OFF Special",
       isSpecial: true,
       hasLink: true,
@@ -21,17 +25,21 @@ const ScheduledEvents = () => {
     {
       id: 3,
       date: "Sun 12th",
-      title: "JUST A WOMAN PRODUCT LAUNCH",
+      title: "JUST A WOMAN PRODUCT LAUNCH & EDUCATION EVENT",
       time: "1–4PM",
+      description: "",
+      address: "15 E Scott Street, Riverside, New Jersey",
       highlight: "Education Event",
       isSpecial: false
     },
     {
       id: 4,
       date: "Sat 25th",
-      title: "HALLOWEED PARTY",
+      title: "HALLOWEED PARTY @ TOWNSHIP GREEN!",
       time: "12PM–9PM",
-      highlight: "Food, Games & More!",
+      description: "Food Truck, Games, Tarot Card Reading and More!",
+      address: "15 E Scott Street, Riverside, New Jersey",
+      highlight: "Special Event",
       isSpecial: true
     }
   ];
@@ -80,7 +88,19 @@ const ScheduledEvents = () => {
                   {event.title}
                 </h3>
                 
-                {/* Highlight/description */}
+                {/* Description */}
+                {event.description && (
+                  <p className="text-[var(--text-secondary)] font-['Noto_Sans'] mb-3">
+                    {event.description}
+                  </p>
+                )}
+                
+                {/* Address */}
+                <p className="text-sm text-[var(--text-muted)] font-['Noto_Sans'] mb-3">
+                  {event.address}
+                </p>
+                
+                {/* Highlight/action button */}
                 {event.hasLink ? (
                   <a 
                     href={event.linkUrl}
