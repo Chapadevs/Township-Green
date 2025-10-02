@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import useEmailJS from '../../hooks/useEmailJS.js';
 
-const BookingForm = ({ selectedEvent, selectedDate, onBookingSubmit }) => {
+const BookingForm = ({ selectedEvent, selectedDate, onBookingSubmit, isModal = false }) => {
   const { sendEmail, isLoading: emailLoading, error: emailError } = useEmailJS();
   
   const [formData, setFormData] = useState({
@@ -100,47 +100,49 @@ const BookingForm = ({ selectedEvent, selectedDate, onBookingSubmit }) => {
   const availableSpots = selectedEvent ? selectedEvent.capacity - selectedEvent.registered : 0;
 
   return (
-    <div className="flex-1 min-w-[320px] max-w-md">
-      <h3 className="text-white text-2xl font-bold mb-4">Book a Session</h3>
+    <div className={isModal ? "w-full" : "flex-1 min-w-[320px] max-w-md"}>
+      {!isModal && <h3 className="text-white text-2xl font-bold mb-4">Book a Session</h3>}
       
       {selectedEvent && selectedDate ? (
-        <div className="space-y-4">
+        <div className={isModal ? "space-y-3" : "space-y-4"}>
           {/* Success Message */}
           {submitSuccess && (
-            <div className="bg-green-900 border border-green-600 p-4 rounded-lg">
+            <div className="bg-green-900 border border-green-600 p-3 rounded-lg">
               <div className="flex items-center gap-2">
-                <span className="material-symbols-outlined text-green-400">check_circle</span>
-                <p className="text-green-400 font-medium">Booking submitted successfully!</p>
+                <span className="material-symbols-outlined text-green-400 text-lg">check_circle</span>
+                <p className="text-green-400 font-medium text-sm">Booking submitted successfully!</p>
               </div>
-              <p className="text-green-300 text-sm mt-1">You will receive a confirmation email shortly.</p>
+              <p className="text-green-300 text-xs mt-1">You will receive a confirmation email shortly.</p>
             </div>
           )}
 
           {/* Error Message */}
           {emailError && (
-            <div className="bg-red-900 border border-red-600 p-4 rounded-lg">
+            <div className="bg-red-900 border border-red-600 p-3 rounded-lg">
               <div className="flex items-center gap-2">
-                <span className="material-symbols-outlined text-red-400">error</span>
-                <p className="text-red-400 font-medium">Error submitting booking</p>
+                <span className="material-symbols-outlined text-red-400 text-lg">error</span>
+                <p className="text-red-400 font-medium text-sm">Error submitting booking</p>
               </div>
-              <p className="text-red-300 text-sm mt-1">{emailError}</p>
+              <p className="text-red-300 text-xs mt-1">{emailError}</p>
             </div>
           )}
 
-          {/* Event Details */}
-          <div className="bg-[#1d2d25] p-4 rounded-lg space-y-2">
-            <p className="text-white font-bold text-lg">{selectedEvent.title}</p>
-            <p className="text-gray-400">{formatDate(selectedDate)}</p>
-            <p className="text-gray-400">{selectedEvent.startTime} - {selectedEvent.endTime}</p>
-            <p className="text-gray-300">{selectedEvent.description}</p>
-            <p className="text-[var(--primary-color)] font-medium">
-              {availableSpots} spots available
-            </p>
-          </div>
+          {/* Event Details - Only show in non-modal version */}
+          {!isModal && (
+            <div className="bg-[#1d2d25] p-4 rounded-lg space-y-2">
+              <p className="text-white font-bold text-lg">{selectedEvent.title}</p>
+              <p className="text-gray-400">{formatDate(selectedDate)}</p>
+              <p className="text-gray-400">{selectedEvent.startTime} - {selectedEvent.endTime}</p>
+              <p className="text-gray-300">{selectedEvent.description}</p>
+              <p className="text-[var(--primary-color)] font-medium">
+                {availableSpots} spots available
+              </p>
+            </div>
+          )}
 
           {availableSpots > 0 ? (
             /* Booking Form */
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} className={isModal ? "space-y-3" : "space-y-4"}>
               <div>
                 <label htmlFor="name" className="block text-gray-300 text-sm font-medium mb-1">
                   Full Name *
@@ -221,7 +223,7 @@ const BookingForm = ({ selectedEvent, selectedDate, onBookingSubmit }) => {
               <button
                 type="submit"
                 disabled={isSubmitting || emailLoading}
-                className="w-full flex items-center justify-center rounded-lg h-12 px-8 bg-[var(--primary-color)] text-white text-lg font-bold leading-normal tracking-[0.015em] hover:bg-opacity-90 transition-all shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                className={`w-full flex items-center justify-center rounded-lg px-6 bg-[var(--primary-color)] text-white font-bold leading-normal tracking-[0.015em] hover:bg-opacity-90 transition-all shadow-lg disabled:opacity-50 disabled:cursor-not-allowed ${isModal ? 'h-10 text-sm' : 'h-12 text-lg'}`}
               >
                 {(isSubmitting || emailLoading) ? (
                   <span className="flex items-center gap-2">

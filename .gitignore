@@ -21,6 +21,7 @@ node_modules
 
 # Production builds
 dist
+dist-dev
 dist-ssr
 *.local
 
