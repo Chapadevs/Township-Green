@@ -3,7 +3,7 @@ const Footer = () => {
     <footer className="bg-[#1d2d25] py-8 px-10" id="contact">
       <div className="max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-6">
         <div className="text-center md:text-left">
-          <p className="text-gray-400">© 2024 Top of the Green. All rights reserved.</p>
+          <p className="text-gray-400">© 2025 Top of the Green. All rights reserved.</p>
           <div className="flex justify-center md:justify-start gap-4 mt-2">
             <a 
               href="#" 
@@ -67,13 +67,13 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
           <div>
             <h4 className="text-white font-bold mb-2">Contact Us</h4>
-            <p className="text-gray-400 text-sm">Email: info@townshipcommunity.com</p>
-            <p className="text-gray-400 text-sm">Phone: (555) 123-4567</p>
+            <p className="text-gray-400 text-sm">Email: admin@topofgreen.com</p>
+            <p className="text-gray-400 text-sm">Phone: (609) 325-1339</p>
           </div>
           
           <div>
             <h4 className="text-white font-bold mb-2">Location</h4>
-            <p className="text-gray-400 text-sm">123 Art District</p>
+            <p className="text-gray-400 text-sm">17 E. Scott Street, Riverside, NJ 08075</p>
             <p className="text-gray-400 text-sm">Creative City, CC 12345</p>
           </div>
           

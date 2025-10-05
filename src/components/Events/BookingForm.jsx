@@ -100,30 +100,28 @@ const BookingForm = ({ selectedEvent, selectedDate, onBookingSubmit, isModal = f
   const availableSpots = selectedEvent ? selectedEvent.capacity - selectedEvent.registered : 0;
 
   return (
-    <div className={isModal ? "w-full" : "flex-1 min-w-[320px] max-w-md"}>
+    <div className={isModal ? "w-full max-w-sm mx-auto" : "flex-1 min-w-[320px] max-w-md"}>
       {!isModal && <h3 className="text-white text-2xl font-bold mb-4">Book a Session</h3>}
       
       {selectedEvent && selectedDate ? (
-        <div className={isModal ? "space-y-3" : "space-y-4"}>
+        <div className={isModal ? "space-y-1 p-2" : "space-y-3"}>
           {/* Success Message */}
           {submitSuccess && (
-            <div className="bg-green-900 border border-green-600 p-3 rounded-lg">
-              <div className="flex items-center gap-2">
-                <span className="material-symbols-outlined text-green-400 text-lg">check_circle</span>
-                <p className="text-green-400 font-medium text-sm">Booking submitted successfully!</p>
+            <div className="bg-green-900 border border-green-600 p-1 rounded">
+              <div className="flex items-center gap-1">
+                <span className="material-symbols-outlined text-green-400 text-xs">check_circle</span>
+                <p className="text-green-400 font-medium text-xs">Booking submitted successfully!</p>
               </div>
-              <p className="text-green-300 text-xs mt-1">You will receive a confirmation email shortly.</p>
             </div>
           )}
 
           {/* Error Message */}
           {emailError && (
-            <div className="bg-red-900 border border-red-600 p-3 rounded-lg">
-              <div className="flex items-center gap-2">
-                <span className="material-symbols-outlined text-red-400 text-lg">error</span>
-                <p className="text-red-400 font-medium text-sm">Error submitting booking</p>
+            <div className="bg-red-900 border border-red-600 p-1 rounded">
+              <div className="flex items-center gap-1">
+                <span className="material-symbols-outlined text-red-400 text-xs">error</span>
+                <p className="text-red-400 font-medium text-xs">Error submitting booking</p>
               </div>
-              <p className="text-red-300 text-xs mt-1">{emailError}</p>
             </div>
           )}
 
@@ -142,9 +140,9 @@ const BookingForm = ({ selectedEvent, selectedDate, onBookingSubmit, isModal = f
 
           {availableSpots > 0 ? (
             /* Booking Form */
-            <form onSubmit={handleSubmit} className={isModal ? "space-y-3" : "space-y-4"}>
+            <form onSubmit={handleSubmit} className={isModal ? "space-y-2" : "space-y-3"}>
               <div>
-                <label htmlFor="name" className="block text-gray-300 text-sm font-medium mb-1">
+                <label htmlFor="name" className={`block text-gray-300 font-medium mb-1 ${isModal ? 'text-xs' : 'text-sm'}`}>
                   Full Name *
                 </label>
                 <input
@@ -152,14 +150,14 @@ const BookingForm = ({ selectedEvent, selectedDate, onBookingSubmit, isModal = f
                   id="name"
                   value={formData.name || ''}
                   onChange={(e) => handleInputChange('name', e.target.value)}
-                  className="w-full px-3 py-2 bg-[#12211a] border border-gray-600 rounded-lg text-white focus:border-[var(--primary-color)] focus:outline-none"
+                  className={`w-full px-2 bg-[#12211a] border border-gray-600 rounded text-white focus:border-[var(--primary-color)] focus:outline-none ${isModal ? 'py-1 text-xs' : 'py-2'}`}
                   placeholder="Enter your full name"
                 />
-                {errors.name && <p className="text-red-400 text-sm mt-1">{errors.name}</p>}
+                {errors.name && <p className="text-red-400 text-xs mt-1">{errors.name}</p>}
               </div>
 
               <div>
-                <label htmlFor="email" className="block text-gray-300 text-sm font-medium mb-1">
+                <label htmlFor="email" className={`block text-gray-300 font-medium mb-1 ${isModal ? 'text-xs' : 'text-sm'}`}>
                   Email Address *
                 </label>
                 <input
@@ -167,14 +165,14 @@ const BookingForm = ({ selectedEvent, selectedDate, onBookingSubmit, isModal = f
                   id="email"
                   value={formData.email || ''}
                   onChange={(e) => handleInputChange('email', e.target.value)}
-                  className="w-full px-3 py-2 bg-[#12211a] border border-gray-600 rounded-lg text-white focus:border-[var(--primary-color)] focus:outline-none"
+                  className={`w-full px-2 bg-[#12211a] border border-gray-600 rounded text-white focus:border-[var(--primary-color)] focus:outline-none ${isModal ? 'py-1 text-xs' : 'py-2'}`}
                   placeholder="your@email.com"
                 />
-                {errors.email && <p className="text-red-400 text-sm mt-1">{errors.email}</p>}
+                {errors.email && <p className="text-red-400 text-xs mt-1">{errors.email}</p>}
               </div>
 
               <div>
-                <label htmlFor="phone" className="block text-gray-300 text-sm font-medium mb-1">
+                <label htmlFor="phone" className={`block text-gray-300 font-medium mb-1 ${isModal ? 'text-xs' : 'text-sm'}`}>
                   Phone Number *
                 </label>
                 <input
@@ -182,21 +180,21 @@ const BookingForm = ({ selectedEvent, selectedDate, onBookingSubmit, isModal = f
                   id="phone"
                   value={formData.phone || ''}
                   onChange={(e) => handleInputChange('phone', e.target.value)}
-                  className="w-full px-3 py-2 bg-[#12211a] border border-gray-600 rounded-lg text-white focus:border-[var(--primary-color)] focus:outline-none"
+                  className={`w-full px-2 bg-[#12211a] border border-gray-600 rounded text-white focus:border-[var(--primary-color)] focus:outline-none ${isModal ? 'py-1 text-xs' : 'py-2'}`}
                   placeholder="(555) 123-4567"
                 />
-                {errors.phone && <p className="text-red-400 text-sm mt-1">{errors.phone}</p>}
+                {errors.phone && <p className="text-red-400 text-xs mt-1">{errors.phone}</p>}
               </div>
 
               <div>
-                <label htmlFor="guests" className="block text-gray-300 text-sm font-medium mb-1">
+                <label htmlFor="guests" className={`block text-gray-300 font-medium mb-1 ${isModal ? 'text-xs' : 'text-sm'}`}>
                   Number of Guests
                 </label>
                 <select
                   id="guests"
                   value={formData.guests || 1}
                   onChange={(e) => handleInputChange('guests', parseInt(e.target.value))}
-                  className="w-full px-3 py-2 bg-[#12211a] border border-gray-600 rounded-lg text-white focus:border-[var(--primary-color)] focus:outline-none"
+                  className={`w-full px-2 bg-[#12211a] border border-gray-600 rounded text-white focus:border-[var(--primary-color)] focus:outline-none ${isModal ? 'py-1 text-xs' : 'py-2'}`}
                 >
                   {[...Array(Math.min(availableSpots, 6))].map((_, i) => (
                     <option key={i + 1} value={i + 1}>
@@ -207,15 +205,15 @@ const BookingForm = ({ selectedEvent, selectedDate, onBookingSubmit, isModal = f
               </div>
 
               <div>
-                <label htmlFor="specialRequests" className="block text-gray-300 text-sm font-medium mb-1">
+                <label htmlFor="specialRequests" className={`block text-gray-300 font-medium mb-1 ${isModal ? 'text-xs' : 'text-sm'}`}>
                   Special Requests (Optional)
                 </label>
                 <textarea
                   id="specialRequests"
                   value={formData.specialRequests || ''}
                   onChange={(e) => handleInputChange('specialRequests', e.target.value)}
-                  rows={3}
-                  className="w-full px-3 py-2 bg-[#12211a] border border-gray-600 rounded-lg text-white focus:border-[var(--primary-color)] focus:outline-none resize-none"
+                  rows={isModal ? 1 : 2}
+                  className={`w-full px-2 bg-[#12211a] border border-gray-600 rounded text-white focus:border-[var(--primary-color)] focus:outline-none resize-none ${isModal ? 'py-1 text-xs' : 'py-2'}`}
                   placeholder="Any special accommodations or requests..."
                 />
               </div>
@@ -223,7 +221,7 @@ const BookingForm = ({ selectedEvent, selectedDate, onBookingSubmit, isModal = f
               <button
                 type="submit"
                 disabled={isSubmitting || emailLoading}
-                className={`w-full flex items-center justify-center rounded-lg px-6 bg-[var(--primary-color)] text-white font-bold leading-normal tracking-[0.015em] hover:bg-opacity-90 transition-all shadow-lg disabled:opacity-50 disabled:cursor-not-allowed ${isModal ? 'h-10 text-sm' : 'h-12 text-lg'}`}
+                className={`w-full flex items-center justify-center rounded px-3 bg-[var(--primary-color)] text-white font-bold leading-normal tracking-[0.015em] hover:bg-opacity-90 transition-all shadow-lg disabled:opacity-50 disabled:cursor-not-allowed ${isModal ? 'h-8 text-xs' : 'h-12 text-lg'}`}
               >
                 {(isSubmitting || emailLoading) ? (
                   <span className="flex items-center gap-2">

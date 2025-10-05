@@ -101,15 +101,12 @@ const EventsSection = () => {
     <section className="py-20 px-10 bg-[var(--secondary-color)] bg-opacity-20" id="booking">
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-3 mb-4">
-            <span className="material-symbols-outlined text-[var(--primary-color)] text-3xl">event</span>
             <h2 className="text-white text-5xl md:text-6xl font-black leading-tight tracking-tight font-['Space_Grotesk']">
           Upcoming Events
         </h2>
-            <span className="material-symbols-outlined text-[var(--primary-color)] text-3xl">event</span>
           </div>
           <p className="text-[var(--text-secondary)] text-lg font-['Noto_Sans'] max-w-2xl mx-auto">
-            Join our creative community for art sessions, special events, and unforgettable experiences
-          </p>
+          Register for one of our events – or call us to book your own event! We’ll promote you through out if it’s an open event or keep it private for you and your guests only.  We’ll work with you to make sure your experience is successful.          </p>
         </div>
       <div className="max-w-5xl mx-auto">
               {/* Event Features */}
@@ -254,19 +251,19 @@ const EventsSection = () => {
 
         {/* Booking Form Modal */}
         {showBookingForm && selectedEventForBooking && (
-          <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 p-4">
-            <div className="bg-[var(--background-dark)] rounded-2xl max-w-2xl w-full relative shadow-2xl">
+          <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 p-8">
+            <div className="bg-[var(--background-dark)] rounded-2xl max-w-xl w-full max-h-[80vh] overflow-y-auto relative shadow-2xl">
               {/* Modal Header */}
-              <div className="bg-gradient-to-r from-[var(--primary-color)] to-[var(--secondary-color)] p-4 rounded-t-2xl">
+              <div className="bg-gradient-to-r from-[var(--primary-color)] to-[var(--secondary-color)] p-3 rounded-t-2xl">
                 <div className="flex items-center justify-between">
                   <div>
-                    <h3 className="text-white text-xl font-bold font-['Space_Grotesk'] mb-1">
+                    <h3 className="text-white text-lg font-bold font-['Space_Grotesk'] mb-1">
                       {selectedEventForBooking.title}
                     </h3>
-                    <p className="text-white text-opacity-90 font-['Noto_Sans'] text-sm">
+                    <p className="text-white text-opacity-90 font-['Noto_Sans'] text-xs">
                       {selectedDate?.toLocaleDateString('en-US', { 
-                        weekday: 'long', 
-                        month: 'long', 
+                        weekday: 'short', 
+                        month: 'short', 
                         day: 'numeric' 
                       })} • {selectedEventForBooking.startTime} - {selectedEventForBooking.endTime}
                     </p>
@@ -275,46 +272,43 @@ const EventsSection = () => {
                     onClick={handleCloseBookingForm}
                     className="text-white hover:text-gray-300 transition-colors p-1 hover:bg-white hover:bg-opacity-10 rounded-lg"
                   >
-                    <span className="material-symbols-outlined text-xl">close</span>
+                    <span className="material-symbols-outlined text-lg">close</span>
                   </button>
                 </div>
               </div>
               
               {/* Modal Body - Compact Layout */}
-              <div className="p-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {/* Left Column - Event Details */}
-                  <div className="bg-[var(--background-card)] p-3 rounded-lg h-fit">
-                    <h4 className="text-white font-bold text-sm mb-2 font-['Space_Grotesk']">Session Details</h4>
-                    <div className="space-y-1 text-xs">
-                      <p className="text-gray-300 leading-tight">{selectedEventForBooking.description}</p>
-                      <div className="flex items-center gap-1">
-                        <span className="material-symbols-outlined text-[var(--primary-color)] text-sm">group</span>
-                        <p className="text-[var(--primary-color)] font-medium">
-                          {selectedEventForBooking.capacity - selectedEventForBooking.registered} spots available
-                        </p>
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <span className="material-symbols-outlined text-[var(--primary-color)] text-sm">payments</span>
-                        <p className="text-white font-bold">
-                          {selectedEventForBooking.price === 0 ? 'Free' : `$${selectedEventForBooking.price}`}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  {/* Right Column - Booking Form */}
-                  <div>
-                    <h4 className="text-white font-bold text-lg mb-4 font-['Space_Grotesk']">Book Your Spot</h4>
-                    <BookingForm 
-                      selectedEvent={selectedEventForBooking}
-                      selectedDate={selectedDate}
-                      onBookingSubmit={handleBookingSubmit}
-                      isModal={true}
-                    />
-                  </div>
-                </div>
-              </div>
+               <div className="p-3">
+                 {/* Event Details */}
+                 <div className="bg-[var(--background-card)] p-2 rounded-lg">
+                   <div className="flex items-center justify-between mb-1">
+                     <h4 className="text-white font-bold text-xs font-['Space_Grotesk']">Session Details</h4>
+                     <div className="flex items-center gap-2">
+                       <div className="flex items-center gap-1">
+                         <span className="material-symbols-outlined text-[var(--primary-color)] text-xs">group</span>
+                         <p className="text-[var(--primary-color)] font-medium text-xs">
+                           {selectedEventForBooking.capacity - selectedEventForBooking.registered}
+                         </p>
+                       </div>
+                       <div className="flex items-center gap-1">
+                         <span className="material-symbols-outlined text-[var(--primary-color)] text-xs">payments</span>
+                         <p className="text-white font-bold text-xs">
+                           {selectedEventForBooking.price === 0 ? 'Free' : `$${selectedEventForBooking.price}`}
+                         </p>
+                       </div>
+                     </div>
+                   </div>
+                   <p className="text-gray-300 text-xs leading-tight">{selectedEventForBooking.description}</p>
+                 </div>
+                 
+                 {/* Booking Form */}
+          <BookingForm 
+                   selectedEvent={selectedEventForBooking}
+            selectedDate={selectedDate}
+            onBookingSubmit={handleBookingSubmit}
+                   isModal={true}
+          />
+        </div>
             </div>
           </div>
         )}

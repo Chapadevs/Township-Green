@@ -6,11 +6,8 @@ const About = () => {
           About Top of the Green
         </h2>
         <p className="text-gray-300 text-lg leading-relaxed mt-6">
-          Top of the Green is more than just a space; it's a vibrant hub for creativity and relaxation. 
-          We provide a safe and welcoming environment for stoners to come together, share their passion for art, 
-          and enjoy the company of fellow enthusiasts. Our events are designed to foster a sense of community, 
-          encourage artistic expression, and provide a unique experience that blends the joy of drawing with the 
-          calming effects of cannabis.
+        Entertainment rental space ideal for your private event.
+        Host your art, yoga, music, bachelorette, business, sports, or whatever event here at Top of the Green!
         </p>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
@@ -20,8 +17,7 @@ const About = () => {
             </div>
             <h3 className="text-white text-xl font-bold mb-2">Creative Sessions</h3>
             <p className="text-gray-400">
-              Join guided art sessions where creativity flows freely in a relaxed, cannabis-friendly environment.
-            </p>
+            Top of the Green regularly hosts art sessions for people to express their inner artist.  These can be 420 friendly experiences if you so choose, regardless all are welcome.            </p>
           </div>
           
           <div className="bg-[#1d2d25] p-6 rounded-lg shadow-2xl">
@@ -30,7 +26,7 @@ const About = () => {
             </div>
             <h3 className="text-white text-xl font-bold mb-2">Community Focus</h3>
             <p className="text-gray-400">
-              Connect with like-minded individuals in a safe, welcoming space designed for artistic collaboration.
+            We are proud members of our local and surrounding communities. Musicians, tattoo artists, comedians, yoga instructors, candle makers, and just about any other event or experience, we can accommodate your needs.
             </p>
           </div>
           
@@ -40,7 +36,7 @@ const About = () => {
             </div>
             <h3 className="text-white text-xl font-bold mb-2">Safe Environment</h3>
             <p className="text-gray-400">
-              Experience a professional, legal consumption lounge that prioritizes safety and comfort above all.
+            We offer clean and professional space for you and your guests. We will work with you to make your event a success
             </p>
           </div>
         </div>

@@ -12,13 +12,14 @@ const Header = () => {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#254637] px-10 py-4 shadow-md bg-[var(--background-dark)]">
+    <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#254637] px-10 shadow-md bg-[var(--background-dark)]">
       <div className="flex items-center gap-4 text-white">
-        <h2 className="text-green-600 text-xl font-bold leading-tight tracking-[-0.015em]">
-          Top of the Green
-        </h2>
+        <img
+          src="/assets/Logo.png"
+          alt="Top of the Green Logo"
+          className="h-20 w-20 object-contain mr-3"
+        />
       </div>
-
       {/* Desktop Navigation */}
       <div className="hidden md:flex flex-1 justify-end gap-8">
         <nav className="flex items-center gap-8">
