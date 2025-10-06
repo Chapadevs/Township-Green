@@ -73,8 +73,7 @@ const Footer = () => {
           
           <div>
             <h4 className="text-white font-bold mb-2">Location</h4>
-            <p className="text-gray-400 text-sm">17 E. Scott Street, Riverside, NJ 08075</p>
-            <p className="text-gray-400 text-sm">Creative City, CC 12345</p>
+            <p className="text-gray-400 text-sm">17 E. Scott Street, Riverside<br></br> NJ 08075</p>
           </div>
           
           <div>

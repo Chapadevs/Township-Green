@@ -102,7 +102,7 @@ const EventsSection = () => {
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-3 mb-4">
             <h2 className="text-white text-5xl md:text-6xl font-black leading-tight tracking-tight font-['Space_Grotesk']">
-          Upcoming Events
+          Book now!
         </h2>
           </div>
           <p className="text-[var(--text-secondary)] text-lg font-['Noto_Sans'] max-w-2xl mx-auto">
@@ -242,8 +242,8 @@ const EventsSection = () => {
                 <div className="text-gray-400 mb-4">
                   <span className="material-symbols-outlined text-5xl">event</span>
                 </div>
-                <h3 className="text-white text-xl font-bold mb-2 font-['Space_Grotesk']">Select a Date</h3>
-                <p className="text-gray-400 font-['Noto_Sans']">Choose a date from the calendar to view available sessions and book your spot</p>
+                <h3 className="text-white text-xl font-bold mb-2 font-['Space_Grotesk']">Select a date</h3>
+                <p className="text-gray-400 font-['Noto_Sans']">Choose a date from the calendar to view available sessions and book your spot!</p>
               </div>
             )}
           </div>

@@ -1,9 +1,9 @@
 const About = () => {
   return (
-    <section className="py-20 px-10" id="about">
+    <section className="py-8 md:py-16 px-10" id="about">
       <div className="max-w-4xl mx-auto text-center">
         <h2 className="text-white text-4xl font-bold leading-tight tracking-tight">
-          About Top of the Green
+          What we do?
         </h2>
         <p className="text-gray-300 text-lg leading-relaxed mt-6">
         Entertainment rental space ideal for your private event.
