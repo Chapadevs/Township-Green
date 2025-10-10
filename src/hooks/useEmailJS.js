@@ -1,16 +1,10 @@
 import { useState } from 'react';
 import emailjs from '@emailjs/browser';
+import { emailConfig, isConfigValid } from '../config/email.config.js';
 
 const useEmailJS = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-
-  // EmailJS configuration - these should be set as environment variables
-  const config = {
-    serviceId: import.meta.env.VITE_EMAILJS_SERVICE_ID || '',
-    templateId: import.meta.env.VITE_EMAILJS_TEMPLATE_ID || '',
-    publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY || ''
-  };
 
   const sendEmail = async (data, templateType) => {
     setIsLoading(true);
@@ -18,8 +12,8 @@ const useEmailJS = () => {
 
     try {
       // Validate configuration
-      if (!config.serviceId || !config.templateId || !config.publicKey) {
-        throw new Error('EmailJS configuration is incomplete. Please check environment variables.');
+      if (!isConfigValid()) {
+        throw new Error('EmailJS configuration is incomplete. Please check your .env file.');
       }
 
       // Format the template parameters based on the type
@@ -27,7 +21,7 @@ const useEmailJS = () => {
 
       if (templateType === 'booking') {
         templateParams = {
-          to_name: 'Top of the Green',
+          to_name: 'Township Green',
           from_name: data.name,
           from_email: data.email,
           phone: data.phone,
@@ -38,7 +32,7 @@ const useEmailJS = () => {
         };
       } else {
         templateParams = {
-          to_name: 'Top of the Green',
+          to_name: 'Township Green',
           from_name: data.name,
           from_email: data.email,
           subject: data.subject,
@@ -49,10 +43,10 @@ const useEmailJS = () => {
 
       // Send the email using EmailJS
       const result = await emailjs.send(
-        config.serviceId,
-        config.templateId,
+        emailConfig.serviceId,
+        emailConfig.templateId,
         templateParams,
-        config.publicKey
+        emailConfig.publicKey
       );
 
       if (result.status !== 200) {

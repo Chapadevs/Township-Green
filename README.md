@@ -26,8 +26,6 @@ A modern, responsive website for Township Community - a cannabis consumption lou
 - **Fonts**: Google Fonts (Space Grotesk, Noto Sans)
 - **Deployment**: GitHub Pages
 
-## 🚀 Quick Start
-
 ### Prerequisites
 
 - Node.js 20+ (recommended: 20.19+)
@@ -59,71 +57,6 @@ A modern, responsive website for Township Community - a cannabis consumption lou
    ```bash
    npm run dev
    ```
-
-5. **Open your browser**
-   Navigate to `http://localhost:5173`
-
-## 📧 EmailJS Setup
-
-To enable form submissions, you'll need to set up EmailJS:
-
-1. **Create an EmailJS account** at [emailjs.com](https://www.emailjs.com/)
-
-2. **Create a service** (Gmail, Outlook, etc.)
-
-3. **Create an email template** with the following variables:
-   - `{{from_name}}` - Sender's name
-   - `{{from_email}}` - Sender's email
-   - `{{phone}}` - Phone number (for bookings)
-   - `{{message}}` - Message content
-   - `{{event_id}}` - Event ID (for bookings)
-   - `{{guests}}` - Number of guests (for bookings)
-   - `{{special_requests}}` - Special requests (for bookings)
-
-4. **Get your credentials**:
-   - Service ID from your EmailJS dashboard
-   - Template ID from your email template
-   - Public Key from your account settings
-
-5. **Update your `.env` file** with these credentials
-
-## 📁 Project Structure
-
-```
-src/
-├── components/           # React components
-│   ├── Header.jsx       # Navigation header
-│   ├── Hero.jsx         # Hero section
-│   ├── About.jsx        # About section
-│   ├── Footer.jsx       # Site footer
-│   └── Events/          # Event-related components
-│       ├── EventsSection.jsx
-│       ├── Calendar.jsx
-│       └── BookingForm.jsx
-├── hooks/               # Custom React hooks
-│   └── useEmailJS.js    # EmailJS integration
-├── App.jsx             # Main app component
-├── main.jsx            # App entry point
-└── index.css           # Global styles
-```
-
-## 🎨 Design System
-
-### Color Palette
-- **Primary**: `#23a867` (Green)
-- **Secondary**: `#1d554c` (Dark Teal)
-- **Background**: `#12211a` (Dark Green)
-- **Cards**: `#1d2d25` (Card Background)
-
-### Typography
-- **Headers**: Space Grotesk (400, 500, 700, 900)
-- **Body**: Noto Sans (400, 500, 700, 900)
-
-### Component Standards
-- Consistent padding and spacing
-- Smooth hover transitions
-- Rounded corners (8px)
-- Shadow effects for depth
 
 ## 🚢 Deployment to GitHub Pages
 
@@ -158,13 +91,6 @@ npm run build
 # Upload the dist/ directory to your hosting provider
 ```
 
-## 📱 Browser Support
-
-- Chrome 90+
-- Firefox 88+
-- Safari 14+
-- Edge 90+
-
 ## 🔧 Available Scripts
 
 - `npm run dev` - Start development server
@@ -172,20 +98,6 @@ npm run build
 - `npm run preview` - Preview production build
 - `npm run lint` - Run ESLint
 
-## 🎯 Performance
-
-- **First Contentful Paint**: < 1.5s
-- **Largest Contentful Paint**: < 2.5s
-- **Time to Interactive**: < 3s
-- **Bundle Size**: < 500KB (gzipped)
-
-## ♿ Accessibility
-
-- WCAG 2.1 AA compliant
-- Keyboard navigation support
-- Screen reader compatible
-- Proper heading hierarchy
-- Color contrast ratios met
 
 ## 📄 Legal Compliance
 
@@ -196,14 +108,6 @@ This website is designed for a cannabis consumption lounge with the following co
 - Clear terms of service and privacy policy
 - Professional, trustworthy presentation
 
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Test thoroughly
-5. Submit a pull request
-
 ## 📝 License
 
 This project is proprietary software for Township Community.
@@ -211,9 +115,7 @@ This project is proprietary software for Township Community.
 ## 📞 Support
 
 For technical support or questions:
-- Email: dev@townshipcommunity.com
-- Phone: (555) 123-4567
+- Email: admin@topofgreen.com
+- Phone: (+1) 856-544-3065
 
 ---
-
-**Built with ❤️ for the cannabis art community**
