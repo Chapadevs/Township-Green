@@ -12,7 +12,7 @@ alwaysApply: true
 - [x] **Header Navigation**
   - Logo and brand name
   - Navigation menu (About, Events, Contact)
-  - Primary CTA button (Book Now)
+  - Primary CTA button (BOOK NOW)
   - Responsive mobile menu
 
 - [x] **Hero Section**

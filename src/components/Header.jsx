@@ -17,7 +17,7 @@ const Header = () => {
         <img
           src="/assets/Logo.png"
           alt="Top of the Green Logo"
-          className="h-20 w-20 object-contain mr-3"
+          className="h-20 w-20 object-contain mr-3 logo-glow"
         />
       </div>
       {/* Desktop Navigation */}
@@ -46,7 +46,7 @@ const Header = () => {
           onClick={() => scrollToSection('booking')}
           className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-6 bg-[var(--primary-color)] text-white text-base font-bold leading-normal tracking-[0.015em] hover:bg-opacity-90 transition-all"
         >
-          <span className="truncate">Book Now</span>
+          <span className="truncate">BOOK NOW</span>
         </button>
       </div>
 
@@ -89,7 +89,7 @@ const Header = () => {
               onClick={() => scrollToSection('booking')}
               className="flex items-center justify-center rounded-lg h-10 px-6 bg-[var(--primary-color)] text-white text-base font-bold tracking-[0.015em] hover:bg-opacity-90 transition-all mt-2"
             >
-              Book Now
+              BOOK NOW
             </button>
           </div>
         </div>

@@ -62,3 +62,27 @@ button {
 ::-webkit-scrollbar-thumb:hover {
   background: #1e8f57;
 }
+
+/* Logo pulsing glow animation */
+@keyframes logoGlow {
+  0% {
+    filter: drop-shadow(0 0 4px var(--primary-color));
+  }
+  25% {
+    filter: drop-shadow(0 0 6px var(--primary-color)) drop-shadow(0 0 8px var(--primary-color));
+  }
+  50% {
+    filter: drop-shadow(0 0 8px var(--primary-color)) drop-shadow(0 0 12px var(--primary-color));
+  }
+  75% {
+    filter: drop-shadow(0 0 6px var(--primary-color)) drop-shadow(0 0 8px var(--primary-color));
+  }
+  100% {
+    filter: drop-shadow(0 0 4px var(--primary-color));
+  }
+}
+
+.logo-glow {
+  animation: logoGlow 4s ease-in-out infinite;
+  transition: filter 0.5s ease;
+}

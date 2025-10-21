@@ -188,12 +188,6 @@ const EventsSection = () => {
                                 <p className="text-gray-300">{event.startTime} - {event.endTime}</p>
                               </div>
                               <div className="flex items-center gap-2">
-                                <span className="material-symbols-outlined text-[var(--primary-color)] text-lg">group</span>
-                                <p className="text-[var(--primary-color)] font-medium">
-                                  {availableSpots} spots available
-                                </p>
-                              </div>
-                              <div className="flex items-center gap-2">
                                 <span className="material-symbols-outlined text-[var(--primary-color)] text-lg">payments</span>
                                 <p className="text-white font-bold">
                                   {event.price === 0 ? 'Free' : `$${event.price}`}

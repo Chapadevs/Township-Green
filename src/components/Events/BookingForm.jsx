@@ -132,9 +132,6 @@ const BookingForm = ({ selectedEvent, selectedDate, onBookingSubmit, isModal = f
               <p className="text-gray-400">{formatDate(selectedDate)}</p>
               <p className="text-gray-400">{selectedEvent.startTime} - {selectedEvent.endTime}</p>
               <p className="text-gray-300">{selectedEvent.description}</p>
-              <p className="text-[var(--primary-color)] font-medium">
-                {availableSpots} spots available
-              </p>
             </div>
           )}
 

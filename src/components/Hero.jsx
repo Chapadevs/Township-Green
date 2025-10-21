@@ -21,7 +21,7 @@ const Hero = () => {
             onClick={scrollToBooking}
             className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-8 bg-[var(--primary-color)] text-white text-lg font-bold leading-normal tracking-[0.015em] hover:bg-opacity-90 transition-all shadow-lg"
           >
-            <span className="truncate">Book Now</span>
+            <span className="truncate">BOOK NOW</span>
           </button>
           
         </div>

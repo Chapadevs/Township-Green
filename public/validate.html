@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Validation - Top of the Green</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #12211a 0%, #1d2d25 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .validation-container {
+            background: #1d2d25;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border: 2px solid #23a867;
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: 900;
+            color: #23a867;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .status-badge {
+            background: linear-gradient(135deg, #059669, #047857);
+            color: #ffffff;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        
+        .validation-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 20px;
+        }
+        
+        .booking-info {
+            background: #12211a;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid #23a867;
+        }
+        
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #374151;
+        }
+        
+        .info-row:last-child {
+            border-bottom: none;
+        }
+        
+        .info-label {
+            font-size: 12px;
+            color: #9ca3af;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+        
+        .info-value {
+            font-size: 14px;
+            color: #ffffff;
+            font-weight: 700;
+        }
+        
+        .booking-id {
+            color: #23a867;
+            font-size: 16px;
+            font-weight: 900;
+            letter-spacing: 1px;
+        }
+        
+        .customer-name {
+            color: #23a867;
+            font-size: 18px;
+            font-weight: 700;
+        }
+        
+        .timestamp {
+            font-size: 11px;
+            color: #6b7280;
+            margin-top: 20px;
+            font-style: italic;
+        }
+        
+        .error-message {
+            background: #dc2626;
+            color: #ffffff;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-weight: 600;
+        }
+        
+        @media (max-width: 480px) {
+            .validation-container {
+                padding: 20px;
+                margin: 10px;
+            }
+            
+            .info-row {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 4px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="validation-container">
+        <div class="logo">Top of the Green</div>
+        <div class="status-badge">✓ Valid Booking</div>
+        
+        <h1 class="validation-title">Booking Validation</h1>
+        
+        <div id="booking-info" class="booking-info">
+            <!-- Booking information will be populated by JavaScript -->
+        </div>
+        
+        <div class="timestamp" id="scan-time">
+            Scanned: <span id="current-time"></span>
+        </div>
+    </div>
+
+    <script>
+        // Function to get URL parameters
+        function getUrlParameter(name) {
+            name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+            var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+            var results = regex.exec(location.search);
+            return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+        }
+        
+        // Function to parse booking data from URL or display error
+        function displayBookingInfo() {
+            try {
+                // Try to get booking data from URL parameter
+                const bookingDataParam = getUrlParameter('data');
+                
+                if (!bookingDataParam) {
+                    throw new Error('No booking data found');
+                }
+                
+                // Parse the booking data
+                const bookingData = JSON.parse(bookingDataParam);
+                
+                // Validate required fields
+                if (!bookingData.id || !bookingData.name) {
+                    throw new Error('Invalid booking data');
+                }
+                
+                // Display booking information
+                const bookingInfoDiv = document.getElementById('booking-info');
+                bookingInfoDiv.innerHTML = `
+                    <div class="info-row">
+                        <span class="info-label">Customer Name</span>
+                        <span class="info-value customer-name">${bookingData.name}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Booking ID</span>
+                        <span class="info-value booking-id">${bookingData.id}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Email</span>
+                        <span class="info-value">${bookingData.email}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Event ID</span>
+                        <span class="info-value">${bookingData.event}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Guests</span>
+                        <span class="info-value">${bookingData.guests}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Booking Date</span>
+                        <span class="info-value">${new Date(bookingData.date).toLocaleDateString()}</span>
+                    </div>
+                `;
+                
+            } catch (error) {
+                console.error('Error parsing booking data:', error);
+                
+                // Display error message
+                const bookingInfoDiv = document.getElementById('booking-info');
+                bookingInfoDiv.innerHTML = `
+                    <div class="error-message">
+                        <strong>Invalid QR Code</strong><br>
+                        This QR code does not contain valid booking information.
+                    </div>
+                `;
+                
+                // Update status badge
+                const statusBadge = document.querySelector('.status-badge');
+                statusBadge.textContent = '✗ Invalid Code';
+                statusBadge.style.background = 'linear-gradient(135deg, #dc2626, #b91c1c)';
+            }
+        }
+        
+        // Display current scan time
+        function displayScanTime() {
+            const now = new Date();
+            const timeString = now.toLocaleString('en-US', {
+                weekday: 'short',
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
+            
+            document.getElementById('current-time').textContent = timeString;
+        }
+        
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            displayBookingInfo();
+            displayScanTime();
+        });
+    </script>
+</body>
+</html>
