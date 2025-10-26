@@ -41,6 +41,21 @@ const Calendar = ({ selectedDate, onDateSelect, events }) => {
     });
   };
 
+  const getEventTypeForDate = (date) => {
+    if (!date) return null;
+    const dayEvents = getEventsForDate(date);
+    if (dayEvents.length === 0) return null;
+    
+    // Check if any event is FYI type
+    const hasFyiEvent = dayEvents.some(event => event.type === 'fyi');
+    const hasBookableEvent = dayEvents.some(event => event.type !== 'fyi');
+    
+    // Priority: if there's a bookable event, show that style
+    if (hasBookableEvent) return 'bookable';
+    if (hasFyiEvent) return 'fyi';
+    return 'bookable'; // default
+  };
+
   const isToday = (date) => {
     if (!date) return false;
     const today = new Date();
@@ -100,8 +115,27 @@ const Calendar = ({ selectedDate, onDateSelect, events }) => {
       <div className="grid grid-cols-7 gap-2 text-center">
         {days.map((date, index) => {
           const hasEvents = date ? getEventsForDate(date).length > 0 : false;
+          const eventType = getEventTypeForDate(date);
           const dateIsToday = isToday(date);
           const dateIsSelected = isSelected(date);
+
+          // Define colors based on event type
+          const getEventColors = () => {
+            if (eventType === 'fyi') {
+              return {
+                bg: 'bg-orange-500 bg-opacity-30 border-2 border-orange-500 hover:bg-opacity-50',
+                dot: 'bg-orange-500',
+                ring: 'ring-orange-500'
+              };
+            }
+            return {
+              bg: 'bg-[var(--primary-color)] bg-opacity-30 border-2 border-[var(--primary-color)] hover:bg-opacity-50',
+              dot: 'bg-[var(--primary-color)]',
+              ring: 'ring-[var(--primary-color)]'
+            };
+          };
+
+          const colors = getEventColors();
 
           return (
             <div key={index} className="relative">
@@ -111,9 +145,9 @@ const Calendar = ({ selectedDate, onDateSelect, events }) => {
                   className={`
                     h-10 w-10 mx-auto text-white text-sm font-medium rounded-md transition-colors relative
                     ${dateIsSelected 
-                      ? 'bg-[var(--primary-color)] ring-2 ring-[var(--primary-color)] ring-opacity-50' 
+                      ? `bg-[var(--primary-color)] ring-2 ${colors.ring} ring-opacity-50` 
                       : hasEvents
-                        ? 'bg-[var(--primary-color)] bg-opacity-30 border-2 border-[var(--primary-color)] hover:bg-opacity-50'
+                        ? colors.bg
                         : dateIsToday 
                           ? 'bg-[var(--secondary-color)]' 
                           : 'hover:bg-[var(--secondary-color)]'
@@ -123,7 +157,7 @@ const Calendar = ({ selectedDate, onDateSelect, events }) => {
                   {date.getDate()}
                   {hasEvents && !dateIsSelected && (
                     <div className="absolute -top-1 -right-1">
-                      <div className="w-3 h-3 bg-[var(--primary-color)] rounded-full border-2 border-[#1d2d25]"></div>
+                      <div className={`w-3 h-3 ${colors.dot} rounded-full border-2 border-[#1d2d25]`}></div>
                     </div>
                   )}
                 </button>

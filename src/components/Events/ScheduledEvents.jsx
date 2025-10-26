@@ -8,7 +8,8 @@ const ScheduledEvents = () => {
       description: "Top of the Green Entertainment",
       address: "17 E Scott Street, Riverside, New Jersey",
       highlight: "Art Session",
-      isSpecial: false
+      isSpecial: false,
+      type: "bookable"
     },
     {
       id: 2,
@@ -20,7 +21,8 @@ const ScheduledEvents = () => {
       highlight: "20% OFF Special",
       isSpecial: true,
       hasLink: true,
-      linkUrl: "https://townshipgreen.com/shop/"
+      linkUrl: "https://townshipgreen.com/shop/",
+      type: "fyi"
     },
     {
       id: 3,
@@ -30,7 +32,8 @@ const ScheduledEvents = () => {
       description: "",
       address: "15 E Scott Street, Riverside, New Jersey",
       highlight: "Education Event",
-      isSpecial: false
+      isSpecial: false,
+      type: "fyi"
     },
     {
       id: 4,
@@ -40,14 +43,15 @@ const ScheduledEvents = () => {
       description: "Food Truck, Games, Tarot Card Reading and More!",
       address: "15 E Scott Street, Riverside, New Jersey",
       highlight: "Special Event",
-      isSpecial: true
+      isSpecial: true,
+      type: "bookable"
     }
   ];
 
   return (
     <section className="md:pb-20 md:mb-8 bg-[var(--background-dark)]" id="events">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl">
-        <div className="text-center mb-6">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl py-12">
+        <div className="text-center mb-8">
           <h2 className="text-4xl font-black tracking-tight text-white sm:text-5xl font-['Space_Grotesk'] mb-2">
             NEXT EVENTS
           </h2>
@@ -61,9 +65,11 @@ const ScheduledEvents = () => {
             <div 
               key={event.id}
               className={`bg-[var(--background-card)] rounded-xl shadow-2xl overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:shadow-3xl border-l-4 ${
-                event.isSpecial 
-                  ? 'border-[var(--primary-color)]' 
-                  : 'border-[var(--secondary-color)]'
+                event.type === 'fyi'
+                  ? 'border-orange-500'
+                  : event.isSpecial 
+                    ? 'border-[var(--primary-color)]' 
+                    : 'border-[var(--secondary-color)]'
               }`}
             >
               <div className="p-6">
@@ -78,7 +84,11 @@ const ScheduledEvents = () => {
                       {event.time}
                     </div>
                   </div>
-                  {event.isSpecial && (
+                  {event.type === 'fyi' ? (
+                    <div className="flex items-center gap-2">
+                      <span className="bg-orange-500 text-white px-2 py-1 rounded-full text-xs font-bold font-['Space_Grotesk']">FYI</span>
+                    </div>
+                  ) : event.isSpecial && (
                     <div className="w-3 h-3 bg-[var(--primary-color)] rounded-full animate-pulse"></div>
                   )}
                 </div>

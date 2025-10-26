@@ -18,7 +18,8 @@ const EventsSection = () => {
       endTime: '9:00 PM',
       capacity: 20,
       registered: 12,
-      price: 25
+      price: 25,
+      type: 'bookable'
     },
     {
       id: '2',
@@ -29,7 +30,8 @@ const EventsSection = () => {
       endTime: '5:00 PM',
       capacity: 100,
       registered: 45,
-      price: 0
+      price: 0,
+      type: 'fyi'
     },
     {
       id: '3',
@@ -40,7 +42,8 @@ const EventsSection = () => {
       endTime: '4:00 PM',
       capacity: 30,
       registered: 18,
-      price: 15
+      price: 15,
+      type: 'fyi'
     },
     {
       id: '4',
@@ -51,7 +54,8 @@ const EventsSection = () => {
       endTime: '9:00 PM',
       capacity: 50,
       registered: 35,
-      price: 20
+      price: 20,
+      type: 'bookable'
     }
   ]);
 
@@ -98,7 +102,7 @@ const EventsSection = () => {
   };
 
   return (
-    <section className="py-20 px-10 bg-[var(--secondary-color)] bg-opacity-20" id="booking">
+    <section className="py-16 px-10 bg-[var(--secondary-color)] bg-opacity-20" id="booking">
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-3 mb-4">
             <h2 className="text-white text-5xl md:text-6xl font-black leading-tight tracking-tight font-['Space_Grotesk']">
@@ -146,8 +150,23 @@ const EventsSection = () => {
         
         {/* Calendar and Event Sessions Section */}
         <div className="flex flex-wrap items-start justify-center gap-12">
-          {/* Left Side - Calendar */}
+          {/* Left Side - Legend and Calendar */}
           <div className="flex-1 min-w-[320px] max-w-md">
+            {/* Event Legend */}
+            <div className="mb-8 min-w-[320px] max-w-md">
+              <div className="bg-black bg-opacity-30 rounded-lg p-4">
+                <div className="flex justify-center items-center gap-4 text-xs flex-wrap">
+                  <div className="flex items-center gap-1.5">
+                    <div className="w-3 h-3 bg-[var(--primary-color)] rounded-full"></div>
+                    <span className="text-white font-medium">Bookable Sessions</span>
+                  </div>
+                  <div className="flex items-center gap-1.5">
+                    <div className="w-3 h-3 bg-orange-500 rounded-full"></div>
+                    <span className="text-white font-medium">FYI Events</span>
+                  </div>
+                </div>
+              </div>
+            </div>
           <Calendar 
             selectedDate={selectedDate}
             onDateSelect={handleDateSelect}
@@ -197,7 +216,14 @@ const EventsSection = () => {
                             <p className="text-gray-400 mb-4 font-['Noto_Sans'] leading-relaxed">{event.description}</p>
                           </div>
                           
-                          {availableSpots > 0 ? (
+                          {event.type === 'fyi' ? (
+                            <div className="w-full bg-orange-500 bg-opacity-20 border-2 border-orange-500 text-orange-300 font-bold py-3 px-6 rounded-lg text-center">
+                              <span className="flex items-center justify-center gap-2">
+                                <span className="material-symbols-outlined">info</span>
+                                FYI Event - View Only
+                              </span>
+                            </div>
+                          ) : availableSpots > 0 ? (
                             <button
                               onClick={() => handleBookNow(event, selectedDate)}
                               className="w-full bg-[var(--primary-color)] hover:bg-opacity-90 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 hover:scale-105 shadow-lg flex items-center justify-center gap-2"
