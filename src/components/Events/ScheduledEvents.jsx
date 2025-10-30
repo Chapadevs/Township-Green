@@ -52,9 +52,18 @@ const ScheduledEvents = () => {
     <section className="md:pb-20 md:mb-8 bg-[var(--background-dark)]" id="events">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl py-12">
         <div className="text-center mb-8">
-          <h2 className="text-4xl font-black tracking-tight text-white sm:text-5xl font-['Space_Grotesk'] mb-2">
-            NEXT EVENTS
-          </h2>
+          <div className="relative mb-4">
+            <h2 className="text-4xl font-black tracking-tight text-white sm:text-5xl font-['Space_Grotesk'] relative z-10">
+              <span className="relative inline-block">
+                <span className="text-white relative z-10">NEXT</span>
+                <div className="absolute -bottom-1 left-0 right-0 h-1 bg-gradient-to-r from-[var(--primary-color)] to-[var(--secondary-color)] rounded-full"></div>
+              </span>
+              <span className="relative inline-block ml-4">
+                <span className="text-[var(--primary-color)] relative z-10">EVENTS</span>
+                <div className="absolute inset-0 bg-[var(--primary-color)] opacity-15 blur-lg transform scale-110"></div>
+              </span>
+            </h2>
+          </div>
           <p className="text-lg text-[var(--text-secondary)] font-['Space_Grotesk'] font-medium">
             EVENTS SCHEDULE - OCTOBER 2025
           </p>
@@ -106,7 +115,7 @@ const ScheduledEvents = () => {
                 )}
                 
                 {/* Address */}
-                <p className="text-sm text-[var(--text-muted)] font-['Noto_Sans'] mb-3">
+                <p className="text-sm text-[var(--text-muted)] font-['Noto_Sans'] mb-4">
                   {event.address}
                 </p>
                 
@@ -116,9 +125,9 @@ const ScheduledEvents = () => {
                     href={event.linkUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-block bg-[var(--primary-color)] bg-opacity-90 hover:bg-opacity-100 text-white px-4 py-2 rounded-full text-sm font-bold font-['Space_Grotesk'] transition-all duration-300 hover:scale-105 cursor-pointer shadow-lg"
+                    className="neon-button inline-block px-3 py-1 rounded-full text-xs font-bold cursor-pointer"
                   >
-                    {event.highlight} →
+                    <span>{event.highlight} →</span>
                   </a>
                 ) : (
                   <div className="inline-block bg-white bg-opacity-10 text-white px-3 py-1 rounded-full text-sm font-medium font-['Space_Grotesk']">

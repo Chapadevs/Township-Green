@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Lora Variable Font */
+@font-face {
+  font-family: 'Lora';
+  src: url('/assets/fonts/Lora-VariableFont_wght.ttf') format('truetype-variations');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --primary-color: #23a867;      /* Green - primary brand */
   --secondary-color: #1d554c;    /* Dark teal - secondary */
@@ -29,8 +38,12 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-h1, h2, h3, h4, h5, h6, button {
+h1, h2, h3, h4, h5, h6 {
   font-family: 'Space Grotesk', sans-serif;
+}
+
+button {
+  font-family: 'Lora', serif;
 }
 
 a {
@@ -85,4 +98,109 @@ button {
 .logo-glow {
   animation: logoGlow 4s ease-in-out infinite;
   transition: filter 0.5s ease;
+}
+
+/* Neon button animations */
+@keyframes neonGlow {
+  0% {
+    box-shadow: 
+      0 0 2px #15ff03,
+      0 0 8px #15ff03,
+      0 0 16px #15ff03,
+      inset 0 0 6px rgba(21, 255, 3, 0.3);
+  }
+  50% {
+    box-shadow: 
+      0 0 3px #15ff03,
+      0 0 10px #15ff03,
+      0 0 20px #15ff03,
+      inset 0 0 8px rgba(21, 255, 3, 0.4);
+  }
+  100% {
+    box-shadow: 
+      0 0 2px #15ff03,
+      0 0 8px #15ff03,
+      0 0 16px #15ff03,
+      inset 0 0 6px rgba(21, 255, 3, 0.3);
+  }
+}
+
+@keyframes neonPulse {
+  0% {
+    text-shadow: 
+      0 0 2px #15ff03,
+      0 0 8px #15ff03,
+      0 0 14px #15ff03;
+  }
+  50% {
+    text-shadow: 
+      0 0 3px #15ff03,
+      0 0 10px #15ff03,
+      0 0 18px #15ff03;
+  }
+  100% {
+    text-shadow: 
+      0 0 2px #15ff03,
+      0 0 8px #15ff03,
+      0 0 14px #15ff03;
+  }
+}
+
+/* Neon button styles */
+.neon-button {
+  background: transparent;
+  border: 3px solid #15ff03;
+  color: #15ff03;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  animation: neonGlow 2s ease-in-out infinite;
+}
+
+.neon-button span {
+  position: relative;
+  z-index: 2;
+  animation: neonPulse 2s ease-in-out infinite;
+  font-weight: 700;
+}
+
+.neon-button:hover {
+  background: #15ff03;
+  color: #000;
+  animation: neonGlow 1s ease-in-out infinite;
+  border-width: 4px;
+}
+
+.neon-button:hover span {
+  text-shadow: none;
+  animation: none;
+  font-weight: 900;
+}
+
+.neon-button:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(21, 255, 3, 0.4), transparent);
+  transition: left 0.5s;
+}
+
+.neon-button:hover:before {
+  left: 100%;
+}
+
+/* Navigation button neon styles */
+.neon-nav-button {
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.neon-nav-button:hover {
+  text-shadow: 
+    0 0 5px #15ff03,
+    0 0 10px #15ff03,
+    0 0 15px #15ff03;
 }

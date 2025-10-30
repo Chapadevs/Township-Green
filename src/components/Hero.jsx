@@ -16,15 +16,6 @@ const Hero = () => {
           // Remove borderRadius/backgroundClip from style, rely on Tailwind for rounded corners
         }}
       >
-        <div className="flex flex-col items-center gap-4 -mt-20">
-          <button 
-            onClick={scrollToBooking}
-            className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-8 bg-[var(--primary-color)] text-white text-lg font-bold leading-normal tracking-[0.015em] hover:bg-opacity-90 transition-all shadow-lg"
-          >
-            <span className="truncate">BOOK NOW</span>
-          </button>
-          
-        </div>
       </div>
     </section>
   );

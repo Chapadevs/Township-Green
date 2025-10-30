@@ -137,6 +137,14 @@ const Calendar = ({ selectedDate, onDateSelect, events }) => {
 
           const colors = getEventColors();
 
+          // Define selected state colors based on event type
+          const getSelectedColors = () => {
+            if (eventType === 'fyi') {
+              return 'bg-orange-500 ring-2 ring-orange-800 ring-opacity-50';
+            }
+            return 'bg-[var(--primary-color)] ring-2 ring-[var(--primary-color)] ring-opacity-50';
+          };
+
           return (
             <div key={index} className="relative">
               {date ? (
@@ -145,12 +153,10 @@ const Calendar = ({ selectedDate, onDateSelect, events }) => {
                   className={`
                     h-10 w-10 mx-auto text-white text-sm font-medium rounded-md transition-colors relative
                     ${dateIsSelected 
-                      ? `bg-[var(--primary-color)] ring-2 ${colors.ring} ring-opacity-50` 
+                      ? getSelectedColors()
                       : hasEvents
                         ? colors.bg
-                        : dateIsToday 
-                          ? 'bg-[var(--secondary-color)]' 
-                          : 'hover:bg-[var(--secondary-color)]'
+                        : 'hover:bg-[var(--secondary-color)]'
                     }
                   `}
                 >

@@ -2,9 +2,20 @@ const About = () => {
   return (
     <section className="py-8 md:py-16 px-10" id="about">
       <div className="max-w-4xl mx-auto text-center">
-        <h2 className="text-white text-4xl font-bold leading-tight tracking-tight">
-          What we do?
-        </h2>
+        <div className="relative mb-4">
+          <h2 className="text-white text-4xl md:text-5xl font-black leading-tight tracking-tight font-['Space_Grotesk'] relative z-10">
+            What 
+            <span className="relative inline-block mx-2">
+              <span className="text-[var(--primary-color)] relative z-10">we</span>
+              <div className="absolute inset-0 bg-[var(--primary-color)] opacity-20 blur-lg transform scale-110"></div>
+            </span>
+            <span className="relative inline-block ml-1">
+              <span className="text-[var(--primary-color)] relative z-10">do?</span>
+              <div className="absolute inset-0 bg-[var(--primary-color)] opacity-20 blur-lg transform scale-110"></div>
+            </span>
+          </h2>
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-[var(--primary-color)] opacity-5 rounded-full blur-3xl"></div>
+        </div>
         <p className="text-gray-300 text-lg leading-relaxed mt-6">
         Entertainment rental space ideal for your private event.
         Host your art, yoga, music, bachelorette, business, sports, or whatever event here at Top of the Green!

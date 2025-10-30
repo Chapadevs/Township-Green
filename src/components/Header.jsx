@@ -6,7 +6,13 @@ const Header = () => {
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      if (sectionId === 'about') {
+        // Scroll a bit higher for the about section
+        const elementPosition = element.offsetTop - 80;
+        window.scrollTo({ top: elementPosition, behavior: 'smooth' });
+      } else {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
     }
     setIsMobileMenuOpen(false);
   };
@@ -25,28 +31,28 @@ const Header = () => {
         <nav className="flex items-center gap-8">
           <button 
             onClick={() => scrollToSection('about')}
-            className="text-white hover:text-[var(--primary-color)] transition-colors text-base font-medium leading-normal"
+            className="text-white neon-nav-button text-base font-medium leading-normal"
           >
             About
           </button>
           <button 
             onClick={() => scrollToSection('events')}
-            className="text-white hover:text-[var(--primary-color)] transition-colors text-base font-medium leading-normal"
+            className="text-white neon-nav-button text-base font-medium leading-normal"
           >
             Events
           </button>
           <button 
             onClick={() => scrollToSection('contact')}
-            className="text-white hover:text-[var(--primary-color)] transition-colors text-base font-medium leading-normal"
+            className="text-white neon-nav-button text-base font-medium leading-normal"
           >
             Contact
           </button>
         </nav>
         <button 
-          onClick={() => scrollToSection('booking')}
-          className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-6 bg-[var(--primary-color)] text-white text-base font-bold leading-normal tracking-[0.015em] hover:bg-opacity-90 transition-all"
+          onClick={() => scrollToSection('events')}
+          className="neon-button flex min-w-[70px] max-w-[200px] cursor-pointer items-center justify-center rounded-lg h-8 px-4 text-sm font-bold leading-normal tracking-[0.015em]"
         >
-          <span className="truncate">BOOK NOW</span>
+          <span className="truncate">RESERVE NOW</span>
         </button>
       </div>
 
@@ -69,27 +75,27 @@ const Header = () => {
           <div className="flex flex-col p-4 gap-4">
             <button 
               onClick={() => scrollToSection('about')}
-              className="text-white hover:text-[var(--primary-color)] transition-colors text-base font-medium text-left py-2"
+              className="text-white neon-nav-button text-base font-medium text-left py-2"
             >
               About
             </button>
             <button 
               onClick={() => scrollToSection('events')}
-              className="text-white hover:text-[var(--primary-color)] transition-colors text-base font-medium text-left py-2"
+              className="text-white neon-nav-button text-base font-medium text-left py-2"
             >
               Events
             </button>
             <button 
               onClick={() => scrollToSection('contact')}
-              className="text-white hover:text-[var(--primary-color)] transition-colors text-base font-medium text-left py-2"
+              className="text-white neon-nav-button text-base font-medium text-left py-2"
             >
               Contact
             </button>
             <button 
-              onClick={() => scrollToSection('booking')}
-              className="flex items-center justify-center rounded-lg h-10 px-6 bg-[var(--primary-color)] text-white text-base font-bold tracking-[0.015em] hover:bg-opacity-90 transition-all mt-2"
+              onClick={() => scrollToSection('events')}
+              className="neon-button flex items-center justify-center rounded-lg h-8 px-4 text-sm font-bold tracking-[0.015em] mt-2"
             >
-              BOOK NOW
+              <span>Reserve Now</span>
             </button>
           </div>
         </div>

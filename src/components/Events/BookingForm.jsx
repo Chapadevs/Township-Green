@@ -100,27 +100,27 @@ const BookingForm = ({ selectedEvent, selectedDate, onBookingSubmit, isModal = f
   const availableSpots = selectedEvent ? selectedEvent.capacity - selectedEvent.registered : 0;
 
   return (
-    <div className={isModal ? "w-full max-w-sm mx-auto" : "flex-1 min-w-[320px] max-w-md"}>
+    <div className={isModal ? "w-full" : "flex-1 min-w-[320px] max-w-md"}>
       {!isModal && <h3 className="text-white text-2xl font-bold mb-4">Book a Session</h3>}
       
       {selectedEvent && selectedDate ? (
-        <div className={isModal ? "space-y-1 p-2" : "space-y-3"}>
+        <div className={isModal ? "space-y-3" : "space-y-3"}>
           {/* Success Message */}
           {submitSuccess && (
-            <div className="bg-green-900 border border-green-600 p-1 rounded">
-              <div className="flex items-center gap-1">
-                <span className="material-symbols-outlined text-green-400 text-xs">check_circle</span>
-                <p className="text-green-400 font-medium text-xs">Booking submitted successfully!</p>
+            <div className="bg-green-900 border border-green-600 p-2 rounded">
+              <div className="flex items-center gap-2">
+                <span className="material-symbols-outlined text-green-400 text-sm">check_circle</span>
+                <p className="text-green-400 font-medium text-sm">Booking submitted successfully!</p>
               </div>
             </div>
           )}
 
           {/* Error Message */}
           {emailError && (
-            <div className="bg-red-900 border border-red-600 p-1 rounded">
-              <div className="flex items-center gap-1">
-                <span className="material-symbols-outlined text-red-400 text-xs">error</span>
-                <p className="text-red-400 font-medium text-xs">Error submitting booking</p>
+            <div className="bg-red-900 border border-red-600 p-2 rounded">
+              <div className="flex items-center gap-2">
+                <span className="material-symbols-outlined text-red-400 text-sm">error</span>
+                <p className="text-red-400 font-medium text-sm">Error submitting booking</p>
               </div>
             </div>
           )}
@@ -137,98 +137,202 @@ const BookingForm = ({ selectedEvent, selectedDate, onBookingSubmit, isModal = f
 
           {availableSpots > 0 ? (
             /* Booking Form */
-            <form onSubmit={handleSubmit} className={isModal ? "space-y-2" : "space-y-3"}>
-              <div>
-                <label htmlFor="name" className={`block text-gray-300 font-medium mb-1 ${isModal ? 'text-xs' : 'text-sm'}`}>
-                  Full Name *
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  value={formData.name || ''}
-                  onChange={(e) => handleInputChange('name', e.target.value)}
-                  className={`w-full px-2 bg-[#12211a] border border-gray-600 rounded text-white focus:border-[var(--primary-color)] focus:outline-none ${isModal ? 'py-1 text-xs' : 'py-2'}`}
-                  placeholder="Enter your full name"
-                />
-                {errors.name && <p className="text-red-400 text-xs mt-1">{errors.name}</p>}
-              </div>
+            <form onSubmit={handleSubmit} className={isModal ? "space-y-3" : "space-y-3"}>
+              {isModal ? (
+                /* Modal Layout - Two Column Grid for Form Fields */
+                <>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label htmlFor="name" className="block text-gray-300 font-medium mb-1 text-xs">
+                        Full Name *
+                      </label>
+                      <input
+                        type="text"
+                        id="name"
+                        value={formData.name || ''}
+                        onChange={(e) => handleInputChange('name', e.target.value)}
+                        className="w-full px-2 py-1.5 bg-[#12211a] border border-gray-600 rounded text-white focus:border-[var(--primary-color)] focus:outline-none text-xs h-8"
+                        placeholder="Enter your full name"
+                      />
+                      {errors.name && <p className="text-red-400 text-xs mt-1">{errors.name}</p>}
+                    </div>
 
-              <div>
-                <label htmlFor="email" className={`block text-gray-300 font-medium mb-1 ${isModal ? 'text-xs' : 'text-sm'}`}>
-                  Email Address *
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  value={formData.email || ''}
-                  onChange={(e) => handleInputChange('email', e.target.value)}
-                  className={`w-full px-2 bg-[#12211a] border border-gray-600 rounded text-white focus:border-[var(--primary-color)] focus:outline-none ${isModal ? 'py-1 text-xs' : 'py-2'}`}
-                  placeholder="your@email.com"
-                />
-                {errors.email && <p className="text-red-400 text-xs mt-1">{errors.email}</p>}
-              </div>
+                    <div>
+                      <label htmlFor="email" className="block text-gray-300 font-medium mb-1 text-xs">
+                        Email Address *
+                      </label>
+                      <input
+                        type="email"
+                        id="email"
+                        value={formData.email || ''}
+                        onChange={(e) => handleInputChange('email', e.target.value)}
+                        className="w-full px-2 py-1.5 bg-[#12211a] border border-gray-600 rounded text-white focus:border-[var(--primary-color)] focus:outline-none text-xs h-8"
+                        placeholder="your@email.com"
+                      />
+                      {errors.email && <p className="text-red-400 text-xs mt-1">{errors.email}</p>}
+                    </div>
+                  </div>
 
-              <div>
-                <label htmlFor="phone" className={`block text-gray-300 font-medium mb-1 ${isModal ? 'text-xs' : 'text-sm'}`}>
-                  Phone Number *
-                </label>
-                <input
-                  type="tel"
-                  id="phone"
-                  value={formData.phone || ''}
-                  onChange={(e) => handleInputChange('phone', e.target.value)}
-                  className={`w-full px-2 bg-[#12211a] border border-gray-600 rounded text-white focus:border-[var(--primary-color)] focus:outline-none ${isModal ? 'py-1 text-xs' : 'py-2'}`}
-                  placeholder="(555) 123-4567"
-                />
-                {errors.phone && <p className="text-red-400 text-xs mt-1">{errors.phone}</p>}
-              </div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label htmlFor="phone" className="block text-gray-300 font-medium mb-1 text-xs">
+                        Phone Number *
+                      </label>
+                      <input
+                        type="tel"
+                        id="phone"
+                        value={formData.phone || ''}
+                        onChange={(e) => handleInputChange('phone', e.target.value)}
+                        className="w-full px-2 py-1.5 bg-[#12211a] border border-gray-600 rounded text-white focus:border-[var(--primary-color)] focus:outline-none text-xs h-8"
+                        placeholder="(555) 123-4567"
+                      />
+                      {errors.phone && <p className="text-red-400 text-xs mt-1">{errors.phone}</p>}
+                    </div>
 
-              <div>
-                <label htmlFor="guests" className={`block text-gray-300 font-medium mb-1 ${isModal ? 'text-xs' : 'text-sm'}`}>
-                  Number of Guests
-                </label>
-                <select
-                  id="guests"
-                  value={formData.guests || 1}
-                  onChange={(e) => handleInputChange('guests', parseInt(e.target.value))}
-                  className={`w-full px-2 bg-[#12211a] border border-gray-600 rounded text-white focus:border-[var(--primary-color)] focus:outline-none ${isModal ? 'py-1 text-xs' : 'py-2'}`}
-                >
-                  {[...Array(Math.min(availableSpots, 6))].map((_, i) => (
-                    <option key={i + 1} value={i + 1}>
-                      {i + 1} {i === 0 ? 'Guest' : 'Guests'}
-                    </option>
-                  ))}
-                </select>
-              </div>
+                    <div>
+                      <label htmlFor="guests" className="block text-gray-300 font-medium mb-1 text-xs">
+                        Number of Guests
+                      </label>
+                      <select
+                        id="guests"
+                        value={formData.guests || 1}
+                        onChange={(e) => handleInputChange('guests', parseInt(e.target.value))}
+                        className="w-full px-2 py-1.5 bg-[#12211a] border border-gray-600 rounded text-white focus:border-[var(--primary-color)] focus:outline-none text-xs h-8"
+                      >
+                        {[...Array(Math.min(availableSpots, 6))].map((_, i) => (
+                          <option key={i + 1} value={i + 1}>
+                            {i + 1} {i === 0 ? 'Guest' : 'Guests'}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
 
-              <div>
-                <label htmlFor="specialRequests" className={`block text-gray-300 font-medium mb-1 ${isModal ? 'text-xs' : 'text-sm'}`}>
-                  Special Requests (Optional)
-                </label>
-                <textarea
-                  id="specialRequests"
-                  value={formData.specialRequests || ''}
-                  onChange={(e) => handleInputChange('specialRequests', e.target.value)}
-                  rows={isModal ? 1 : 2}
-                  className={`w-full px-2 bg-[#12211a] border border-gray-600 rounded text-white focus:border-[var(--primary-color)] focus:outline-none resize-none ${isModal ? 'py-1 text-xs' : 'py-2'}`}
-                  placeholder="Any special accommodations or requests..."
-                />
-              </div>
+                  <div>
+                    <label htmlFor="specialRequests" className="block text-gray-300 font-medium mb-1 text-xs">
+                      Special Requests (Optional)
+                    </label>
+                    <textarea
+                      id="specialRequests"
+                      value={formData.specialRequests || ''}
+                      onChange={(e) => handleInputChange('specialRequests', e.target.value)}
+                      rows={2}
+                      className="w-full px-2 py-1.5 bg-[#12211a] border border-gray-600 rounded text-white focus:border-[var(--primary-color)] focus:outline-none resize-none text-xs"
+                      placeholder="Any special accommodations or requests..."
+                    />
+                  </div>
 
-              <button
-                type="submit"
-                disabled={isSubmitting || emailLoading}
-                className={`w-full flex items-center justify-center rounded px-3 bg-[var(--primary-color)] text-white font-bold leading-normal tracking-[0.015em] hover:bg-opacity-90 transition-all shadow-lg disabled:opacity-50 disabled:cursor-not-allowed ${isModal ? 'h-8 text-xs' : 'h-12 text-lg'}`}
-              >
-                {(isSubmitting || emailLoading) ? (
-                  <span className="flex items-center gap-2">
-                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                    Booking...
-                  </span>
-                ) : (
-                  'Reserve Your Spot'
-                )}
-              </button>
+                  <button
+                    type="submit"
+                    disabled={isSubmitting || emailLoading}
+                    className="w-full flex items-center justify-center rounded px-3 h-8 bg-[var(--primary-color)] text-white font-bold leading-normal tracking-[0.015em] hover:bg-opacity-90 transition-all shadow-lg disabled:opacity-50 disabled:cursor-not-allowed text-xs"
+                  >
+                    {(isSubmitting || emailLoading) ? (
+                      <span className="flex items-center gap-2">
+                        <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                        Booking...
+                      </span>
+                    ) : (
+                      <span>Reserve Your Spot</span>
+                    )}
+                  </button>
+                </>
+              ) : (
+                /* Non-Modal Layout - Single Column */
+                <>
+                  <div>
+                    <label htmlFor="name" className="block text-gray-300 font-medium mb-1 text-sm">
+                      Full Name *
+                    </label>
+                    <input
+                      type="text"
+                      id="name"
+                      value={formData.name || ''}
+                      onChange={(e) => handleInputChange('name', e.target.value)}
+                      className="w-full px-3 py-2 bg-[#12211a] border border-gray-600 rounded text-white focus:border-[var(--primary-color)] focus:outline-none"
+                      placeholder="Enter your full name"
+                    />
+                    {errors.name && <p className="text-red-400 text-xs mt-1">{errors.name}</p>}
+                  </div>
+
+                  <div>
+                    <label htmlFor="email" className="block text-gray-300 font-medium mb-1 text-sm">
+                      Email Address *
+                    </label>
+                    <input
+                      type="email"
+                      id="email"
+                      value={formData.email || ''}
+                      onChange={(e) => handleInputChange('email', e.target.value)}
+                      className="w-full px-3 py-2 bg-[#12211a] border border-gray-600 rounded text-white focus:border-[var(--primary-color)] focus:outline-none"
+                      placeholder="your@email.com"
+                    />
+                    {errors.email && <p className="text-red-400 text-xs mt-1">{errors.email}</p>}
+                  </div>
+
+                  <div>
+                    <label htmlFor="phone" className="block text-gray-300 font-medium mb-1 text-sm">
+                      Phone Number *
+                    </label>
+                    <input
+                      type="tel"
+                      id="phone"
+                      value={formData.phone || ''}
+                      onChange={(e) => handleInputChange('phone', e.target.value)}
+                      className="w-full px-3 py-2 bg-[#12211a] border border-gray-600 rounded text-white focus:border-[var(--primary-color)] focus:outline-none"
+                      placeholder="(555) 123-4567"
+                    />
+                    {errors.phone && <p className="text-red-400 text-xs mt-1">{errors.phone}</p>}
+                  </div>
+
+                  <div>
+                    <label htmlFor="guests" className="block text-gray-300 font-medium mb-1 text-sm">
+                      Number of Guests
+                    </label>
+                    <select
+                      id="guests"
+                      value={formData.guests || 1}
+                      onChange={(e) => handleInputChange('guests', parseInt(e.target.value))}
+                      className="w-full px-3 py-2 bg-[#12211a] border border-gray-600 rounded text-white focus:border-[var(--primary-color)] focus:outline-none"
+                    >
+                      {[...Array(Math.min(availableSpots, 6))].map((_, i) => (
+                        <option key={i + 1} value={i + 1}>
+                          {i + 1} {i === 0 ? 'Guest' : 'Guests'}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div>
+                    <label htmlFor="specialRequests" className="block text-gray-300 font-medium mb-1 text-sm">
+                      Special Requests (Optional)
+                    </label>
+                    <textarea
+                      id="specialRequests"
+                      value={formData.specialRequests || ''}
+                      onChange={(e) => handleInputChange('specialRequests', e.target.value)}
+                      rows={2}
+                      className="w-full px-3 py-2 bg-[#12211a] border border-gray-600 rounded text-white focus:border-[var(--primary-color)] focus:outline-none resize-none"
+                      placeholder="Any special accommodations or requests..."
+                    />
+                  </div>
+
+                  <button
+                    type="submit"
+                    disabled={isSubmitting || emailLoading}
+                    className="w-full flex items-center justify-center rounded px-3 h-12 bg-[var(--primary-color)] text-white font-bold leading-normal tracking-[0.015em] hover:bg-opacity-90 transition-all shadow-lg disabled:opacity-50 disabled:cursor-not-allowed text-lg"
+                  >
+                    {(isSubmitting || emailLoading) ? (
+                      <span className="flex items-center gap-2">
+                        <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                        Booking...
+                      </span>
+                    ) : (
+                      <span>Reserve Your Spot</span>
+                    )}
+                  </button>
+                </>
+              )}
             </form>
           ) : (
             <div className="bg-[#1d2d25] p-4 rounded-lg text-center">
