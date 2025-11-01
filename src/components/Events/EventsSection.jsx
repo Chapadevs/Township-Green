@@ -354,6 +354,13 @@ const EventsSection = () => {
                         </li>
                       </ul>
                     </div>
+                    
+                    {/* Compact Payment Notice */}
+                    <div className="neon-button bg-gradient-to-r from-[var(--primary-color)] to-green-400 border-2 border-[var(--primary-color)] p-3 rounded-lg shadow-lg">
+                      <p className="text-white font-bold text-sm text-center">
+                        <span> $ Payment at entrance - Cash or Card accepted</span>
+                      </p>
+                    </div>
                   </div>
                   
                   {/* Right Column - Booking Form */}

@@ -39,10 +39,10 @@ const useEmailJS = () => {
 
         templateParams = {
           to_name: 'Township Green',
-          email: 'admin@topofgreen.com', // Admin notification email
+          email: emailConfig.adminEmail || 'admin@townshipgreen.com', // Business contact email
           name: data.name, // Matches {{name}} in template
-          from_name: data.name,
-          from_email: data.email,
+          from_name: 'Township Green',
+          from_email: emailConfig.adminEmail || 'admin@townshipgreen.com',
           phone: data.phone,
           event_id: data.eventId,
           guests: data.guests,
@@ -70,21 +70,8 @@ const useEmailJS = () => {
         };
       }
 
-      // SELECT THE CORRECT TEMPLATE ID BASED ON TYPE
-      const templateId = templateType === 'booking' 
-        ? emailConfig.adminTemplateId 
-        : emailConfig.customerTemplateId || emailConfig.adminTemplateId;
-
-      // ADMIN NOTIFICATION
-      const adminResult = await emailjs.send(
-        emailConfig.serviceId,
-        templateId,
-        templateParams,
-        emailConfig.publicKey
-      );
-
-      // CUSTOMER CONFIRMATION
-      if (templateType === 'booking') {
+      // CUSTOMER CONFIRMATION ONLY
+      if (templateType === 'booking' && emailConfig.customerTemplateId) {
         const customerParams = {
           to_name: data.name,
           email: data.email, 
@@ -104,24 +91,30 @@ const useEmailJS = () => {
           qr_code_url: templateParams.qr_code_url
         };
 
-        // SEND CUSTOMER CONFIRMATION
-        await emailjs.send(
+        // SEND CUSTOMER CONFIRMATION ONLY
+        const result = await emailjs.send(
           emailConfig.serviceId,
           emailConfig.customerTemplateId,
           customerParams,
           emailConfig.publicKey
         );
 
-        console.log('Both admin and customer emails sent successfully');
+        console.log('Customer email sent successfully');
+        return result;
+      } else if (templateType === 'contact') {
+        // For general contact forms, send to customer template
+        const result = await emailjs.send(
+          emailConfig.serviceId,
+          emailConfig.customerTemplateId || emailConfig.templateId,
+          templateParams,
+          emailConfig.publicKey
+        );
+        
+        console.log('Contact email sent successfully');
+        return result;
       }
 
-      const result = adminResult;
-
-      if (result.status !== 200) {
-        throw new Error('Failed to send email');
-      }
-
-      console.log('Email sent successfully:', result);
+      throw new Error('No valid email template configuration found');
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Failed to send email';
       setError(errorMessage);

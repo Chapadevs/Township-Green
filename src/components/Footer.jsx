@@ -6,16 +6,20 @@ const Footer = () => {
           <p className="text-gray-400">© 2025 Top of the Green. All rights reserved.</p>
           <div className="flex justify-center md:justify-start gap-4 mt-2">
             <a 
-              href="#" 
+              href="/privacy-policy.html" 
               className="text-gray-400 hover:text-white transition-colors text-sm"
               aria-label="Privacy Policy"
+              target="_blank"
+              rel="noopener noreferrer"
             >
               Privacy Policy
             </a>
             <a 
-              href="#" 
+              href="/terms-of-service.html" 
               className="text-gray-400 hover:text-white transition-colors text-sm"
               aria-label="Terms of Service"
+              target="_blank"
+              rel="noopener noreferrer"
             >
               Terms of Service
             </a>
@@ -24,7 +28,7 @@ const Footer = () => {
         
         <div className="flex justify-center items-center gap-6">
           <a 
-            href="#" 
+            href="https://townshipgreen.com/" 
             className="text-gray-400 hover:text-white transition-colors"
             aria-label="Follow us on Instagram"
           >

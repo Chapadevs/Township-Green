@@ -104,7 +104,7 @@ const BookingForm = ({ selectedEvent, selectedDate, onBookingSubmit, isModal = f
       {!isModal && <h3 className="text-white text-2xl font-bold mb-4">Book a Session</h3>}
       
       {selectedEvent && selectedDate ? (
-        <div className={isModal ? "space-y-3" : "space-y-3"}>
+        <div className={isModal ? "space-y-6" : "space-y-3"}>
           {/* Success Message */}
           {submitSuccess && (
             <div className="bg-green-900 border border-green-600 p-2 rounded">
@@ -137,13 +137,13 @@ const BookingForm = ({ selectedEvent, selectedDate, onBookingSubmit, isModal = f
 
           {availableSpots > 0 ? (
             /* Booking Form */
-            <form onSubmit={handleSubmit} className={isModal ? "space-y-3" : "space-y-3"}>
+            <form onSubmit={handleSubmit} className={isModal ? "space-y-6" : "space-y-3"}>
               {isModal ? (
                 /* Modal Layout - Two Column Grid for Form Fields */
                 <>
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-2 gap-4 gap-y-4">
                     <div>
-                      <label htmlFor="name" className="block text-gray-300 font-medium mb-1 text-xs">
+                      <label htmlFor="name" className="block text-gray-300 font-medium mb-2 text-xs">
                         Full Name *
                       </label>
                       <input
@@ -151,14 +151,14 @@ const BookingForm = ({ selectedEvent, selectedDate, onBookingSubmit, isModal = f
                         id="name"
                         value={formData.name || ''}
                         onChange={(e) => handleInputChange('name', e.target.value)}
-                        className="w-full px-2 py-1.5 bg-[#12211a] border border-gray-600 rounded text-white focus:border-[var(--primary-color)] focus:outline-none text-xs h-8"
+                        className="w-full px-2 py-2 bg-[#12211a] border border-gray-600 rounded text-white focus:border-[var(--primary-color)] focus:outline-none text-xs h-10"
                         placeholder="Enter your full name"
                       />
                       {errors.name && <p className="text-red-400 text-xs mt-1">{errors.name}</p>}
                     </div>
 
                     <div>
-                      <label htmlFor="email" className="block text-gray-300 font-medium mb-1 text-xs">
+                      <label htmlFor="email" className="block text-gray-300 font-medium mb-2 text-xs">
                         Email Address *
                       </label>
                       <input
@@ -166,16 +166,16 @@ const BookingForm = ({ selectedEvent, selectedDate, onBookingSubmit, isModal = f
                         id="email"
                         value={formData.email || ''}
                         onChange={(e) => handleInputChange('email', e.target.value)}
-                        className="w-full px-2 py-1.5 bg-[#12211a] border border-gray-600 rounded text-white focus:border-[var(--primary-color)] focus:outline-none text-xs h-8"
+                        className="w-full px-2 py-2 bg-[#12211a] border border-gray-600 rounded text-white focus:border-[var(--primary-color)] focus:outline-none text-xs h-10"
                         placeholder="your@email.com"
                       />
                       {errors.email && <p className="text-red-400 text-xs mt-1">{errors.email}</p>}
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-2 gap-4 gap-y-4">
                     <div>
-                      <label htmlFor="phone" className="block text-gray-300 font-medium mb-1 text-xs">
+                      <label htmlFor="phone" className="block text-gray-300 font-medium mb-2 text-xs">
                         Phone Number *
                       </label>
                       <input
@@ -183,21 +183,21 @@ const BookingForm = ({ selectedEvent, selectedDate, onBookingSubmit, isModal = f
                         id="phone"
                         value={formData.phone || ''}
                         onChange={(e) => handleInputChange('phone', e.target.value)}
-                        className="w-full px-2 py-1.5 bg-[#12211a] border border-gray-600 rounded text-white focus:border-[var(--primary-color)] focus:outline-none text-xs h-8"
+                        className="w-full px-2 py-2 bg-[#12211a] border border-gray-600 rounded text-white focus:border-[var(--primary-color)] focus:outline-none text-xs h-10"
                         placeholder="(555) 123-4567"
                       />
                       {errors.phone && <p className="text-red-400 text-xs mt-1">{errors.phone}</p>}
                     </div>
 
                     <div>
-                      <label htmlFor="guests" className="block text-gray-300 font-medium mb-1 text-xs">
+                      <label htmlFor="guests" className="block text-gray-300 font-medium mb-2 text-xs">
                         Number of Guests
                       </label>
                       <select
                         id="guests"
                         value={formData.guests || 1}
                         onChange={(e) => handleInputChange('guests', parseInt(e.target.value))}
-                        className="w-full px-2 py-1.5 bg-[#12211a] border border-gray-600 rounded text-white focus:border-[var(--primary-color)] focus:outline-none text-xs h-8"
+                        className="w-full px-2 py-2 bg-[#12211a] border border-gray-600 rounded text-white focus:border-[var(--primary-color)] focus:outline-none text-xs h-10"
                       >
                         {[...Array(Math.min(availableSpots, 6))].map((_, i) => (
                           <option key={i + 1} value={i + 1}>
@@ -209,15 +209,15 @@ const BookingForm = ({ selectedEvent, selectedDate, onBookingSubmit, isModal = f
                   </div>
 
                   <div>
-                    <label htmlFor="specialRequests" className="block text-gray-300 font-medium mb-1 text-xs">
+                    <label htmlFor="specialRequests" className="block text-gray-300 font-medium mb-2 text-xs">
                       Special Requests (Optional)
                     </label>
                     <textarea
                       id="specialRequests"
                       value={formData.specialRequests || ''}
                       onChange={(e) => handleInputChange('specialRequests', e.target.value)}
-                      rows={2}
-                      className="w-full px-2 py-1.5 bg-[#12211a] border border-gray-600 rounded text-white focus:border-[var(--primary-color)] focus:outline-none resize-none text-xs"
+                      rows={3}
+                      className="w-full px-2 py-2 bg-[#12211a] border border-gray-600 rounded text-white focus:border-[var(--primary-color)] focus:outline-none resize-none text-xs"
                       placeholder="Any special accommodations or requests..."
                     />
                   </div>
@@ -225,7 +225,7 @@ const BookingForm = ({ selectedEvent, selectedDate, onBookingSubmit, isModal = f
                   <button
                     type="submit"
                     disabled={isSubmitting || emailLoading}
-                    className="w-full flex items-center justify-center rounded px-3 h-8 bg-[var(--primary-color)] text-white font-bold leading-normal tracking-[0.015em] hover:bg-opacity-90 transition-all shadow-lg disabled:opacity-50 disabled:cursor-not-allowed text-xs"
+                    className="w-full flex items-center justify-center rounded px-3 h-10 bg-[var(--primary-color)] text-white font-bold leading-normal tracking-[0.015em] hover:bg-opacity-90 transition-all shadow-lg disabled:opacity-50 disabled:cursor-not-allowed text-xs"
                   >
                     {(isSubmitting || emailLoading) ? (
                       <span className="flex items-center gap-2">

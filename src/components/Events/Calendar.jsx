@@ -119,6 +119,11 @@ const Calendar = ({ selectedDate, onDateSelect, events }) => {
           const dateIsToday = isToday(date);
           const dateIsSelected = isSelected(date);
 
+          // Create unique key for each calendar cell
+          const uniqueKey = date 
+            ? `${currentMonth.getFullYear()}-${currentMonth.getMonth()}-${date.getDate()}`
+            : `empty-${currentMonth.getFullYear()}-${currentMonth.getMonth()}-${index}`;
+
           // Define colors based on event type
           const getEventColors = () => {
             if (eventType === 'fyi') {
@@ -146,7 +151,7 @@ const Calendar = ({ selectedDate, onDateSelect, events }) => {
           };
 
           return (
-            <div key={index} className="relative">
+            <div key={uniqueKey} className="relative">
               {date ? (
                 <button
                   onClick={() => onDateSelect(date)}

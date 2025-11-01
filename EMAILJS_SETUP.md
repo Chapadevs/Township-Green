@@ -16,18 +16,12 @@ This guide will help you set up EmailJS to handle email notifications for your T
 4. Follow the connection steps for your provider
 5. **Save the Service ID** - you'll need this later
 
-### Step 3: Create Email Templates
+### Step 3: Create Email Template
 
-You need to create **2 templates**:
+You need to create **1 template** for customer confirmations:
 
-#### Template 1: Admin Notification
+#### Customer Confirmation Template
 1. Go to **Email Templates** → **Create New Template**
-2. Set template name: `Township Green - Admin Notification`
-3. Copy the HTML from `src/config/EMAIL_TEMPLATES.md` (Admin template)
-4. **Save the Template ID**
-
-#### Template 2: Customer Confirmation  
-1. Create another new template
 2. Set template name: `Township Green - Customer Confirmation`
 3. Copy the HTML from `src/config/EMAIL_TEMPLATES.md` (Customer template)
 4. **Save the Template ID**
@@ -44,7 +38,6 @@ Create a `.env` file in your project root:
 ```env
 # EmailJS Configuration
 VITE_EMAILJS_SERVICE_ID=service_abc123
-VITE_EMAILJS_ADMIN_TEMPLATE_ID=template_admin_xyz
 VITE_EMAILJS_CUSTOMER_TEMPLATE_ID=template_customer_def
 VITE_EMAILJS_PUBLIC_KEY=your_public_key_here
 VITE_ADMIN_EMAIL=admin@yourdomain.com
@@ -56,10 +49,9 @@ Replace the placeholder values with your actual EmailJS credentials.
 
 When a customer books an event or contacts you:
 
-1. **Admin Email** - You receive a notification with all booking details
-2. **Customer Email** - Customer receives a confirmation with booking info
+1. **Customer Email** - Customer receives a confirmation with booking info and validation details
 
-Both emails are sent automatically and simultaneously.
+Only the customer confirmation email is sent to reduce EmailJS usage and costs.
 
 ## 🧪 Testing Your Setup
 
