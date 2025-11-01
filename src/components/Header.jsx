@@ -10,6 +10,10 @@ const Header = () => {
         // Scroll a bit higher for the about section
         const elementPosition = element.offsetTop - 80;
         window.scrollTo({ top: elementPosition, behavior: 'smooth' });
+      } else if (sectionId === 'calendar') {
+        // Scroll a bit higher for the calendar section
+        const elementPosition = element.offsetTop - 180;
+        window.scrollTo({ top: elementPosition, behavior: 'smooth' });
       } else {
         element.scrollIntoView({ behavior: 'smooth' });
       }
@@ -49,7 +53,7 @@ const Header = () => {
           </button>
         </nav>
         <button 
-          onClick={() => scrollToSection('events')}
+          onClick={() => scrollToSection('calendar')}
           className="neon-button flex min-w-[70px] max-w-[200px] cursor-pointer items-center justify-center rounded-lg h-8 px-4 text-sm font-bold leading-normal tracking-[0.015em]"
         >
           <span className="truncate">RESERVE NOW</span>
@@ -92,7 +96,7 @@ const Header = () => {
               Contact
             </button>
             <button 
-              onClick={() => scrollToSection('events')}
+              onClick={() => scrollToSection('calendar')}
               className="neon-button flex items-center justify-center rounded-lg h-8 px-4 text-sm font-bold tracking-[0.015em] mt-2"
             >
               <span>Reserve Now</span>

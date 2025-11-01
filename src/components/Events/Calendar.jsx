@@ -80,7 +80,7 @@ const Calendar = ({ selectedDate, onDateSelect, events }) => {
   const days = getDaysInMonth(currentMonth);
 
   return (
-    <div className="flex-1 min-w-[320px] max-w-md bg-[#1d2d25] p-6 rounded-lg shadow-2xl">
+    <div id="calendar" className="flex-1 min-w-[320px] max-w-md bg-[#1d2d25] p-6 rounded-lg shadow-2xl">
       {/* Calendar Header */}
       <div className="flex items-center justify-between mb-4">
         <button 

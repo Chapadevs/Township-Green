@@ -109,7 +109,6 @@ const EventsSection = () => {
               <h2 className="text-white text-5xl md:text-6xl font-black leading-tight tracking-tight font-['Space_Grotesk'] relative z-10">
                 <span className="relative inline-block">
                   <span className="text-white relative z-10">Reserve</span>
-                  <div className="absolute -bottom-1 left-0 right-0 h-1 bg-gradient-to-r from-[var(--primary-color)] to-[var(--secondary-color)] rounded-full"></div>
                 </span>
                 <span className="text-white mx-3">Your</span>
                 <span className="relative inline-block">

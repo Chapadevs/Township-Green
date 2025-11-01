@@ -56,7 +56,6 @@ const ScheduledEvents = () => {
             <h2 className="text-4xl font-black tracking-tight text-white sm:text-5xl font-['Space_Grotesk'] relative z-10">
               <span className="relative inline-block">
                 <span className="text-white relative z-10">NEXT</span>
-                <div className="absolute -bottom-1 left-0 right-0 h-1 bg-gradient-to-r from-[var(--primary-color)] to-[var(--secondary-color)] rounded-full"></div>
               </span>
               <span className="relative inline-block ml-4">
                 <span className="text-[var(--primary-color)] relative z-10">EVENTS</span>
@@ -115,7 +114,7 @@ const ScheduledEvents = () => {
                 )}
                 
                 {/* Address */}
-                <p className="text-sm text-[var(--text-muted)] font-['Noto_Sans'] mb-4">
+                <p className="text-sm text-[var(--text-muted)] font-['Noto_Sans'] mb-6">
                   {event.address}
                 </p>
                 

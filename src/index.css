@@ -76,22 +76,63 @@ button {
   background: #1e8f57;
 }
 
-/* Logo pulsing glow animation */
+/* Logo faulty neon glow animation - contained within header */
 @keyframes logoGlow {
   0% {
-    filter: drop-shadow(0 0 4px var(--primary-color));
+    filter: 
+      drop-shadow(0 0 6px rgba(35, 168, 103, 0.9))
+      drop-shadow(0 0 12px rgba(35, 168, 103, 0.7))
+      drop-shadow(0 0 18px rgba(35, 168, 103, 0.5))
+      drop-shadow(0 0 24px rgba(35, 168, 103, 0.3));
   }
-  25% {
-    filter: drop-shadow(0 0 6px var(--primary-color)) drop-shadow(0 0 8px var(--primary-color));
+  85% {
+    filter: 
+      drop-shadow(0 0 6px rgba(35, 168, 103, 0.9))
+      drop-shadow(0 0 12px rgba(35, 168, 103, 0.7))
+      drop-shadow(0 0 18px rgba(35, 168, 103, 0.5))
+      drop-shadow(0 0 24px rgba(35, 168, 103, 0.3));
   }
-  50% {
-    filter: drop-shadow(0 0 8px var(--primary-color)) drop-shadow(0 0 12px var(--primary-color));
+  86% {
+    filter: 
+      drop-shadow(0 0 2px rgba(35, 168, 103, 0.4))
+      drop-shadow(0 0 4px rgba(35, 168, 103, 0.3));
   }
-  75% {
-    filter: drop-shadow(0 0 6px var(--primary-color)) drop-shadow(0 0 8px var(--primary-color));
+  87% {
+    filter: 
+      drop-shadow(0 0 6px rgba(35, 168, 103, 0.9))
+      drop-shadow(0 0 12px rgba(35, 168, 103, 0.7))
+      drop-shadow(0 0 18px rgba(35, 168, 103, 0.5))
+      drop-shadow(0 0 24px rgba(35, 168, 103, 0.3));
+  }
+  88% {
+    filter: drop-shadow(0 0 1px rgba(35, 168, 103, 0.3));
+  }
+  89% {
+    filter: 
+      drop-shadow(0 0 6px rgba(35, 168, 103, 0.9))
+      drop-shadow(0 0 12px rgba(35, 168, 103, 0.7))
+      drop-shadow(0 0 18px rgba(35, 168, 103, 0.5))
+      drop-shadow(0 0 24px rgba(35, 168, 103, 0.3));
+  }
+  90% {
+    filter: 
+      drop-shadow(0 0 4px rgba(35, 168, 103, 0.5))
+      drop-shadow(0 0 8px rgba(35, 168, 103, 0.4))
+      drop-shadow(0 0 12px rgba(35, 168, 103, 0.3));
+  }
+  91% {
+    filter: 
+      drop-shadow(0 0 6px rgba(35, 168, 103, 0.9))
+      drop-shadow(0 0 12px rgba(35, 168, 103, 0.7))
+      drop-shadow(0 0 18px rgba(35, 168, 103, 0.5))
+      drop-shadow(0 0 24px rgba(35, 168, 103, 0.3));
   }
   100% {
-    filter: drop-shadow(0 0 4px var(--primary-color));
+    filter: 
+      drop-shadow(0 0 6px rgba(35, 168, 103, 0.9))
+      drop-shadow(0 0 12px rgba(35, 168, 103, 0.7))
+      drop-shadow(0 0 18px rgba(35, 168, 103, 0.5))
+      drop-shadow(0 0 24px rgba(35, 168, 103, 0.3));
   }
 }
 
@@ -101,80 +142,163 @@ button {
 }
 
 /* Neon button animations */
-@keyframes neonGlow {
+/* Enhanced neon flicker animation with stronger glow */
+@keyframes subtleNeonFlicker {
   0% {
     box-shadow: 
-      0 0 2px #15ff03,
-      0 0 8px #15ff03,
-      0 0 16px #15ff03,
-      inset 0 0 6px rgba(21, 255, 3, 0.3);
+      0 0 8px rgba(35, 168, 103, 0.6),
+      0 0 16px rgba(35, 168, 103, 0.5),
+      0 0 24px rgba(35, 168, 103, 0.4),
+      0 0 32px rgba(35, 168, 103, 0.25),
+      0 0 40px rgba(35, 168, 103, 0.15),
+      inset 0 0 6px rgba(35, 168, 103, 0.2);
   }
-  50% {
+  98% {
     box-shadow: 
-      0 0 3px #15ff03,
-      0 0 10px #15ff03,
-      0 0 20px #15ff03,
-      inset 0 0 8px rgba(21, 255, 3, 0.4);
+      0 0 8px rgba(35, 168, 103, 0.6),
+      0 0 16px rgba(35, 168, 103, 0.5),
+      0 0 24px rgba(35, 168, 103, 0.4),
+      0 0 32px rgba(35, 168, 103, 0.25),
+      0 0 40px rgba(35, 168, 103, 0.15),
+      inset 0 0 6px rgba(35, 168, 103, 0.2);
+  }
+  99% {
+    box-shadow: 
+      0 0 4px rgba(35, 168, 103, 0.4),
+      0 0 10px rgba(35, 168, 103, 0.3),
+      0 0 16px rgba(35, 168, 103, 0.2),
+      0 0 20px rgba(35, 168, 103, 0.1),
+      inset 0 0 3px rgba(35, 168, 103, 0.15);
   }
   100% {
     box-shadow: 
-      0 0 2px #15ff03,
-      0 0 8px #15ff03,
-      0 0 16px #15ff03,
-      inset 0 0 6px rgba(21, 255, 3, 0.3);
+      0 0 8px rgba(35, 168, 103, 0.6),
+      0 0 16px rgba(35, 168, 103, 0.5),
+      0 0 24px rgba(35, 168, 103, 0.4),
+      0 0 32px rgba(35, 168, 103, 0.25),
+      0 0 40px rgba(35, 168, 103, 0.15),
+      inset 0 0 6px rgba(35, 168, 103, 0.2);
   }
 }
 
-@keyframes neonPulse {
+/* Strong faulty neon light flicker - like a bright broken bar sign */
+@keyframes faultyNeonFlicker {
   0% {
-    text-shadow: 
-      0 0 2px #15ff03,
-      0 0 8px #15ff03,
-      0 0 14px #15ff03;
+    box-shadow: 
+      0 0 8px rgba(35, 168, 103, 0.9),
+      0 0 16px rgba(35, 168, 103, 0.7),
+      0 0 24px rgba(35, 168, 103, 0.5),
+      0 0 32px rgba(35, 168, 103, 0.3),
+      inset 0 0 8px rgba(35, 168, 103, 0.4);
   }
-  50% {
-    text-shadow: 
-      0 0 3px #15ff03,
-      0 0 10px #15ff03,
-      0 0 18px #15ff03;
+  85% {
+    box-shadow: 
+      0 0 8px rgba(35, 168, 103, 0.9),
+      0 0 16px rgba(35, 168, 103, 0.7),
+      0 0 24px rgba(35, 168, 103, 0.5),
+      0 0 32px rgba(35, 168, 103, 0.3),
+      inset 0 0 8px rgba(35, 168, 103, 0.4);
+  }
+  86% {
+    box-shadow: 
+      0 0 3px rgba(35, 168, 103, 0.4),
+      0 0 6px rgba(35, 168, 103, 0.3),
+      inset 0 0 3px rgba(35, 168, 103, 0.2);
+  }
+  87% {
+    box-shadow: 
+      0 0 8px rgba(35, 168, 103, 0.9),
+      0 0 16px rgba(35, 168, 103, 0.7),
+      0 0 24px rgba(35, 168, 103, 0.5),
+      0 0 32px rgba(35, 168, 103, 0.3),
+      inset 0 0 8px rgba(35, 168, 103, 0.4);
+  }
+  88% {
+    box-shadow: 
+      0 0 2px rgba(35, 168, 103, 0.3),
+      inset 0 0 2px rgba(35, 168, 103, 0.1);
+  }
+  89% {
+    box-shadow: 
+      0 0 8px rgba(35, 168, 103, 0.9),
+      0 0 16px rgba(35, 168, 103, 0.7),
+      0 0 24px rgba(35, 168, 103, 0.5),
+      0 0 32px rgba(35, 168, 103, 0.3),
+      inset 0 0 8px rgba(35, 168, 103, 0.4);
+  }
+  90% {
+    box-shadow: 
+      0 0 6px rgba(35, 168, 103, 0.5),
+      0 0 12px rgba(35, 168, 103, 0.4),
+      0 0 18px rgba(35, 168, 103, 0.3),
+      inset 0 0 4px rgba(35, 168, 103, 0.2);
+  }
+  91% {
+    box-shadow: 
+      0 0 8px rgba(35, 168, 103, 0.9),
+      0 0 16px rgba(35, 168, 103, 0.7),
+      0 0 24px rgba(35, 168, 103, 0.5),
+      0 0 32px rgba(35, 168, 103, 0.3),
+      inset 0 0 8px rgba(35, 168, 103, 0.4);
   }
   100% {
-    text-shadow: 
-      0 0 2px #15ff03,
-      0 0 8px #15ff03,
-      0 0 14px #15ff03;
+    box-shadow: 
+      0 0 8px rgba(35, 168, 103, 0.9),
+      0 0 16px rgba(35, 168, 103, 0.7),
+      0 0 24px rgba(35, 168, 103, 0.5),
+      0 0 32px rgba(35, 168, 103, 0.3),
+      inset 0 0 8px rgba(35, 168, 103, 0.4);
   }
 }
 
-/* Neon button styles */
+/* Removed the old intense neonPulse animation */
+
+/* Neon button styles - Strong faulty bar neon light effect */
 .neon-button {
   background: transparent;
-  border: 3px solid #15ff03;
-  color: #15ff03;
+  border: 2px solid #23a867;
+  color: #23a867;
   position: relative;
   overflow: hidden;
   transition: all 0.3s ease;
-  animation: neonGlow 2s ease-in-out infinite;
+  box-shadow: 
+    0 0 8px rgba(35, 168, 103, 0.9),
+    0 0 16px rgba(35, 168, 103, 0.7),
+    0 0 24px rgba(35, 168, 103, 0.5),
+    0 0 32px rgba(35, 168, 103, 0.3),
+    inset 0 0 8px rgba(35, 168, 103, 0.4);
+  animation: faultyNeonFlicker 4s ease-in-out infinite;
 }
 
 .neon-button span {
   position: relative;
   z-index: 2;
-  animation: neonPulse 2s ease-in-out infinite;
   font-weight: 700;
+  text-shadow: 0 0 4px rgba(35, 168, 103, 0.4);
 }
 
 .neon-button:hover {
-  background: #15ff03;
-  color: #000;
-  animation: neonGlow 1s ease-in-out infinite;
-  border-width: 4px;
+  background: rgba(35, 168, 103, 0.15);
+  color: #23a867;
+  border-color: #2bc46e;
+  box-shadow: 
+    0 0 12px rgba(35, 168, 103, 1.0),
+    0 0 24px rgba(35, 168, 103, 0.8),
+    0 0 36px rgba(35, 168, 103, 0.6),
+    0 0 48px rgba(35, 168, 103, 0.4),
+    inset 0 0 10px rgba(35, 168, 103, 0.45);
 }
 
 .neon-button:hover span {
-  text-shadow: none;
-  animation: none;
-  font-weight: 900;
+  text-shadow: 
+    0 0 2px rgba(35, 168, 103, 0.8),
+    0 0 6px rgba(35, 168, 103, 0.4);
+  font-weight: 800;
+}
+
+.neon-button:active {
+  transform: scale(0.98);
+  transition: all 0.1s ease;
 }
 
 .neon-button:before {
@@ -184,8 +308,8 @@ button {
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(21, 255, 3, 0.4), transparent);
-  transition: left 0.5s;
+  background: linear-gradient(90deg, transparent, rgba(35, 168, 103, 0.15), transparent);
+  transition: left 0.6s ease;
 }
 
 .neon-button:hover:before {
