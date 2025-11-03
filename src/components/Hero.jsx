@@ -4,32 +4,43 @@ const Hero = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
 
-  // Hero carousel images
+  // Hero carousel images with event-specific content
   const heroImages = [
     {
-      src: '/assets/hero-images/1.png',
-      alt: 'Township Green Community Space'
+      src: '/assets/hero-images/hero-1.png',
+      alt: 'Township Green Community Space',
+      title: 'Top of the Green'
     },
     {
-      src: '/assets/hero-images/2.png',
-      alt: 'Art Sessions and Creative Workshops'
-    },
-    {
-      src: '/assets/hero-images/3.png',
-      alt: 'Cannabis Consumption Lounge'
-    },
-    {
-      src: '/assets/hero-images/4.png',
-      alt: 'Community Events and Gatherings'
+      src: '/assets/hero-images/hero-2.png',
+      alt: 'Top of the Green Entertainment Lounge',
+      title: 'Entertainment Hub'
     }
   ];
 
-  const scrollToBooking = () => {
-    const element = document.getElementById('booking');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+  // Event types for the bottom section
+  const eventTypes = [
+    {
+      src: '/assets/hero-images/1.png',
+      alt: 'A group of people painting on canvases in a relaxed atmosphere',
+      title: 'Puff n Paint'
+    },
+    {
+      src: '/assets/hero-images/2.png',
+      alt: 'A comedian performing on a stage to an audience',
+      title: 'Comedy Night'
+    },
+    {
+      src: '/assets/hero-images/3.png',
+      alt: 'A tattoo artist working on a client\'s arm',
+      title: 'Tattoo Artists'
+    },
+    {
+      src: '/assets/hero-images/4.png',
+      alt: 'A group of friends celebrating a bachelorette party',
+      title: 'Bachelorette Parties'
     }
-  };
+  ];
 
   // Auto-play functionality
   useEffect(() => {
@@ -63,93 +74,93 @@ const Hero = () => {
   };
 
   return (
-    <section className="relative">
-      <div 
-        className="relative h-[40vh] md:h-[70vh] w-full rounded-lg overflow-hidden"
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-      >
-        {/* Carousel Images */}
-        <div className="relative w-full h-full">
-          {heroImages.map((image, index) => (
-            <div
-              key={index}
-              className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
-                index === currentSlide ? 'opacity-100' : 'opacity-0'
-              }`}
-            >
-              <div
-                className="w-full h-full bg-cover bg-center bg-no-repeat"
-                style={{
-                  backgroundImage: `linear-gradient(rgba(18, 33, 26, 0.4) 0%, rgba(18, 33, 26, 0.3) 100%), url("${image.src}")`,
-                  backgroundSize: 'cover',
-                  backgroundPosition: 'center center',
-                }}
-              >
-                {/* Content overlay can be added here for each slide */}
-                <div className="flex h-full w-full items-center justify-center">
-                  {/* Optional: Add slide-specific content here */}
-                </div>
-              </div>
+    <>
+      {/* Hero Carousel Section */}
+      <div className="relative w-full h-[60vh] md:h-[70vh] overflow-hidden group">
+        {/* Carousel Slides */}
+        {heroImages.map((image, index) => (
+          <div
+            key={index}
+            className={`absolute inset-0 w-full h-full bg-cover bg-center transition-opacity duration-1000 ${
+              index === currentSlide ? 'opacity-100' : 'opacity-0'
+            }`}
+            data-alt={image.alt}
+            style={{
+              backgroundImage: `linear-gradient(0deg, rgba(33, 33, 33, 0.6) 0%, rgba(33, 33, 33, 0.2) 50%, rgba(33, 33, 33, 0) 100%), url("${image.src}")`
+            }}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+          >
+            <div className="absolute bottom-20 left-1/2 -translate-x-1/2 text-center">
+              <h2 className="text-white text-5xl font-bold tracking-tight">{image.title}</h2>
             </div>
-          ))}
+          </div>
+        ))}
+
+        {/* Main Headline */}
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none -mt-40">
+          <h1 
+            className="text-white tracking-tight text-6xl font-bold text-center max-w-4xl leading-tight px-4"
+            style={{ textShadow: '0 2px 8px rgba(0,0,0,0.5)' }}
+          >
+            Host your events at Top of the Green
+          </h1>
         </div>
 
         {/* Navigation Arrows */}
-        <button
+        <button 
           onClick={goToPrevious}
-          className="absolute left-4 top-1/2 -translate-y-1/2 z-10 bg-black/30 hover:bg-black/50 text-white p-2 rounded-full transition-all duration-300 hover:scale-110"
-          aria-label="Previous image"
+          className="absolute left-4 top-1/2 -translate-y-1/2 z-10 p-3 text-white/70 hover:text-white transition-all opacity-0 group-hover:opacity-100 focus:opacity-100"
         >
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
           </svg>
         </button>
 
-        <button
+        <button 
           onClick={goToNext}
-          className="absolute right-4 top-1/2 -translate-y-1/2 z-10 bg-black/30 hover:bg-black/50 text-white p-2 rounded-full transition-all duration-300 hover:scale-110"
-          aria-label="Next image"
+          className="absolute right-4 top-1/2 -translate-y-1/2 z-10 p-3 text-white/70 hover:text-white transition-all opacity-0 group-hover:opacity-100 focus:opacity-100"
         >
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
           </svg>
         </button>
 
-        {/* Slide Indicators */}
-        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-10 flex gap-2">
+        {/* Pagination Indicators */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex justify-center gap-3">
           {heroImages.map((_, index) => (
             <button
               key={index}
               onClick={() => goToSlide(index)}
-              className={`w-3 h-3 rounded-full transition-all duration-300 ${
+              className={`w-8 h-1.5 rounded-full transition-colors ${
                 index === currentSlide
-                  ? 'bg-[var(--primary-color)] scale-110'
-                  : 'bg-white/50 hover:bg-white/70'
+                  ? 'bg-white'
+                  : 'bg-white/50 hover:bg-white/75'
               }`}
-              aria-label={`Go to slide ${index + 1}`}
             />
           ))}
         </div>
-
-        {/* Play/Pause Button */}
-        <button
-          onClick={() => setIsAutoPlaying(!isAutoPlaying)}
-          className="absolute top-4 right-4 z-10 bg-black/30 hover:bg-black/50 text-white p-2 rounded-full transition-all duration-300"
-          aria-label={isAutoPlaying ? 'Pause slideshow' : 'Play slideshow'}
-        >
-          {isAutoPlaying ? (
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 9v6m4-6v6" />
-            </svg>
-          ) : (
-            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M8 5v14l11-7z" />
-            </svg>
-          )}
-        </button>
       </div>
-    </section>
+
+      {/* More Event Ideas Section */}
+      <div className="pt-16 pb-12 sm:pt-24 sm:pb-16 bg-[var(--background-dark)]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl font-bold tracking-tight text-white text-center mb-10">What's happening</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {eventTypes.map((event, index) => (
+              <div key={index} className="flex flex-col gap-4 rounded-lg">
+                <div 
+                  className="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-xl"
+                  data-alt={event.alt}
+                  style={{ backgroundImage: `url("${event.src}")` }}
+                ></div>
+                <p className="text-white text-lg font-medium leading-normal text-center">{event.title}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </>
   );
 };
 

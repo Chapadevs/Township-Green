@@ -105,7 +105,7 @@ const EventsSection = () => {
     <section className="py-16 px-10 bg-[var(--secondary-color)] bg-opacity-20" id="booking">
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-3 mb-4">
-            <div className="relative mb-4">
+            <div className="relative">
               <h2 className="text-white text-5xl md:text-6xl font-black leading-tight tracking-tight font-['Space_Grotesk'] relative z-10">
                 <span className="relative inline-block">
                   <span className="text-white relative z-10">Reserve</span>
@@ -119,7 +119,8 @@ const EventsSection = () => {
             </div>
           </div>
           <p className="text-[var(--text-secondary)] text-lg font-['Noto_Sans'] max-w-2xl mx-auto">
-          Register for one of our events – or call us to book your own event! We’ll promote you through out if it’s an open event or keep it private for you and your guests only.  We’ll work with you to make sure your experience is successful.          </p>
+            Book an event or host your own private session. We'll handle the details.
+          </p>
         </div>
       <div className="max-w-5xl mx-auto">
               {/* Event Features */}

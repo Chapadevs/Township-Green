@@ -52,7 +52,7 @@ const ScheduledEvents = () => {
     <section className="md:pb-20 md:mb-8 bg-[var(--background-dark)]" id="events">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl py-12">
         <div className="text-center mb-8">
-          <div className="relative mb-4">
+          <div className="relative mb-2">
             <h2 className="text-4xl font-black tracking-tight text-white sm:text-5xl font-['Space_Grotesk'] relative z-10">
               <span className="relative inline-block">
                 <span className="text-white relative z-10">NEXT</span>
