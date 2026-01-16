@@ -1,103 +1,18 @@
 import { useState } from 'react';
+import { useEvents } from '../../hooks/useEvents';
 import Calendar from './Calendar.jsx';
-import BookingForm from './BookingForm.jsx';
 
-const EventsSection = () => {
+const EventsSection = ({ onBookNow }) => {
+  const { events, loading } = useEvents();
   const [selectedDate, setSelectedDate] = useState(null);
-  const [showBookingForm, setShowBookingForm] = useState(false);
-  const [selectedEventForBooking, setSelectedEventForBooking] = useState(null);
-
-  // Sample events data - in a real app, this would come from an API
-  const [events] = useState([
-    {
-      id: '1',
-      title: 'PUFF-N-PAINT',
-      description: 'Art session with all materials provided. Perfect for creative relaxation.',
-      date: new Date(2025, 9, 4), // October 4, 2025
-      startTime: '6:00 PM',
-      endTime: '9:00 PM',
-      capacity: 20,
-      registered: 12,
-      price: 25,
-      type: 'bookable'
-    },
-    {
-      id: '2',
-      title: 'RIVERSIDE CAR SHOW',
-      description: 'Community car show with special Top of the Green discount.',
-      date: new Date(2025, 9, 11), // October 11, 2025
-      startTime: '12:00 PM',
-      endTime: '5:00 PM',
-      capacity: 100,
-      registered: 45,
-      price: 0,
-      type: 'fyi'
-    },
-    {
-      id: '3',
-      title: 'JUST A WOMAN PRODUCT LAUNCH',
-      description: 'Educational event featuring women-focused cannabis products.',
-      date: new Date(2025, 9, 12), // October 12, 2025
-      startTime: '1:00 PM',
-      endTime: '4:00 PM',
-      capacity: 30,
-      registered: 18,
-      price: 15,
-      type: 'fyi'
-    },
-    {
-      id: '4',
-      title: 'HALLOWEED PARTY',
-      description: 'Halloween celebration with food truck, games, and more!',
-      date: new Date(2025, 9, 25), // October 25, 2025
-      startTime: '12:00 PM',
-      endTime: '9:00 PM',
-      capacity: 50,
-      registered: 35,
-      price: 20,
-      type: 'bookable'
-    }
-  ]);
-
-  const getSelectedEvent = () => {
-    if (!selectedDate) return null;
-    
-    return events.find(event => {
-      const eventDate = new Date(event.date);
-      return eventDate.toDateString() === selectedDate.toDateString();
-    }) || null;
-  };
 
   const handleDateSelect = (date) => {
     setSelectedDate(date);
   };
 
   const handleBookNow = (event, date) => {
-    setSelectedEventForBooking(event);
-    setSelectedDate(date);
-    setShowBookingForm(true);
-  };
-
-  const handleCloseBookingForm = () => {
-    setShowBookingForm(false);
-    setSelectedEventForBooking(null);
-  };
-
-  const handleBookingSubmit = async (data) => {
-    try {
-      // In a real app, this would also update your backend/database
-      console.log('Booking submitted:', data);
-      
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 500));
-      
-      // You could update local state here, send to analytics, etc.
-      console.log('Booking processed successfully');
-      
-      // Don't reset selection - let the BookingForm handle the success state
-    } catch (error) {
-      console.error('Booking failed:', error);
-      throw error;
+    if (onBookNow) {
+      onBookNow(event, date);
     }
   };
 
@@ -112,7 +27,7 @@ const EventsSection = () => {
                 </span>
                 <span className="text-white mx-3">Your</span>
                 <span className="relative inline-block">
-                  <span className="text-[var(--primary-color)] relative z-10">Spot</span>
+                  <span className="relative z-10">Spot</span>
                   <div className="absolute inset-0 bg-[var(--primary-color)] opacity-15 blur-lg transform scale-110"></div>
                 </span>
               </h2>
@@ -186,7 +101,14 @@ const EventsSection = () => {
           
           {/* Right Side - Event Sessions */}
           <div className="flex-1 min-w-[320px] max-w-2xl">
-            {selectedDate ? (
+            {loading ? (
+              <div className="bg-[var(--background-card)] rounded-xl p-8 text-center">
+                <div className="text-gray-400 mb-4">
+                  <span className="material-symbols-outlined text-5xl animate-pulse">hourglass_empty</span>
+                </div>
+                <p className="text-white">Loading events...</p>
+              </div>
+            ) : selectedDate ? (
               <div>
                 <h3 className="text-white text-2xl font-bold mb-6 font-['Space_Grotesk']">
                   Available Sessions
@@ -202,31 +124,39 @@ const EventsSection = () => {
                 <div className="space-y-6">
                   {events
                     .filter(event => {
-                      const eventDate = new Date(event.date);
+                      const eventDate = new Date(event.event_date);
                       return eventDate.toDateString() === selectedDate.toDateString();
                     })
                     .map(event => {
-                      const availableSpots = event.capacity - event.registered;
+                      const availableSpots = event.capacity - (event.booked_seats || 0);
+                      const isFYI = event.event_type === 'special-event'; // Adjust as needed
+                      
                       return (
                         <div key={event.id} className="bg-[var(--background-card)] rounded-xl p-6 shadow-2xl">
                           <div className="mb-4">
                             <h4 className="text-white text-xl font-bold mb-2 font-['Space_Grotesk']">{event.title}</h4>
-                            <div className="flex items-center gap-6 mb-3">
+                            <div className="flex items-center gap-6 mb-3 flex-wrap">
                               <div className="flex items-center gap-2">
                                 <span className="material-symbols-outlined text-[var(--primary-color)] text-lg">schedule</span>
-                                <p className="text-gray-300">{event.startTime} - {event.endTime}</p>
+                                <p className="text-gray-300">
+                                  {event.start_time?.slice(0, 5)} - {event.end_time?.slice(0, 5)}
+                                </p>
                               </div>
                               <div className="flex items-center gap-2">
                                 <span className="material-symbols-outlined text-[var(--primary-color)] text-lg">payments</span>
                                 <p className="text-white font-bold">
-                                  {event.price === 0 ? 'Free' : `$${event.price}`}
+                                  {event.price === 0 || event.price === '0.00' ? 'Free' : `$${parseFloat(event.price).toFixed(2)}`}
                                 </p>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <span className="material-symbols-outlined text-[var(--primary-color)] text-lg">group</span>
+                                <p className="text-gray-300">{availableSpots} spots left</p>
                               </div>
                             </div>
                             <p className="text-gray-400 mb-4 font-['Noto_Sans'] leading-relaxed">{event.description}</p>
                           </div>
                           
-                          {event.type === 'fyi' ? (
+                          {isFYI ? (
                             <div className="w-full bg-orange-500 bg-opacity-20 border-2 border-orange-500 text-orange-300 font-bold py-3 px-6 rounded-lg text-center">
                               <span className="flex items-center justify-center gap-2">
                                 <span className="material-symbols-outlined">info</span>
@@ -239,7 +169,7 @@ const EventsSection = () => {
                               className="w-full bg-[var(--primary-color)] hover:bg-opacity-90 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 hover:scale-105 shadow-lg flex items-center justify-center gap-2"
                             >
                               <span className="material-symbols-outlined">event_available</span>
-                              <span>Fill your infomation</span>
+                              <span>Book This Session</span>
                             </button>
                           ) : (
                             <div className="w-full bg-gray-600 text-gray-300 font-bold py-3 px-6 rounded-lg text-center">
@@ -254,7 +184,7 @@ const EventsSection = () => {
                     })
                   }
                   {events.filter(event => {
-                    const eventDate = new Date(event.date);
+                    const eventDate = new Date(event.event_date);
                     return eventDate.toDateString() === selectedDate.toDateString();
                   }).length === 0 && (
                     <div className="bg-[var(--background-card)] rounded-xl p-8 text-center">
@@ -278,106 +208,6 @@ const EventsSection = () => {
             )}
           </div>
         </div>
-
-        {/* Booking Form Modal */}
-        {showBookingForm && selectedEventForBooking && (
-          <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 p-4">
-            <div className="bg-[var(--background-dark)] rounded-2xl max-w-4xl w-full max-h-[95vh] relative shadow-2xl flex flex-col">
-              {/* Modal Header */}
-              <div className="bg-gradient-to-r from-[var(--primary-color)] to-[var(--secondary-color)] p-3 rounded-t-2xl flex-shrink-0">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <h3 className="text-white text-lg font-bold font-['Space_Grotesk'] mb-1">
-                      {selectedEventForBooking.title}
-                    </h3>
-                    <p className="text-white text-opacity-90 font-['Noto_Sans'] text-xs">
-                      {selectedDate?.toLocaleDateString('en-US', { 
-                        weekday: 'short', 
-                        month: 'short', 
-                        day: 'numeric' 
-                      })} • {selectedEventForBooking.startTime} - {selectedEventForBooking.endTime}
-                    </p>
-                  </div>
-                  <button
-                    onClick={handleCloseBookingForm}
-                    className="text-white hover:text-gray-300 transition-colors p-1 hover:bg-white hover:bg-opacity-10 rounded-lg"
-                  >
-                    <span className="material-symbols-outlined text-lg">close</span>
-                  </button>
-                </div>
-              </div>
-              
-              {/* Modal Body - Two Column Layout */}
-              <div className="flex-1 p-6 min-h-0">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 h-full">
-                  {/* Left Column - Event Details */}
-                  <div className="space-y-3">
-                    <div className="bg-[var(--background-card)] p-3 rounded-lg">
-                      <div className="flex items-center justify-between mb-2">
-                        <h4 className="text-white font-bold text-sm font-['Space_Grotesk']">Session Details</h4>
-                        <div className="flex items-center gap-3">
-                          <div className="flex items-center gap-1">
-                            <span className="material-symbols-outlined text-[var(--primary-color)] text-sm">group</span>
-                            <p className="text-[var(--primary-color)] font-medium text-sm">
-                              {selectedEventForBooking.capacity - selectedEventForBooking.registered}
-                            </p>
-                          </div>
-                          <div className="flex items-center gap-1">
-                            <span className="material-symbols-outlined text-[var(--primary-color)] text-sm">payments</span>
-                            <p className="text-white font-bold text-sm">
-                              {selectedEventForBooking.price === 0 ? 'Free' : `$${selectedEventForBooking.price}`}
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                      <p className="text-gray-300 text-sm leading-relaxed">{selectedEventForBooking.description}</p>
-                    </div>
-                    
-                    {/* Additional Info */}
-                    <div className="bg-[var(--background-card)] p-3 rounded-lg">
-                      <h5 className="text-white font-bold text-sm font-['Space_Grotesk'] mb-2">What's Included</h5>
-                      <ul className="text-gray-300 text-sm space-y-1">
-                        <li className="flex items-center gap-2">
-                          <span className="material-symbols-outlined text-[var(--primary-color)] text-xs">check</span>
-                          All art materials provided
-                        </li>
-                        <li className="flex items-center gap-2">
-                          <span className="material-symbols-outlined text-[var(--primary-color)] text-xs">check</span>
-                          Professional guidance
-                        </li>
-                        <li className="flex items-center gap-2">
-                          <span className="material-symbols-outlined text-[var(--primary-color)] text-xs">check</span>
-                          Relaxing atmosphere
-                        </li>
-                        <li className="flex items-center gap-2">
-                          <span className="material-symbols-outlined text-[var(--primary-color)] text-xs">check</span>
-                          Take your art home
-                        </li>
-                      </ul>
-                    </div>
-                    
-                    {/* Compact Payment Notice */}
-                    <div className="neon-button bg-gradient-to-r from-[var(--primary-color)] to-green-400 border-2 border-[var(--primary-color)] p-3 rounded-lg shadow-lg">
-                      <p className="text-white font-bold text-sm text-center">
-                        <span> $ Payment at entrance - Cash or Card accepted</span>
-                      </p>
-                    </div>
-                  </div>
-                  
-                  {/* Right Column - Booking Form */}
-                  <div className="overflow-y-auto">
-                    <BookingForm 
-                      selectedEvent={selectedEventForBooking}
-                      selectedDate={selectedDate}
-                      onBookingSubmit={handleBookingSubmit}
-                      isModal={true}
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
 
         
       </div>

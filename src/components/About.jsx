@@ -6,11 +6,11 @@ const About = () => {
           <h2 className="text-white text-4xl md:text-5xl font-black leading-tight tracking-tight font-['Space_Grotesk'] relative z-10">
             What 
             <span className="relative inline-block mx-2">
-              <span className="text-[var(--primary-color)] relative z-10">we</span>
+              <span className="relative z-10">we</span>
               <div className="absolute inset-0 bg-[var(--primary-color)] opacity-20 blur-lg transform scale-110"></div>
             </span>
             <span className="relative inline-block ml-1">
-              <span className="text-[var(--primary-color)] relative z-10">do?</span>
+              <span className="relative z-10">do?</span>
               <div className="absolute inset-0 bg-[var(--primary-color)] opacity-20 blur-lg transform scale-110"></div>
             </span>
           </h2>

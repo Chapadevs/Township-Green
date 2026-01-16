@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 const Calendar = ({ selectedDate, onDateSelect, events }) => {
-  const [currentMonth, setCurrentMonth] = useState(new Date(2025, 9, 1)); // Start at October 2025
+  const [currentMonth, setCurrentMonth] = useState(new Date(2025, 10, 1)); // Start at November 2025
 
   const monthNames = [
     'January', 'February', 'March', 'April', 'May', 'June',
@@ -34,9 +34,13 @@ const Calendar = ({ selectedDate, onDateSelect, events }) => {
   };
 
   const getEventsForDate = (date) => {
-    if (!date) return [];
+    if (!date || !events) return [];
     return events.filter(event => {
-      const eventDate = new Date(event.date);
+      // Handle both 'date' and 'event_date' properties (Supabase uses event_date)
+      const eventDateStr = event.event_date || event.date;
+      if (!eventDateStr) return false;
+      
+      const eventDate = new Date(eventDateStr);
       return eventDate.toDateString() === date.toDateString();
     });
   };

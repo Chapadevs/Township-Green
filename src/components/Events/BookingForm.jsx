@@ -1,8 +1,11 @@
-import { useState } from 'react';
-import useEmailJS from '../../hooks/useEmailJS.js';
+import { useState, useEffect } from 'react';
+import { useAuth } from '../../contexts/AuthContext';
+import { useBookings } from '../../hooks/useBookings';
+import { supabase } from '../../lib/supabaseClient';
 
-const BookingForm = ({ selectedEvent, selectedDate, onBookingSubmit, isModal = false }) => {
-  const { sendEmail, isLoading: emailLoading, error: emailError } = useEmailJS();
+const BookingForm = ({ selectedEvent, selectedDate, onBookingSubmit, isModal = false, onLoginRequired }) => {
+  const { user, isAuthenticated } = useAuth();
+  const { createBooking } = useBookings();
   
   const [formData, setFormData] = useState({
     name: '',
@@ -15,6 +18,17 @@ const BookingForm = ({ selectedEvent, selectedDate, onBookingSubmit, isModal = f
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState({});
   const [submitSuccess, setSubmitSuccess] = useState(false);
+
+  // Auto-fill form with user data if logged in
+  useEffect(() => {
+    if (user) {
+      setFormData(prev => ({
+        ...prev,
+        email: user.email || prev.email,
+        name: prev.name || user.user_metadata?.full_name || ''
+      }));
+    }
+  }, [user]);
 
   const validateForm = () => {
     const newErrors = {};
@@ -40,31 +54,80 @@ const BookingForm = ({ selectedEvent, selectedDate, onBookingSubmit, isModal = f
   const handleSubmit = async (e) => {
     e.preventDefault();
     
+    // Check authentication first
+    if (!isAuthenticated) {
+      if (onLoginRequired) {
+        onLoginRequired();
+      }
+      return;
+    }
+
     if (!validateForm() || !selectedEvent) return;
 
     setIsSubmitting(true);
     setSubmitSuccess(false);
 
     try {
-      const bookingData = {
-        name: formData.name,
-        email: formData.email,
-        phone: formData.phone,
-        eventId: selectedEvent.id,
-        guests: formData.guests || 1,
-        specialRequests: formData.specialRequests
-      };
+      // Create booking in Supabase
+      const { data: booking, error: bookingError } = await createBooking({
+        event_id: selectedEvent.id,
+        session_date: bookingDate,
+        session_time: selectedEvent.start_time || '00:00:00',
+        number_of_guests: formData.guests || 1,
+        customer_name: formData.name,
+        customer_email: formData.email,
+        customer_phone: formData.phone,
+        special_requests: formData.specialRequests || null,
+        total_price: (selectedEvent.price || 0) * (formData.guests || 1)
+      });
 
-      // Send email via EmailJS
-      await sendEmail(bookingData, 'booking');
+      if (bookingError) {
+        throw bookingError;
+      }
+
+      // Send confirmation email via Supabase Edge Function
+      try {
+        const { data: emailData, error: emailError } = await supabase.functions.invoke('send-booking-email', {
+          body: {
+            bookingData: {
+              customerName: formData.name,
+              customerEmail: formData.email,
+              customerPhone: formData.phone,
+              eventTitle: selectedEvent.title,
+              eventId: selectedEvent.id || selectedEvent.title,
+              sessionDate: bookingDate.toLocaleDateString('en-US', { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+              }),
+              sessionTime: `${selectedEvent.start_time} - ${selectedEvent.end_time}`,
+              numberOfGuests: formData.guests,
+              confirmationCode: booking.confirmation_code,
+              specialRequests: formData.specialRequests || undefined
+            }
+          }
+        });
+
+        if (emailError) {
+          console.error('Email notification failed:', emailError);
+        } else {
+          console.log('✅ Confirmation email sent successfully');
+        }
+      } catch (emailErr) {
+        console.error('Email notification failed:', emailErr);
+        // Don't fail the booking if email fails
+      }
       
       // Call parent callback
-      await onBookingSubmit(bookingData);
+      if (onBookingSubmit) {
+        await onBookingSubmit(booking);
+      }
       
       // Reset form and show success
       setFormData({
         name: '',
-        email: '',
+        email: user?.email || '',
         phone: '',
         guests: 1,
         specialRequests: ''
@@ -75,6 +138,7 @@ const BookingForm = ({ selectedEvent, selectedDate, onBookingSubmit, isModal = f
       setTimeout(() => setSubmitSuccess(false), 5000);
     } catch (error) {
       console.error('Booking submission failed:', error);
+      setErrors({ submit: error.message || 'Failed to create booking' });
     } finally {
       setIsSubmitting(false);
     }
@@ -97,30 +161,59 @@ const BookingForm = ({ selectedEvent, selectedDate, onBookingSubmit, isModal = f
     });
   };
 
-  const availableSpots = selectedEvent ? selectedEvent.capacity - selectedEvent.registered : 0;
+  const availableSpots = selectedEvent ? selectedEvent.capacity - (selectedEvent.booked_seats || 0) : 0;
+
+  // Use event date if no specific date is selected
+  const bookingDate = selectedDate || (selectedEvent?.event_date ? new Date(selectedEvent.event_date) : null);
+
+  // Show login prompt if not authenticated
+  if (!isAuthenticated) {
+    return (
+      <div className={isModal ? "w-full" : "flex-1 min-w-[320px] max-w-md"}>
+        <div className="bg-[#1d2d25] p-8 rounded-lg text-center">
+          <div className="text-[var(--primary-color)] mb-4">
+            <span className="material-symbols-outlined text-5xl">lock</span>
+          </div>
+          <h3 className="text-white text-xl font-bold mb-2">Login Required</h3>
+          <p className="text-gray-400 mb-6">
+            Please sign in to your account to make a booking
+          </p>
+          <button
+            onClick={onLoginRequired}
+            className="bg-[var(--primary-color)] hover:bg-opacity-90 text-white font-bold py-3 px-6 rounded-lg transition-all"
+          >
+            Sign In to Book
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className={isModal ? "w-full" : "flex-1 min-w-[320px] max-w-md"}>
       {!isModal && <h3 className="text-white text-2xl font-bold mb-4">Book a Session</h3>}
       
-      {selectedEvent && selectedDate ? (
+      {selectedEvent && bookingDate ? (
         <div className={isModal ? "space-y-6" : "space-y-3"}>
           {/* Success Message */}
           {submitSuccess && (
-            <div className="bg-green-900 border border-green-600 p-2 rounded">
+            <div className="bg-green-900 border border-green-600 p-3 rounded">
               <div className="flex items-center gap-2">
-                <span className="material-symbols-outlined text-green-400 text-sm">check_circle</span>
-                <p className="text-green-400 font-medium text-sm">Booking submitted successfully!</p>
+                <span className="material-symbols-outlined text-green-400">check_circle</span>
+                <div>
+                  <p className="text-green-400 font-medium">Booking confirmed!</p>
+                  <p className="text-green-300 text-sm">Check your email for confirmation details</p>
+                </div>
               </div>
             </div>
           )}
 
           {/* Error Message */}
-          {emailError && (
-            <div className="bg-red-900 border border-red-600 p-2 rounded">
+          {(emailError || errors.submit) && (
+            <div className="bg-red-900 border border-red-600 p-3 rounded">
               <div className="flex items-center gap-2">
-                <span className="material-symbols-outlined text-red-400 text-sm">error</span>
-                <p className="text-red-400 font-medium text-sm">Error submitting booking</p>
+                <span className="material-symbols-outlined text-red-400">error</span>
+                <p className="text-red-400 font-medium">{errors.submit || 'Error submitting booking'}</p>
               </div>
             </div>
           )}
@@ -129,9 +222,10 @@ const BookingForm = ({ selectedEvent, selectedDate, onBookingSubmit, isModal = f
           {!isModal && (
             <div className="bg-[#1d2d25] p-4 rounded-lg space-y-2">
               <p className="text-white font-bold text-lg">{selectedEvent.title}</p>
-              <p className="text-gray-400">{formatDate(selectedDate)}</p>
-              <p className="text-gray-400">{selectedEvent.startTime} - {selectedEvent.endTime}</p>
+              <p className="text-gray-400">{formatDate(bookingDate)}</p>
+              <p className="text-gray-400">{selectedEvent.start_time} - {selectedEvent.end_time}</p>
               <p className="text-gray-300">{selectedEvent.description}</p>
+              <p className="text-[var(--primary-color)] font-bold">{availableSpots} spots available</p>
             </div>
           )}
 
@@ -141,7 +235,7 @@ const BookingForm = ({ selectedEvent, selectedDate, onBookingSubmit, isModal = f
               {isModal ? (
                 /* Modal Layout - Two Column Grid for Form Fields */
                 <>
-                  <div className="grid grid-cols-2 gap-4 gap-y-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                       <label htmlFor="name" className="block text-gray-300 font-medium mb-2 text-xs">
                         Full Name *
@@ -173,7 +267,7 @@ const BookingForm = ({ selectedEvent, selectedDate, onBookingSubmit, isModal = f
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-4 gap-y-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                       <label htmlFor="phone" className="block text-gray-300 font-medium mb-2 text-xs">
                         Phone Number *

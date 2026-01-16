@@ -98,9 +98,9 @@ const Hero = () => {
         ))}
 
         {/* Main Headline */}
-        <div className="absolute inset-0 flex items-center justify-center pointer-events-none -mt-40">
+        <div className="absolute inset-x-0 top-[10%] flex justify-center pointer-events-none px-4">
           <h1 
-            className="text-white tracking-tight text-6xl font-bold text-center max-w-4xl leading-tight px-4"
+            className="text-white tracking-tight text-4xl sm:text-5xl md:text-6xl font-bold text-center leading-tight md:whitespace-nowrap"
             style={{ textShadow: '0 2px 8px rgba(0,0,0,0.5)' }}
           >
             Host your events at Top of the Green
