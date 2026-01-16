@@ -32,7 +32,7 @@ export default defineConfig(({ command, mode }) => {
         output: {
           manualChunks: {
             vendor: ['react', 'react-dom'],
-            emailjs: ['@emailjs/browser']
+            supabase: ['@supabase/supabase-js']
           }
         }
       }
