@@ -75,28 +75,13 @@ const EventsSection = ({ onBookNow }) => {
         
         {/* Calendar and Event Sessions Section */}
         <div className="flex flex-wrap items-start justify-center gap-12">
-          {/* Left Side - Legend and Calendar */}
+          {/* Left Side - Calendar */}
           <div className="flex-1 min-w-[320px] max-w-md">
-            {/* Event Legend */}
-            <div className="mb-8 min-w-[320px] max-w-md">
-              <div className="bg-black bg-opacity-30 rounded-lg p-4">
-                <div className="flex justify-center items-center gap-4 text-xs flex-wrap">
-                  <div className="flex items-center gap-1.5">
-                    <div className="w-3 h-3 bg-[var(--primary-color)] rounded-full"></div>
-                    <span className="text-white font-medium">Events</span>
-                  </div>
-                  <div className="flex items-center gap-1.5">
-                    <div className="w-3 h-3 bg-orange-500 rounded-full"></div>
-                    <span className="text-white font-medium">Informational</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          <Calendar 
-            selectedDate={selectedDate}
-            onDateSelect={handleDateSelect}
-            events={events}
-          />
+            <Calendar 
+              selectedDate={selectedDate}
+              onDateSelect={handleDateSelect}
+              events={events}
+            />
           </div>
           
           {/* Right Side - Event Sessions */}
@@ -110,17 +95,6 @@ const EventsSection = ({ onBookNow }) => {
               </div>
             ) : selectedDate ? (
               <div>
-                <h3 className="text-white text-2xl font-bold mb-6 font-['Space_Grotesk']">
-                  Available Sessions
-                </h3>
-                <p className="text-[var(--text-secondary)] mb-6 font-['Noto_Sans']">
-                  {selectedDate.toLocaleDateString('en-US', { 
-                    weekday: 'long', 
-                    year: 'numeric',
-                    month: 'long', 
-                    day: 'numeric' 
-                  })}
-                </p>
                 <div className="space-y-6">
                   {events
                     .filter(event => {
@@ -134,6 +108,17 @@ const EventsSection = ({ onBookNow }) => {
                       return (
                         <div key={event.id} className="bg-[var(--background-card)] rounded-xl p-6 shadow-2xl">
                           <div className="mb-4">
+                            <h3 className="text-white text-2xl font-bold mb-2 font-['Space_Grotesk']">
+                              Available Sessions
+                            </h3>
+                            <p className="text-[var(--text-secondary)] mb-4 font-['Noto_Sans']">
+                              {selectedDate.toLocaleDateString('en-US', { 
+                                weekday: 'long', 
+                                year: 'numeric',
+                                month: 'long', 
+                                day: 'numeric' 
+                              })}
+                            </p>
                             <h4 className="text-white text-xl font-bold mb-2 font-['Space_Grotesk']">{event.title}</h4>
                             <div className="flex items-center gap-6 mb-3 flex-wrap">
                               <div className="flex items-center gap-2">

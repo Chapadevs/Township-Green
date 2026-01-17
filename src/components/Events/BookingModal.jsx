@@ -6,6 +6,7 @@ const BookingModal = ({
   selectedDate,
   onClose,
   onBookingSubmit,
+  onLoginRequired,
 }) => {
   if (!isOpen || !event) return null;
 
@@ -122,6 +123,7 @@ const BookingModal = ({
                 selectedDate={selectedDate}
                 onBookingSubmit={onBookingSubmit}
                 isModal={true}
+                onLoginRequired={onLoginRequired}
               />
             </div>
           </div>

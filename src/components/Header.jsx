@@ -4,18 +4,22 @@ import { useAuth } from '../contexts/AuthContext';
 import LoginModal from './Auth/LoginModal';
 import SignupModal from './Auth/SignupModal';
 
-const Header = () => {
+const Header = ({ onOpenSignup, showSignupModal: propShowSignupModal, onCloseSignup }) => {
   const { user, profile, signOut, loading, isAdmin } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
-  const [showSignupModal, setShowSignupModal] = useState(false);
+  const [internalSignupModal, setInternalSignupModal] = useState(false);
+  
+  // Use prop if provided, otherwise use internal state
+  const showSignupModal = propShowSignupModal !== undefined ? propShowSignupModal : internalSignupModal;
+  const handleCloseSignup = propShowSignupModal !== undefined 
+    ? (onCloseSignup || (() => {}))
+    : () => setInternalSignupModal(false);
+  const handleOpenSignup = onOpenSignup || (() => setInternalSignupModal(true));
 
   const isAdminPage = location.pathname === '/admin';
-
-  // Debug logging
-  console.log('🎯 Header Debug:', { user: !!user, profile, isAdmin, loading });
 
   const scrollToSection = (sectionId) => {
     // If on admin page, navigate home first
@@ -59,7 +63,7 @@ const Header = () => {
   };
 
   const openSignupModal = () => {
-    setShowSignupModal(true);
+    handleOpenSignup();
     setIsMobileMenuOpen(false);
   };
 
@@ -74,7 +78,7 @@ const Header = () => {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#254637] px-10 shadow-md bg-[var(--background-dark)]">
-      <div className="flex items-center gap-4 text-white">
+      <div className="flex items-center gap-8 text-white">
         <button 
           onClick={goToHome}
           className="cursor-pointer hover:opacity-80 transition-opacity"
@@ -83,13 +87,11 @@ const Header = () => {
           <img
             src="/assets/Logo.png"
             alt="Top of the Green Logo"
-            className="h-20 w-20 object-contain mr-3"
+            className="h-20 w-20 object-contain"
           />
         </button>
-      </div>
-      {/* Desktop Navigation */}
-      <div className="hidden md:flex flex-1 justify-end gap-8">
-        <nav className="flex items-center gap-8">
+        {/* Desktop Navigation */}
+        <nav className="hidden md:flex items-center gap-8">
           <button 
             onClick={() => scrollToSection('about')}
             className="text-white nav-button text-base font-medium leading-normal"
@@ -109,33 +111,34 @@ const Header = () => {
             Contact
           </button>
         </nav>
+      </div>
+      {/* Desktop User Controls */}
+      <div className="hidden md:flex flex-1 justify-end gap-8">
         {!loading && (
           user ? (
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-6 h-12">
+              <span className="text-white/80 text-sm whitespace-nowrap">
+                Hi, {profile?.full_name || user.email?.split('@')[0]}
+              </span>
               {isAdmin && !isAdminPage && (
                 <button
                   onClick={() => navigate('/admin')}
-                  className="text-white text-sm hover:text-[#23a867] transition-colors flex items-center gap-1"
+                  className="border-2 border-[#23a867] hover:bg-[#23a867] text-[#23a867] hover:text-white px-3 py-1.5 rounded-md font-semibold transition-all text-sm border-l border-white/20 pl-3 whitespace-nowrap"
                 >
-                  <span className="material-symbols-outlined text-sm">admin_panel_settings</span>
                   Admin Panel
                 </button>
               )}
               {isAdminPage && (
                 <button
                   onClick={() => navigate('/')}
-                  className="text-white text-sm hover:text-[#23a867] transition-colors flex items-center gap-1"
+                  className="border-2 border-[#23a867] hover:bg-[#23a867] text-[#23a867] hover:text-white px-3 py-1.5 rounded-md font-semibold transition-all text-sm border-l border-white/20 pl-3 whitespace-nowrap"
                 >
-                  <span className="material-symbols-outlined text-sm">home</span>
                   Home
                 </button>
               )}
-              <span className="text-white text-sm">
-                Hi, {profile?.full_name || user.email?.split('@')[0]}
-              </span>
               <button 
                 onClick={handleLogout}
-                className="text-white text-sm hover:text-[#23a867] transition-colors"
+                className="text-[#23a867] hover:text-[#23a867]/80 text-sm font-semibold transition-colors whitespace-nowrap"
               >
                 Logout
               </button>
@@ -150,9 +153,9 @@ const Header = () => {
               </button>
               <button 
                 onClick={openSignupModal}
-                className="primary-button flex min-w-[70px] max-w-[200px] cursor-pointer items-center justify-center rounded-lg h-8 px-4 text-sm font-bold leading-normal tracking-[0.015em]"
+                className="border-2 border-[#23a867] hover:bg-[#23a867] text-[#23a867] hover:text-white px-3 py-1.5 rounded-md font-semibold transition-all text-sm"
               >
-                <span className="truncate">Sign Up</span>
+                Sign Up
               </button>
             </div>
           )
@@ -203,7 +206,7 @@ const Header = () => {
                   {isAdmin && !isAdminPage && (
                     <button
                       onClick={() => { navigate('/admin'); setIsMobileMenuOpen(false); }}
-                      className="text-white text-base font-medium text-left py-2 flex items-center gap-2"
+                      className="border-2 border-[#23a867] hover:bg-[#23a867] text-[#23a867] hover:text-white px-4 py-2.5 rounded-lg font-bold transition-all flex items-center gap-2"
                     >
                       <span className="material-symbols-outlined">admin_panel_settings</span>
                       Admin Panel
@@ -212,7 +215,7 @@ const Header = () => {
                   {isAdminPage && (
                     <button
                       onClick={() => { navigate('/'); setIsMobileMenuOpen(false); }}
-                      className="text-white text-base font-medium text-left py-2 flex items-center gap-2"
+                      className="text-white text-base font-medium text-left py-2 flex items-center gap-2 hover:text-[#23a867] transition-colors"
                     >
                       <span className="material-symbols-outlined">home</span>
                       Home
@@ -220,7 +223,7 @@ const Header = () => {
                   )}
                   <button 
                     onClick={handleLogout}
-                    className="text-white text-base font-medium text-left py-2"
+                    className="text-white text-base font-medium text-left py-2 hover:text-[#23a867] transition-colors"
                   >
                     Logout
                   </button>
@@ -235,9 +238,9 @@ const Header = () => {
                   </button>
                   <button 
                     onClick={openSignupModal}
-                    className="primary-button flex items-center justify-center rounded-lg h-8 px-4 text-sm font-bold tracking-[0.015em]"
+                    className="border-2 border-[#23a867] hover:bg-[#23a867] text-[#23a867] hover:text-white px-4 py-2.5 rounded-lg font-bold transition-all"
                   >
-                    <span>Sign Up</span>
+                    Sign Up
                   </button>
                 </>
               )
@@ -252,14 +255,14 @@ const Header = () => {
         onClose={() => setShowLoginModal(false)}
         onSwitchToSignup={() => {
           setShowLoginModal(false);
-          setShowSignupModal(true);
+          handleOpenSignup();
         }}
       />
       <SignupModal 
         isOpen={showSignupModal}
-        onClose={() => setShowSignupModal(false)}
+        onClose={handleCloseSignup}
         onSwitchToLogin={() => {
-          setShowSignupModal(false);
+          handleCloseSignup();
           setShowLoginModal(true);
         }}
       />

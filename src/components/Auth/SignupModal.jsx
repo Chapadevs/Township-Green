@@ -65,30 +65,30 @@ export default function SignupModal({ isOpen, onClose, onSwitchToLogin }) {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div className="bg-[#1d2d25] rounded-lg p-8 max-w-md w-full max-h-[90vh] overflow-y-auto">
-        <h2 className="text-2xl font-bold text-white mb-6">Join Township Green</h2>
+      <div className="bg-[#1d2d25] rounded-lg p-6 max-w-md w-full max-h-[90vh] overflow-y-auto">
+        <h2 className="text-xl font-bold text-white mb-4">Join Township Green</h2>
         
         {error && (
-          <div className="bg-red-500 bg-opacity-10 border border-red-500 text-red-500 px-4 py-3 rounded mb-4">
+          <div className="bg-red-500 bg-opacity-10 border border-red-500 text-red-500 px-3 py-2 rounded mb-3 text-sm">
             {error}
           </div>
         )}
 
         {success && (
-          <div className="bg-green-500 bg-opacity-10 border border-green-500 text-green-500 px-4 py-3 rounded mb-4">
+          <div className="bg-green-500 bg-opacity-10 border border-green-500 text-green-500 px-3 py-2 rounded mb-3 text-sm">
             Account created successfully! Logging you in...
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-3">
           <div>
-            <label className="block text-white mb-2 text-sm font-medium">Full Name</label>
+            <label className="block text-white mb-1.5 text-xs font-medium">Full Name</label>
             <input
               type="text"
               name="fullName"
               value={formData.fullName}
               onChange={handleChange}
-              className="w-full px-4 py-3 rounded bg-[#12211a] text-white border border-gray-700 focus:border-[#23a867] focus:outline-none transition-colors"
+              className="w-full px-3 py-2 rounded bg-[#12211a] text-white border border-gray-700 focus:border-[#23a867] focus:outline-none transition-colors text-sm h-10"
               placeholder="John Doe"
               required
               autoComplete="name"
@@ -96,13 +96,13 @@ export default function SignupModal({ isOpen, onClose, onSwitchToLogin }) {
           </div>
 
           <div>
-            <label className="block text-white mb-2 text-sm font-medium">Email</label>
+            <label className="block text-white mb-1.5 text-xs font-medium">Email</label>
             <input
               type="email"
               name="email"
               value={formData.email}
               onChange={handleChange}
-              className="w-full px-4 py-3 rounded bg-[#12211a] text-white border border-gray-700 focus:border-[#23a867] focus:outline-none transition-colors"
+              className="w-full px-3 py-2 rounded bg-[#12211a] text-white border border-gray-700 focus:border-[#23a867] focus:outline-none transition-colors text-sm h-10"
               placeholder="your@email.com"
               required
               autoComplete="email"
@@ -110,29 +110,29 @@ export default function SignupModal({ isOpen, onClose, onSwitchToLogin }) {
           </div>
 
           <div>
-            <label className="block text-white mb-2 text-sm font-medium">Password</label>
+            <label className="block text-white mb-1.5 text-xs font-medium">Password</label>
             <input
               type="password"
               name="password"
               value={formData.password}
               onChange={handleChange}
-              className="w-full px-4 py-3 rounded bg-[#12211a] text-white border border-gray-700 focus:border-[#23a867] focus:outline-none transition-colors"
+              className="w-full px-3 py-2 rounded bg-[#12211a] text-white border border-gray-700 focus:border-[#23a867] focus:outline-none transition-colors text-sm h-10"
               placeholder="••••••••"
               required
               autoComplete="new-password"
               minLength={6}
             />
-            <p className="text-xs text-gray-400 mt-1">Minimum 6 characters</p>
+            <p className="text-xs text-gray-400 mt-0.5">Minimum 6 characters</p>
           </div>
 
           <div>
-            <label className="block text-white mb-2 text-sm font-medium">Confirm Password</label>
+            <label className="block text-white mb-1.5 text-xs font-medium">Confirm Password</label>
             <input
               type="password"
               name="confirmPassword"
               value={formData.confirmPassword}
               onChange={handleChange}
-              className="w-full px-4 py-3 rounded bg-[#12211a] text-white border border-gray-700 focus:border-[#23a867] focus:outline-none transition-colors"
+              className="w-full px-3 py-2 rounded bg-[#12211a] text-white border border-gray-700 focus:border-[#23a867] focus:outline-none transition-colors text-sm h-10"
               placeholder="••••••••"
               required
               autoComplete="new-password"
@@ -142,13 +142,13 @@ export default function SignupModal({ isOpen, onClose, onSwitchToLogin }) {
           <button
             type="submit"
             disabled={loading || success}
-            className="w-full bg-[#23a867] text-white py-3 rounded-lg font-bold hover:bg-opacity-90 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full bg-[#23a867] text-white py-2 rounded-lg font-bold hover:bg-opacity-90 transition-all disabled:opacity-50 disabled:cursor-not-allowed text-sm h-10 mt-1"
           >
             {loading ? 'Creating Account...' : success ? 'Success!' : 'Create Account'}
           </button>
         </form>
 
-        <p className="text-center text-gray-400 mt-6">
+        <p className="text-center text-gray-400 mt-4 text-sm">
           Already have an account?{' '}
           <button 
             onClick={onSwitchToLogin} 
@@ -160,7 +160,7 @@ export default function SignupModal({ isOpen, onClose, onSwitchToLogin }) {
 
         <button
           onClick={handleClose}
-          className="mt-4 w-full text-gray-400 hover:text-white py-2 transition-colors"
+          className="mt-3 w-full text-gray-400 hover:text-white py-1.5 transition-colors text-sm"
         >
           Close
         </button>

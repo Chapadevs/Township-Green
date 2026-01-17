@@ -12,6 +12,7 @@ export default function EventForm({ event, onClose, onSuccess }) {
     start_time: '',
     end_time: '',
     capacity: 20,
+    booked_seats: 0,
     price: 0,
     image_url: '',
     location: 'Township Green Lounge',
@@ -40,6 +41,7 @@ export default function EventForm({ event, onClose, onSuccess }) {
         start_time: event.start_time || '',
         end_time: event.end_time || '',
         capacity: event.capacity || 20,
+        booked_seats: event.booked_seats || 0,
         price: event.price || 0,
         image_url: event.image_url || '',
         location: event.location || 'Township Green Lounge',
@@ -136,6 +138,7 @@ export default function EventForm({ event, onClose, onSuccess }) {
         ...formData,
         image_url: imageUrl,
         capacity: parseInt(formData.capacity),
+        booked_seats: parseInt(formData.booked_seats || 0),
         price: parseFloat(formData.price),
         tags: formData.tags ? formData.tags.split(',').map(t => t.trim()).filter(Boolean) : [],
         materials: formData.materials ? formData.materials.split(',').map(m => m.trim()).filter(Boolean) : []
@@ -260,7 +263,7 @@ export default function EventForm({ event, onClose, onSuccess }) {
           </div>
 
           {/* Time & Capacity */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
             <div>
               <label className="block text-white mb-2 text-sm font-medium">Start Time *</label>
               <input
@@ -296,6 +299,23 @@ export default function EventForm({ event, onClose, onSuccess }) {
                 className="w-full px-4 py-2 rounded bg-[#12211a] text-white border border-gray-700 focus:border-[#23a867] focus:outline-none"
                 required
               />
+            </div>
+
+            <div>
+              <label className="block text-white mb-2 text-sm font-medium">Booked Seats</label>
+              <input
+                type="number"
+                name="booked_seats"
+                value={formData.booked_seats}
+                onChange={handleChange}
+                min="0"
+                max={formData.capacity || 0}
+                className="w-full px-4 py-2 rounded bg-[#12211a] text-white border border-gray-700 focus:border-[#23a867] focus:outline-none"
+                title="Manually track booked seats (updates when bookings are made via website, but you can override manually)"
+              />
+              <p className="text-xs text-gray-400 mt-1">
+                {formData.capacity - (formData.booked_seats || 0)} available
+              </p>
             </div>
 
             <div>

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 const Calendar = ({ selectedDate, onDateSelect, events }) => {
-  const [currentMonth, setCurrentMonth] = useState(new Date(2025, 10, 1)); // Start at November 2025
+  const [currentMonth, setCurrentMonth] = useState(new Date()); // Start at current month
 
   const monthNames = [
     'January', 'February', 'March', 'April', 'May', 'June',
@@ -106,10 +106,24 @@ const Calendar = ({ selectedDate, onDateSelect, events }) => {
         </button>
       </div>
 
+      {/* Event Legend */}
+      <div className="mb-4">
+        <div className="flex justify-center items-center gap-6 sm:gap-8 text-base sm:text-lg flex-wrap">
+          <div className="flex items-center gap-2">
+            <div className="w-3 h-3 bg-[var(--primary-color)] rounded-full"></div>
+            <span className="text-white font-bold italic">Events</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="w-3 h-3 bg-orange-500 rounded-full"></div>
+            <span className="text-white font-bold italic">Informational</span>
+          </div>
+        </div>
+      </div>
+
       {/* Day Headers */}
       <div className="grid grid-cols-7 gap-2 text-center mb-2">
-        {dayNames.map((day) => (
-          <p key={day} className="text-gray-400 font-bold text-sm">
+        {dayNames.map((day, index) => (
+          <p key={`day-${index}`} className="text-gray-400 font-bold text-sm">
             {day}
           </p>
         ))}

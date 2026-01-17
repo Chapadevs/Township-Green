@@ -209,7 +209,7 @@ const BookingForm = ({ selectedEvent, selectedDate, onBookingSubmit, isModal = f
           )}
 
           {/* Error Message */}
-          {(emailError || errors.submit) && (
+          {errors.submit && (
             <div className="bg-red-900 border border-red-600 p-3 rounded">
               <div className="flex items-center gap-2">
                 <span className="material-symbols-outlined text-red-400">error</span>
@@ -318,10 +318,10 @@ const BookingForm = ({ selectedEvent, selectedDate, onBookingSubmit, isModal = f
 
                   <button
                     type="submit"
-                    disabled={isSubmitting || emailLoading}
+                    disabled={isSubmitting}
                     className="w-full flex items-center justify-center rounded px-3 h-10 bg-[var(--primary-color)] text-white font-bold leading-normal tracking-[0.015em] hover:bg-opacity-90 transition-all shadow-lg disabled:opacity-50 disabled:cursor-not-allowed text-xs"
                   >
-                    {(isSubmitting || emailLoading) ? (
+                    {isSubmitting ? (
                       <span className="flex items-center gap-2">
                         <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
                         Booking...
@@ -413,10 +413,10 @@ const BookingForm = ({ selectedEvent, selectedDate, onBookingSubmit, isModal = f
 
                   <button
                     type="submit"
-                    disabled={isSubmitting || emailLoading}
+                    disabled={isSubmitting}
                     className="w-full flex items-center justify-center rounded px-3 h-12 bg-[var(--primary-color)] text-white font-bold leading-normal tracking-[0.015em] hover:bg-opacity-90 transition-all shadow-lg disabled:opacity-50 disabled:cursor-not-allowed text-lg"
                   >
-                    {(isSubmitting || emailLoading) ? (
+                    {isSubmitting ? (
                       <span className="flex items-center gap-2">
                         <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
                         Booking...

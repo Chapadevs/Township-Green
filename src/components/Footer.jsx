@@ -28,7 +28,7 @@ const Footer = () => {
         
         <div className="flex justify-center items-center gap-6">
           <a 
-            href="https://townshipgreen.com/" 
+            href="https://www.instagram.com/townshipgreen/" 
             className="text-gray-400 hover:text-white transition-colors"
             aria-label="Follow us on Instagram"
           >
