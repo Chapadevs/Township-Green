@@ -84,20 +84,25 @@ serve(async (req) => {
       timeZoneName: 'short'
     })
 
-    // Generate QR code with booking data
-    const qrData = JSON.stringify({
-      id: bookingId,
-      name: bookingData.customerName,
-      email: bookingData.customerEmail,
-      event: bookingData.eventId,
-      guests: bookingData.numberOfGuests,
-      date: bookingData.sessionDate
-    })
-    const qrCodeUrl = await generateQRCode(qrData)
+    // Use actual confirmation code from database (provided in bookingData)
+    // If not provided, use the generated bookingId as fallback
+    const confirmationCode = bookingData.confirmationCode || bookingId
 
-    // Format validation data
-    const bookingIdDisplay = bookingId.replace('TG-', 'TG ')
-    const validationCode = bookingId.split('-')[2] + bookingId.split('-')[3]
+    // Get website URL from environment variable or use default
+    const websiteUrl = Deno.env.get('WEBSITE_URL') || 'https://topofgreen.com'
+    
+    // Generate QR code with URL pointing to validation page
+    // The URL contains just the confirmation code
+    const validationUrl = `${websiteUrl}/validate.html?code=${encodeURIComponent(confirmationCode)}`
+    
+    // Generate QR code with the validation URL
+    const qrCodeUrl = await generateQRCode(validationUrl)
+
+    // Format validation data using actual confirmation code
+    const bookingIdDisplay = confirmationCode.replace('TG-', 'TG ')
+    const validationCode = confirmationCode.split('-').length > 2 
+      ? confirmationCode.split('-')[2] + (confirmationCode.split('-')[3] || '')
+      : confirmationCode.substring(confirmationCode.length - 8)
 
     // Admin email template (full HTML from ADMIN_EMAIL_TEMPLATE.html)
     const adminEmailHtml = `<!DOCTYPE html>
@@ -167,7 +172,7 @@ serve(async (req) => {
                 <div class="priority-details"><strong>Booking ID:</strong> ${bookingIdDisplay}<br><strong>Validation Code:</strong> ${validationCode}<br><strong>Status:</strong> PENDING CONFIRMATION</div>
             </div>
             <div class="info-grid">
-                <div class="info-card"><div class="info-label">Full Booking ID</div><div class="info-value highlight">${bookingId}</div></div>
+                <div class="info-card"><div class="info-label">Full Booking ID</div><div class="info-value highlight">${confirmationCode}</div></div>
                 <div class="info-card"><div class="info-label">Quick Validation</div><div class="info-value">${validationCode}</div></div>
             </div>
             <div class="special-requests">
@@ -276,7 +281,7 @@ serve(async (req) => {
                 <div class="detail-row"><span class="detail-label">👥 Guests</span><span class="detail-value highlight">${bookingData.numberOfGuests} guest(s)</span></div>
                 <div class="detail-row"><span class="detail-label">📅 Date</span><span class="detail-value">${bookingData.sessionDate}</span></div>
                 <div class="detail-row"><span class="detail-label">🕐 Time</span><span class="detail-value">${bookingData.sessionTime}</span></div>
-                <div class="detail-row"><span class="detail-label">🆔 Booking ID</span><span class="detail-value highlight">${bookingId}</span></div>
+                <div class="detail-row"><span class="detail-label">🆔 Booking ID</span><span class="detail-value highlight">${confirmationCode}</span></div>
             </div>
             ${qrCodeUrl ? `<div class="next-steps" style="background: linear-gradient(135deg, #1d554c, #155249);">
                 <div class="next-steps-title">📱 Your QR Code Pass</div>

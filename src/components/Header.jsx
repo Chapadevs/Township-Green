@@ -105,10 +105,10 @@ const Header = ({ onOpenSignup, showSignupModal: propShowSignupModal, onCloseSig
             Events
           </button>
           <button 
-            onClick={() => scrollToSection('contact')}
+            onClick={() => { navigate('/blog'); setIsMobileMenuOpen(false); }}
             className="text-white nav-button text-base font-medium leading-normal"
           >
-            Contact
+            What's happening
           </button>
         </nav>
       </div>
@@ -123,7 +123,7 @@ const Header = ({ onOpenSignup, showSignupModal: propShowSignupModal, onCloseSig
               {isAdmin && !isAdminPage && (
                 <button
                   onClick={() => navigate('/admin')}
-                  className="border-2 border-[#23a867] hover:bg-[#23a867] text-[#23a867] hover:text-white px-3 py-1.5 rounded-md font-semibold transition-all text-sm border-l border-white/20 pl-3 whitespace-nowrap"
+                  className="border-2 border-[#23a867] text-[#23a867] hover:text-white px-3 py-1.5 rounded-md font-semibold transition-all text-sm border-l border-white/20 pl-3 whitespace-nowrap"
                 >
                   Admin Panel
                 </button>
@@ -131,14 +131,14 @@ const Header = ({ onOpenSignup, showSignupModal: propShowSignupModal, onCloseSig
               {isAdminPage && (
                 <button
                   onClick={() => navigate('/')}
-                  className="border-2 border-[#23a867] hover:bg-[#23a867] text-[#23a867] hover:text-white px-3 py-1.5 rounded-md font-semibold transition-all text-sm border-l border-white/20 pl-3 whitespace-nowrap"
+                  className="border-2 border-[#23a867] text-[#23a867] hover:text-white px-3 py-1.5 rounded-md font-semibold transition-all text-sm border-l border-white/20 pl-3 whitespace-nowrap"
                 >
                   Home
                 </button>
               )}
               <button 
                 onClick={handleLogout}
-                className="text-[#23a867] hover:text-[#23a867]/80 text-sm font-semibold transition-colors whitespace-nowrap"
+                className="text-[#23a867] hover:text-white text-sm font-semibold transition-colors whitespace-nowrap"
               >
                 Logout
               </button>
@@ -147,13 +147,13 @@ const Header = ({ onOpenSignup, showSignupModal: propShowSignupModal, onCloseSig
             <div className="flex items-center gap-3">
               <button 
                 onClick={openLoginModal}
-                className="text-white text-sm hover:text-[#23a867] transition-colors"
+                className="border-2 border-[#23a867] text-[#23a867] hover:text-white px-3 py-1.5 rounded-md font-semibold transition-all text-sm"
               >
                 Login
               </button>
               <button 
                 onClick={openSignupModal}
-                className="border-2 border-[#23a867] hover:bg-[#23a867] text-[#23a867] hover:text-white px-3 py-1.5 rounded-md font-semibold transition-all text-sm"
+                className="border-2 border-[#23a867] text-[#23a867] hover:text-white px-3 py-1.5 rounded-md font-semibold transition-all text-sm"
               >
                 Sign Up
               </button>
@@ -192,10 +192,10 @@ const Header = ({ onOpenSignup, showSignupModal: propShowSignupModal, onCloseSig
               Events
             </button>
             <button 
-              onClick={() => scrollToSection('contact')}
+              onClick={() => { navigate('/blog'); setIsMobileMenuOpen(false); }}
               className="text-white nav-button text-base font-medium text-left py-2"
             >
-              Contact
+              What's happening
             </button>
             {!loading && (
               user ? (
@@ -206,7 +206,7 @@ const Header = ({ onOpenSignup, showSignupModal: propShowSignupModal, onCloseSig
                   {isAdmin && !isAdminPage && (
                     <button
                       onClick={() => { navigate('/admin'); setIsMobileMenuOpen(false); }}
-                      className="border-2 border-[#23a867] hover:bg-[#23a867] text-[#23a867] hover:text-white px-4 py-2.5 rounded-lg font-bold transition-all flex items-center gap-2"
+                      className="border-2 border-[#23a867] text-[#23a867] hover:text-white px-4 py-2.5 rounded-lg font-bold transition-all flex items-center gap-2"
                     >
                       <span className="material-symbols-outlined">admin_panel_settings</span>
                       Admin Panel
@@ -215,7 +215,7 @@ const Header = ({ onOpenSignup, showSignupModal: propShowSignupModal, onCloseSig
                   {isAdminPage && (
                     <button
                       onClick={() => { navigate('/'); setIsMobileMenuOpen(false); }}
-                      className="text-white text-base font-medium text-left py-2 flex items-center gap-2 hover:text-[#23a867] transition-colors"
+                      className="text-white text-base font-medium text-left py-2 flex items-center gap-2 hover:text-white transition-colors"
                     >
                       <span className="material-symbols-outlined">home</span>
                       Home
@@ -223,7 +223,7 @@ const Header = ({ onOpenSignup, showSignupModal: propShowSignupModal, onCloseSig
                   )}
                   <button 
                     onClick={handleLogout}
-                    className="text-white text-base font-medium text-left py-2 hover:text-[#23a867] transition-colors"
+                    className="text-white text-base font-medium text-left py-2 hover:text-white transition-colors"
                   >
                     Logout
                   </button>
@@ -232,13 +232,13 @@ const Header = ({ onOpenSignup, showSignupModal: propShowSignupModal, onCloseSig
                 <>
                   <button 
                     onClick={openLoginModal}
-                    className="text-white nav-button text-base font-medium text-left py-2 border-t border-[#254637] mt-2 pt-4"
+                    className="border-2 border-[#23a867] text-[#23a867] hover:text-white px-4 py-2.5 rounded-lg font-bold transition-all"
                   >
                     Login
                   </button>
                   <button 
                     onClick={openSignupModal}
-                    className="border-2 border-[#23a867] hover:bg-[#23a867] text-[#23a867] hover:text-white px-4 py-2.5 rounded-lg font-bold transition-all"
+                    className="border-2 border-[#23a867] text-[#23a867] hover:text-white px-4 py-2.5 rounded-lg font-bold transition-all"
                   >
                     Sign Up
                   </button>

@@ -68,6 +68,12 @@ const BookingForm = ({ selectedEvent, selectedDate, onBookingSubmit, isModal = f
     setSubmitSuccess(false);
 
     try {
+      // Calculate booking date from selectedDate or event date
+      const bookingDate = selectedDate || 
+        (selectedEvent?.event_date ? new Date(selectedEvent.event_date) : 
+         selectedEvent?.eventDate ? new Date(selectedEvent.eventDate) : 
+         new Date());
+
       // Create booking in Supabase
       const { data: booking, error: bookingError } = await createBooking({
         event_id: selectedEvent.id,
@@ -163,8 +169,8 @@ const BookingForm = ({ selectedEvent, selectedDate, onBookingSubmit, isModal = f
 
   const availableSpots = selectedEvent ? selectedEvent.capacity - (selectedEvent.booked_seats || 0) : 0;
 
-  // Use event date if no specific date is selected
-  const bookingDate = selectedDate || (selectedEvent?.event_date ? new Date(selectedEvent.event_date) : null);
+  // Calculate booking date for display purposes
+  const bookingDateDisplay = selectedDate || (selectedEvent?.event_date ? new Date(selectedEvent.event_date) : null);
 
   // Show login prompt if not authenticated
   if (!isAuthenticated) {
@@ -193,7 +199,7 @@ const BookingForm = ({ selectedEvent, selectedDate, onBookingSubmit, isModal = f
     <div className={isModal ? "w-full" : "flex-1 min-w-[320px] max-w-md"}>
       {!isModal && <h3 className="text-white text-2xl font-bold mb-4">Book a Session</h3>}
       
-      {selectedEvent && bookingDate ? (
+      {selectedEvent && bookingDateDisplay ? (
         <div className={isModal ? "space-y-6" : "space-y-3"}>
           {/* Success Message */}
           {submitSuccess && (
@@ -222,7 +228,7 @@ const BookingForm = ({ selectedEvent, selectedDate, onBookingSubmit, isModal = f
           {!isModal && (
             <div className="bg-[#1d2d25] p-4 rounded-lg space-y-2">
               <p className="text-white font-bold text-lg">{selectedEvent.title}</p>
-              <p className="text-gray-400">{formatDate(bookingDate)}</p>
+              <p className="text-gray-400">{formatDate(bookingDateDisplay)}</p>
               <p className="text-gray-400">{selectedEvent.start_time} - {selectedEvent.end_time}</p>
               <p className="text-gray-300">{selectedEvent.description}</p>
               <p className="text-[var(--primary-color)] font-bold">{availableSpots} spots available</p>

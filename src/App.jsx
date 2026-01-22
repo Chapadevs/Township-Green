@@ -9,6 +9,8 @@ import EventsSection from './components/Events/EventsSection.jsx';
 import Footer from './components/Footer.jsx';
 import BookingModal from './components/Events/BookingModal.jsx';
 import AdminPanel from './components/Admin/AdminPanel.jsx';
+import BlogList from './components/Blog/BlogList.jsx';
+import BlogPost from './components/Blog/BlogPost.jsx';
 
 function HomePage() {
   const { isAdmin } = useAuth();
@@ -88,6 +90,38 @@ function HomePage() {
   );
 }
 
+function BlogPage() {
+  const [showSignupModal, setShowSignupModal] = useState(false);
+  
+  return (
+    <div className="relative flex size-full min-h-screen flex-col bg-[#12211a] dark group/design-root overflow-x-hidden font-['Space_Grotesk','Noto_Sans',sans-serif]">
+      <div className="layout-container flex h-full grow flex-col">
+        <Header onOpenSignup={() => setShowSignupModal(true)} showSignupModal={showSignupModal} onCloseSignup={() => setShowSignupModal(false)} />
+        <main className="flex-1">
+          <BlogList />
+        </main>
+        <Footer />
+      </div>
+    </div>
+  );
+}
+
+function BlogPostPage() {
+  const [showSignupModal, setShowSignupModal] = useState(false);
+  
+  return (
+    <div className="relative flex size-full min-h-screen flex-col bg-[#12211a] dark group/design-root overflow-x-hidden font-['Space_Grotesk','Noto_Sans',sans-serif]">
+      <div className="layout-container flex h-full grow flex-col">
+        <Header onOpenSignup={() => setShowSignupModal(true)} showSignupModal={showSignupModal} onCloseSignup={() => setShowSignupModal(false)} />
+        <main className="flex-1">
+          <BlogPost />
+        </main>
+        <Footer />
+      </div>
+    </div>
+  );
+}
+
 function App() {
   return (
     <AuthProvider>
@@ -95,6 +129,8 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/admin" element={<AdminPanel />} />
+          <Route path="/blog" element={<BlogPage />} />
+          <Route path="/blog/:id" element={<BlogPostPage />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>

@@ -41,7 +41,7 @@ export default function EventForm({ event, onClose, onSuccess }) {
         start_time: event.start_time || '',
         end_time: event.end_time || '',
         capacity: event.capacity || 20,
-        booked_seats: event.booked_seats || 0,
+        booked_seats: 0, // Always 0 - will be calculated from actual bookings
         price: event.price || 0,
         image_url: event.image_url || '',
         location: event.location || 'Township Green Lounge',
@@ -133,16 +133,19 @@ export default function EventForm({ event, onClose, onSuccess }) {
         imageUrl = await uploadImage()
       }
 
-      // Prepare data
+      // Prepare data - exclude booked_seats as it's calculated from actual bookings
       const eventData = {
         ...formData,
         image_url: imageUrl,
         capacity: parseInt(formData.capacity),
-        booked_seats: parseInt(formData.booked_seats || 0),
+        // booked_seats is NOT included - it's always calculated from actual bookings
         price: parseFloat(formData.price),
         tags: formData.tags ? formData.tags.split(',').map(t => t.trim()).filter(Boolean) : [],
         materials: formData.materials ? formData.materials.split(',').map(m => m.trim()).filter(Boolean) : []
       }
+      
+      // Remove booked_seats from the data object
+      delete eventData.booked_seats
 
       let result
       if (isEditing) {
@@ -302,23 +305,6 @@ export default function EventForm({ event, onClose, onSuccess }) {
             </div>
 
             <div>
-              <label className="block text-white mb-2 text-sm font-medium">Booked Seats</label>
-              <input
-                type="number"
-                name="booked_seats"
-                value={formData.booked_seats}
-                onChange={handleChange}
-                min="0"
-                max={formData.capacity || 0}
-                className="w-full px-4 py-2 rounded bg-[#12211a] text-white border border-gray-700 focus:border-[#23a867] focus:outline-none"
-                title="Manually track booked seats (updates when bookings are made via website, but you can override manually)"
-              />
-              <p className="text-xs text-gray-400 mt-1">
-                {formData.capacity - (formData.booked_seats || 0)} available
-              </p>
-            </div>
-
-            <div>
               <label className="block text-white mb-2 text-sm font-medium">Price ($)</label>
               <input
                 type="number"
@@ -360,19 +346,6 @@ export default function EventForm({ event, onClose, onSuccess }) {
                 </div>
               )}
             </div>
-
-            {/* Or paste URL */}
-            <div>
-              <label className="block text-white mb-2 text-sm font-medium">Or paste image URL</label>
-              <input
-                type="text"
-                name="image_url"
-                value={formData.image_url}
-                onChange={handleChange}
-                placeholder="https://example.com/image.jpg"
-                className="w-full px-4 py-2 rounded bg-[#12211a] text-white border border-gray-700 focus:border-[#23a867] focus:outline-none"
-              />
-            </div>
           </div>
 
           {/* Location */}
@@ -382,18 +355,6 @@ export default function EventForm({ event, onClose, onSuccess }) {
               type="text"
               name="location"
               value={formData.location}
-              onChange={handleChange}
-              className="w-full px-4 py-2 rounded bg-[#12211a] text-white border border-gray-700 focus:border-[#23a867] focus:outline-none"
-            />
-          </div>
-
-          {/* Instructor */}
-          <div>
-            <label className="block text-white mb-2 text-sm font-medium">Instructor</label>
-            <input
-              type="text"
-              name="instructor"
-              value={formData.instructor}
               onChange={handleChange}
               className="w-full px-4 py-2 rounded bg-[#12211a] text-white border border-gray-700 focus:border-[#23a867] focus:outline-none"
             />

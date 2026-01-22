@@ -155,7 +155,17 @@
         </div>
     </div>
 
+    <!-- Supabase JS Client -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
     <script>
+        // Initialize Supabase client
+        // Get Supabase credentials from window or use environment variables
+        const SUPABASE_URL = window.SUPABASE_URL || 'https://yvxafxfatcudvkdsvlfu.supabase.co';
+        const SUPABASE_ANON_KEY = window.SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl2eGFmeGZhdGN1ZHZrZHN2bGZ1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjgxMDY2NTMsImV4cCI6MjA4MzY4MjY1M30.GWPurLHI-S2iVRFZGN10QpC_N4KFkQ7lpFlJtTAJfGA';
+        
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        
         // Function to get URL parameters
         function getUrlParameter(name) {
             name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
@@ -164,67 +174,145 @@
             return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
         }
         
-        // Function to parse booking data from URL or display error
-        function displayBookingInfo() {
+        // Function to fetch booking data from database using confirmation code
+        async function fetchBookingFromDatabase(confirmationCode) {
             try {
-                // Try to get booking data from URL parameter
-                const bookingDataParam = getUrlParameter('data');
+                const { data, error } = await supabase
+                    .from('bookings')
+                    .select(`
+                        *,
+                        event:events(*)
+                    `)
+                    .eq('confirmation_code', confirmationCode)
+                    .single();
                 
-                if (!bookingDataParam) {
-                    throw new Error('No booking data found');
+                if (error) {
+                    console.error('Error fetching booking:', error);
+                    return null;
                 }
                 
-                // Parse the booking data
-                const bookingData = JSON.parse(bookingDataParam);
+                return data;
+            } catch (error) {
+                console.error('Error fetching booking:', error);
+                return null;
+            }
+        }
+        
+        // Function to display booking information from database or fallback to URL data
+        async function displayBookingInfo() {
+            const bookingInfoDiv = document.getElementById('booking-info');
+            const statusBadge = document.querySelector('.status-badge');
+            
+            // Show loading state
+            bookingInfoDiv.innerHTML = '<div style="text-align: center; color: #9ca3af;">Loading booking information...</div>';
+            
+            try {
+                // Try to get confirmation code from URL parameter
+                const confirmationCode = getUrlParameter('code') || getUrlParameter('data');
                 
-                // Validate required fields
-                if (!bookingData.id || !bookingData.name) {
-                    throw new Error('Invalid booking data');
+                if (!confirmationCode) {
+                    throw new Error('No confirmation code found in QR code');
                 }
                 
-                // Display booking information
-                const bookingInfoDiv = document.getElementById('booking-info');
-                bookingInfoDiv.innerHTML = `
-                    <div class="info-row">
-                        <span class="info-label">Customer Name</span>
-                        <span class="info-value customer-name">${bookingData.name}</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">Booking ID</span>
-                        <span class="info-value booking-id">${bookingData.id}</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">Email</span>
-                        <span class="info-value">${bookingData.email}</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">Event ID</span>
-                        <span class="info-value">${bookingData.event}</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">Guests</span>
-                        <span class="info-value">${bookingData.guests}</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">Booking Date</span>
-                        <span class="info-value">${new Date(bookingData.date).toLocaleDateString()}</span>
-                    </div>
-                `;
+                // Try to parse as JSON first (legacy support)
+                let bookingFromDatabase = null;
+                let parsedCode = confirmationCode;
+                
+                try {
+                    const parsed = JSON.parse(confirmationCode);
+                    if (parsed.id) {
+                        parsedCode = parsed.id; // Extract confirmation code from JSON
+                    }
+                } catch (e) {
+                    // Not JSON, use as-is
+                }
+                
+                // Fetch booking from database
+                bookingFromDatabase = await fetchBookingFromDatabase(parsedCode);
+                
+                if (bookingFromDatabase) {
+                    // Display booking information from database
+                    const booking = bookingFromDatabase;
+                    const event = booking.event || {};
+                    
+                    // Determine status color
+                    let statusColor = 'linear-gradient(135deg, #059669, #047857)'; // Green for confirmed
+                    let statusText = '✓ Valid Booking';
+                    
+                    if (booking.status === 'cancelled') {
+                        statusColor = 'linear-gradient(135deg, #dc2626, #b91c1c)';
+                        statusText = '✗ Cancelled';
+                    } else if (booking.status === 'completed') {
+                        statusColor = 'linear-gradient(135deg, #2563eb, #1d4ed8)';
+                        statusText = '✓ Completed';
+                    }
+                    
+                    statusBadge.textContent = statusText;
+                    statusBadge.style.background = statusColor;
+                    
+                    bookingInfoDiv.innerHTML = `
+                        <div class="info-row">
+                            <span class="info-label">Customer Name</span>
+                            <span class="info-value customer-name">${booking.customer_name || 'N/A'}</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Confirmation Code</span>
+                            <span class="info-value booking-id">${booking.confirmation_code || 'N/A'}</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Status</span>
+                            <span class="info-value" style="color: ${booking.status === 'confirmed' ? '#23a867' : booking.status === 'cancelled' ? '#dc2626' : '#2563eb'};">
+                                ${(booking.status || 'confirmed').toUpperCase()}
+                            </span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Email</span>
+                            <span class="info-value">${booking.customer_email || 'N/A'}</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Phone</span>
+                            <span class="info-value">${booking.customer_phone || 'N/A'}</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Event</span>
+                            <span class="info-value">${event.title || 'N/A'}</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Session Date</span>
+                            <span class="info-value">${booking.session_date ? new Date(booking.session_date).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) : 'N/A'}</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Session Time</span>
+                            <span class="info-value">${booking.session_time ? booking.session_time.substring(0, 5) : 'N/A'}</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Number of Guests</span>
+                            <span class="info-value">${booking.number_of_guests || 1}</span>
+                        </div>
+                        ${booking.special_requests ? `
+                        <div class="info-row">
+                            <span class="info-label">Special Requests</span>
+                            <span class="info-value" style="font-style: italic;">${booking.special_requests}</span>
+                        </div>
+                        ` : ''}
+                    `;
+                } else {
+                    // Booking not found in database - show error
+                    throw new Error('Booking not found in database');
+                }
                 
             } catch (error) {
-                console.error('Error parsing booking data:', error);
+                console.error('Error displaying booking info:', error);
                 
                 // Display error message
-                const bookingInfoDiv = document.getElementById('booking-info');
                 bookingInfoDiv.innerHTML = `
                     <div class="error-message">
-                        <strong>Invalid QR Code</strong><br>
-                        This QR code does not contain valid booking information.
+                        <strong>Booking Not Found</strong><br>
+                        This QR code could not be validated. The booking may not exist or has been removed.
                     </div>
                 `;
                 
                 // Update status badge
-                const statusBadge = document.querySelector('.status-badge');
                 statusBadge.textContent = '✗ Invalid Code';
                 statusBadge.style.background = 'linear-gradient(135deg, #dc2626, #b91c1c)';
             }

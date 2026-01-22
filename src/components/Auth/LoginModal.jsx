@@ -37,7 +37,7 @@ export default function LoginModal({ isOpen, onClose, onSwitchToSignup }) {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div className="bg-[#1d2d25] rounded-lg p-8 max-w-md w-full">
+      <div className="bg-[#1d2d25] rounded-lg p-8 pb-6 max-w-md w-full flex flex-col min-h-[500px]">
         <h2 className="text-2xl font-bold text-white mb-6">Login to Township Green</h2>
         
         {error && (
@@ -46,7 +46,7 @@ export default function LoginModal({ isOpen, onClose, onSwitchToSignup }) {
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-4 flex-1 flex flex-col">
           <div>
             <label className="block text-white mb-2 text-sm font-medium">Email</label>
             <input
@@ -73,31 +73,35 @@ export default function LoginModal({ isOpen, onClose, onSwitchToSignup }) {
             />
           </div>
 
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full bg-[#23a867] text-white py-3 rounded-lg font-bold hover:bg-opacity-90 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            {loading ? 'Logging in...' : 'Login'}
-          </button>
+          <div className="mt-auto pt-2">
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full bg-[#23a867] text-white py-3 rounded-lg font-bold hover:bg-opacity-90 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {loading ? 'Logging in...' : 'Login'}
+            </button>
+          </div>
         </form>
 
-        <p className="text-center text-gray-400 mt-6">
-          Don't have an account?{' '}
-          <button 
-            onClick={onSwitchToSignup} 
-            className="text-[#23a867] hover:underline font-medium"
-          >
-            Sign up
-          </button>
-        </p>
+        <div className="mt-1 pt-1">
+          <p className="text-center text-gray-400 mb-2">
+            Don't have an account?{' '}
+            <button 
+              onClick={onSwitchToSignup} 
+              className="text-[#23a867] hover:underline font-medium"
+            >
+              Sign up
+            </button>
+          </p>
 
-        <button
-          onClick={handleClose}
-          className="mt-4 w-full text-gray-400 hover:text-white py-2 transition-colors"
-        >
-          Close
-        </button>
+          <button
+            onClick={handleClose}
+            className="w-full text-gray-400 hover:text-white py-1 transition-colors"
+          >
+            Close
+          </button>
+        </div>
       </div>
     </div>
   )
