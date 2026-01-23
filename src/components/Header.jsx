@@ -81,13 +81,13 @@ const Header = ({ onOpenSignup, showSignupModal: propShowSignupModal, onCloseSig
       <div className="flex items-center gap-8 text-white">
         <button 
           onClick={goToHome}
-          className="cursor-pointer hover:opacity-80 transition-opacity"
+          className="cursor-pointer hover:opacity-80 transition-opacity p-2"
           aria-label="Go to home"
         >
           <img
             src="/assets/Logo.png"
             alt="Top of the Green Logo"
-            className="h-20 w-20 object-contain"
+            className="h-12 w-12 object-contain"
           />
         </button>
         {/* Desktop Navigation */}
@@ -105,7 +105,14 @@ const Header = ({ onOpenSignup, showSignupModal: propShowSignupModal, onCloseSig
             Events
           </button>
           <button 
-            onClick={() => { navigate('/blog'); setIsMobileMenuOpen(false); }}
+            onClick={() => { 
+              navigate('/blog')
+              setIsMobileMenuOpen(false)
+              // Scroll to top after navigation
+              setTimeout(() => {
+                window.scrollTo({ top: 0, behavior: 'smooth' })
+              }, 100)
+            }}
             className="text-white nav-button text-base font-medium leading-normal"
           >
             What's happening
@@ -192,7 +199,14 @@ const Header = ({ onOpenSignup, showSignupModal: propShowSignupModal, onCloseSig
               Events
             </button>
             <button 
-              onClick={() => { navigate('/blog'); setIsMobileMenuOpen(false); }}
+              onClick={() => { 
+                navigate('/blog')
+                setIsMobileMenuOpen(false)
+                // Scroll to top after navigation
+                setTimeout(() => {
+                  window.scrollTo({ top: 0, behavior: 'smooth' })
+                }, 100)
+              }}
               className="text-white nav-button text-base font-medium text-left py-2"
             >
               What's happening

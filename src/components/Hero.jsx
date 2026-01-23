@@ -152,23 +152,23 @@ const Hero = ({ isAdmin = false }) => {
       </div>
 
       {/* What's Happening Section - Hero News */}
-      <div className="pt-12 pb-6 sm:pt-16 sm:pb-8 bg-[var(--background-dark)]">
+      <div className="pt-16 pb-12 sm:pt-24 sm:pb-16 bg-[var(--background-dark)]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold tracking-tight text-white text-center mb-10">What's happening</h2>
+          <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-white text-center mb-12 md:mb-16">What's happening</h2>
           
           {newsLoading ? (
-            <div className="text-center text-white py-12">
+            <div className="text-center text-white py-16">
               <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div>
               <p className="mt-4">Loading news...</p>
             </div>
           ) : news.length === 0 ? (
-            <div className="text-center text-gray-400 py-12">
+            <div className="text-center text-gray-400 py-16">
               <p>No news available at the moment.</p>
             </div>
           ) : (
-            <div className="flex flex-wrap justify-center gap-6">
+            <div className="flex flex-wrap justify-center gap-8 md:gap-10">
               {news.map((newsItem) => (
-                <div key={newsItem.id} className="flex flex-col gap-4 rounded-lg w-full sm:w-auto sm:max-w-[300px] lg:max-w-[240px]">
+                <div key={newsItem.id} className="flex flex-col gap-5 rounded-lg w-full sm:w-auto sm:max-w-[360px] lg:max-w-[320px] xl:max-w-[380px]">
                   <div 
                     className={`relative w-full bg-center bg-no-repeat aspect-video bg-cover rounded-xl ${
                       isAdmin ? 'cursor-pointer group' : ''
@@ -190,9 +190,9 @@ const Hero = ({ isAdmin = false }) => {
                     )}
                   </div>
                   <div className="text-center">
-                    <p className="text-white text-lg font-bold leading-normal mb-2">{newsItem.title}</p>
+                    <p className="text-white text-xl md:text-2xl font-bold leading-normal mb-3">{newsItem.title}</p>
                     {newsItem.description && (
-                      <p className="text-gray-400 text-sm leading-relaxed">{newsItem.description}</p>
+                      <p className="text-gray-400 text-base md:text-lg leading-relaxed">{newsItem.description}</p>
                     )}
                   </div>
                 </div>

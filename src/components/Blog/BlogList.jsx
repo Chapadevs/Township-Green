@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useBlogPosts } from '../../hooks/useBlogPosts'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../../contexts/AuthContext'
@@ -11,6 +11,11 @@ const BlogList = () => {
   const { refetch: refetchAdminPosts } = useAdminBlogPosts()
   const navigate = useNavigate()
   const [showBlogPostForm, setShowBlogPostForm] = useState(false)
+
+  // Scroll to top when component mounts
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }, [])
 
   const formatDate = (dateString) => {
     const date = new Date(dateString)
@@ -56,28 +61,23 @@ const BlogList = () => {
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="text-center mb-16">
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex-1"></div>
-            <div className="flex-1">
-              <h1 className="text-white text-4xl md:text-5xl font-black leading-tight tracking-tight font-['Space_Grotesk']">
-                What's happening
-              </h1>
-            </div>
-            <div className="flex-1 flex justify-end">
-              {isAdmin && (
-                <button
-                  onClick={() => setShowBlogPostForm(true)}
-                  className="bg-[#23a867] text-white px-6 py-3 rounded-lg font-bold hover:bg-opacity-90 transition-all flex items-center gap-2"
-                >
-                  <span className="material-symbols-outlined">add</span>
-                  Create Post
-                </button>
-              )}
-            </div>
-          </div>
+          <h1 className="text-white text-4xl md:text-5xl font-black leading-tight tracking-tight font-['Space_Grotesk'] mb-4">
+            What's happening
+          </h1>
           <p className="text-gray-400 text-lg">
             Stay updated with the latest news and events from Top of the Green
           </p>
+          {isAdmin && (
+            <div className="flex justify-center mt-6">
+              <button
+                onClick={() => setShowBlogPostForm(true)}
+                className="bg-[#23a867] text-white px-6 py-3 rounded-lg font-bold hover:bg-opacity-90 transition-all flex items-center gap-2"
+              >
+                <span className="material-symbols-outlined">add</span>
+                Create Post
+              </button>
+            </div>
+          )}
         </div>
 
         {/* Blog Posts Grid */}
