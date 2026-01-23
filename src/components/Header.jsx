@@ -115,7 +115,7 @@ const Header = ({ onOpenSignup, showSignupModal: propShowSignupModal, onCloseSig
             }}
             className="text-white nav-button text-base font-medium leading-normal"
           >
-            What's happening
+            News
           </button>
         </nav>
       </div>
@@ -154,13 +154,13 @@ const Header = ({ onOpenSignup, showSignupModal: propShowSignupModal, onCloseSig
             <div className="flex items-center gap-3">
               <button 
                 onClick={openLoginModal}
-                className="border-2 border-[#23a867] text-[#23a867] hover:text-white px-3 py-1.5 rounded-md font-semibold transition-all text-sm"
+                className="border-2 border-[#1d8c56] text-[#1d8c56] hover:text-white hover:bg-[#1d8c56] px-3 py-1.5 rounded-md font-semibold transition-all text-sm"
               >
                 Login
               </button>
               <button 
                 onClick={openSignupModal}
-                className="border-2 border-[#23a867] text-[#23a867] hover:text-white px-3 py-1.5 rounded-md font-semibold transition-all text-sm"
+                className="border-2 border-[#1d8c56] text-[#1d8c56] hover:text-white hover:bg-[#1d8c56] px-3 py-1.5 rounded-md font-semibold transition-all text-sm"
               >
                 Sign Up
               </button>
@@ -209,7 +209,7 @@ const Header = ({ onOpenSignup, showSignupModal: propShowSignupModal, onCloseSig
               }}
               className="text-white nav-button text-base font-medium text-left py-2"
             >
-              What's happening
+              News
             </button>
             {!loading && (
               user ? (
@@ -246,13 +246,13 @@ const Header = ({ onOpenSignup, showSignupModal: propShowSignupModal, onCloseSig
                 <>
                   <button 
                     onClick={openLoginModal}
-                    className="border-2 border-[#23a867] text-[#23a867] hover:text-white px-4 py-2.5 rounded-lg font-bold transition-all"
+                    className="border-2 border-[#1d8c56] text-[#1d8c56] hover:text-white hover:bg-[#1d8c56] px-4 py-2.5 rounded-lg font-bold transition-all"
                   >
                     Login
                   </button>
                   <button 
                     onClick={openSignupModal}
-                    className="border-2 border-[#23a867] text-[#23a867] hover:text-white px-4 py-2.5 rounded-lg font-bold transition-all"
+                    className="border-2 border-[#1d8c56] text-[#1d8c56] hover:text-white hover:bg-[#1d8c56] px-4 py-2.5 rounded-lg font-bold transition-all"
                   >
                     Sign Up
                   </button>

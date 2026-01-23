@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Booking Request - Top of the Green</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #12211a;
+            color: #ffffff;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #12211a;
+            padding: 0;
+        }
+        .header {
+            background: linear-gradient(135deg, #23a867 0%, #1d554c 100%);
+            padding: 30px 20px;
+            text-align: center;
+            border-radius: 0 0 12px 12px;
+        }
+        .logo {
+            font-size: 28px;
+            font-weight: 900;
+            color: #ffffff;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+        .tagline {
+            font-size: 14px;
+            color: #ffffff;
+            opacity: 0.9;
+            margin: 0;
+            font-weight: 500;
+        }
+        .content {
+            padding: 30px 20px;
+            background-color: #1d2d25;
+            margin: 20px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+        .alert-badge {
+            background: linear-gradient(135deg, #23a867, #1d8c56);
+            color: #ffffff;
+            padding: 10px 18px;
+            border-radius: 25px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            display: inline-block;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 12px rgba(35, 168, 103, 0.3);
+        }
+        .booking-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 25px;
+            border-bottom: 3px solid #23a867;
+            padding-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+        .info-card {
+            background-color: #12211a;
+            padding: 18px;
+            border-radius: 10px;
+            border-left: 4px solid #23a867;
+            transition: transform 0.2s ease;
+        }
+        .info-card:hover {
+            transform: translateY(-2px);
+        }
+        .info-label {
+            font-size: 11px;
+            color: #9ca3af;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+        .info-value {
+            font-size: 16px;
+            color: #ffffff;
+            font-weight: 600;
+            word-break: break-word;
+        }
+        .highlight {
+            color: #23a867;
+            font-weight: 700;
+        }
+        .priority-info {
+            background: linear-gradient(135deg, #23a867, #1d554c);
+            padding: 20px;
+            border-radius: 12px;
+            margin: 25px 0;
+            text-align: center;
+        }
+        .priority-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .priority-details {
+            font-size: 16px;
+            color: #ffffff;
+            font-weight: 600;
+        }
+        .special-requests {
+            background-color: #12211a;
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid #23a867;
+            margin: 25px 0;
+        }
+        .special-requests-title {
+            font-size: 14px;
+            color: #23a867;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+        }
+        .special-requests-content {
+            font-size: 15px;
+            color: #ffffff;
+            line-height: 1.5;
+            font-style: italic;
+        }
+        .action-section {
+            background-color: #12211a;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            margin: 30px 0;
+        }
+        .action-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 20px;
+            background: linear-gradient(135deg, #23a867, #1d8c56);
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 14px;
+            letter-spacing: 0.3px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(35, 168, 103, 0.3);
+        }
+        .btn:hover {
+            background: linear-gradient(135deg, #1d8c56, #166b47);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(35, 168, 103, 0.4);
+        }
+        .btn-secondary {
+            background: linear-gradient(135deg, #1d554c, #155249);
+        }
+        .btn-secondary:hover {
+            background: linear-gradient(135deg, #155249, #0f3d36);
+        }
+        .timestamp {
+            background-color: #12211a;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            margin: 20px 0;
+            border: 1px solid #374151;
+        }
+        .timestamp-label {
+            font-size: 11px;
+            color: #9ca3af;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+        .timestamp-value {
+            font-size: 14px;
+            color: #ffffff;
+            font-weight: 600;
+        }
+        .footer {
+            padding: 25px 20px;
+            text-align: center;
+            color: #6b7280;
+            font-size: 12px;
+            border-top: 2px solid #374151;
+            margin-top: 30px;
+        }
+        .footer-brand {
+            color: #23a867;
+            font-weight: 700;
+            font-size: 14px;
+            margin-top: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .urgent-indicator {
+            background: linear-gradient(135deg, #dc2626, #b91c1c);
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.8; }
+            100% { opacity: 1; }
+        }
+        @media only screen and (max-width: 600px) {
+            .content {
+                margin: 10px;
+                padding: 20px 15px;
+            }
+            .info-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            .booking-title {
+                font-size: 20px;
+            }
+            .action-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            .btn {
+                width: 100%;
+                max-width: 250px;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo">Top of the Green</div>
+            <p class="tagline">Art Space & Lounge</p>
+        </div>
+
+        <!-- Main Content -->
+        <div class="content">
+            <div class="alert-badge">New Booking Alert</div>
+            
+            <h1 class="booking-title">Session Booking Request</h1>
+
+            <!-- Priority Information -->
+            <div class="priority-info">
+                <div class="priority-title">Immediate Action Required</div>
+                <div class="priority-details">
+                    New booking from <strong>{{from_name}}</strong> • {{guests}} guest(s) • Event ID: {{event_id}}
+                </div>
+            </div>
+
+            <!-- Customer Information Grid -->
+            <div class="info-grid">
+                <div class="info-card">
+                    <div class="info-label">Customer Name</div>
+                    <div class="info-value highlight">{{from_name}}</div>
+                </div>
+                
+                <div class="info-card">
+                    <div class="info-label">Email Address</div>
+                    <div class="info-value">{{from_email}}</div>
+                </div>
+                
+                <div class="info-card">
+                    <div class="info-label">Phone Number</div>
+                    <div class="info-value">{{phone}}</div>
+                </div>
+                
+                <div class="info-card">
+                    <div class="info-label">Number of Guests</div>
+                    <div class="info-value highlight">{{guests}} guest(s)</div>
+                </div>
+            </div>
+
+            <!-- Booking Details -->
+            <div class="info-grid">
+                <div class="info-card">
+                    <div class="info-label">Event/Session ID</div>
+                    <div class="info-value highlight">#{{event_id}}</div>
+                </div>
+                
+                <div class="info-card">
+                    <div class="info-label">Message Type</div>
+                    <div class="info-value">{{message_type}}</div>
+                </div>
+            </div>
+
+            <!-- VALIDATION INFORMATION -->
+            <div class="priority-info" style="background: linear-gradient(135deg, #dc2626, #b91c1c); margin: 30px 0;">
+                <div class="priority-title">BOOKING VALIDATION INFO</div>
+                <div class="priority-details">
+                    <strong>Booking ID:</strong> {{booking_id_display}}<br>
+                    <strong>Validation Code:</strong> {{validation_code}}<br>
+                    <strong>Status:</strong> PENDING CONFIRMATION
+                </div>
+            </div>
+
+            <!-- Validation Details Grid -->
+            <div class="info-grid">
+                <div class="info-card">
+                    <div class="info-label">Full Booking ID</div>
+                    <div class="info-value highlight">{{booking_id}}</div>
+                </div>
+                
+                <div class="info-card">
+                    <div class="info-label">Quick Validation</div>
+                    <div class="info-value">{{validation_code}}</div>
+                </div>
+            </div>
+
+            <!-- Special Requests -->
+            <div class="special-requests">
+                <div class="special-requests-title">Special Requests & Notes</div>
+                <div class="special-requests-content">
+                    "{{special_requests}}"
+                </div>
+            </div>
+
+            <!-- Timestamp -->
+            <div class="timestamp">
+                <div class="timestamp-label">Request Received</div>
+                <div class="timestamp-value">{{timestamp}} (Auto-generated by system)</div>
+            </div>
+
+            <!-- QR Code Validation Section -->
+            <div class="action-section" style="background: linear-gradient(135deg, #1d554c, #155249);">
+                <div class="action-title">Customer QR Code Validation</div>
+                <div style="text-align: center; margin: 20px 0;">
+                    <img src="{{qr_code_url}}" alt="Booking QR Code" style="max-width: 200px; border: 3px solid #23a867; border-radius: 12px; background: white; padding: 10px;">
+                    <p style="color: #ffffff; margin-top: 15px; font-size: 14px;">
+                        <strong>Customer will receive this QR code for validation</strong><br>
+                        Scan on arrival to verify booking: <span style="color: #23a867;">{{booking_id_display}}</span>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Action Section -->
+            <div class="action-section">
+                <div class="action-title">Quick Actions</div>
+                <div class="action-buttons">
+                    <a href="mailto:{{from_email}}?subject=Booking Confirmation - Top of the Green&body=Hi {{from_name}},%0D%0A%0D%0AYour booking has been CONFIRMED!%0D%0ABooking ID: {{booking_id_display}}%0D%0AEvent ID: {{event_id}}%0D%0AGuests: {{guests}}%0D%0A%0D%0APlease bring your booking confirmation email with QR code for quick check-in.%0D%0A%0D%0ABest regards,%0D%0ATop of the Green Team" class="btn">
+                        Email Customer
+                    </a>
+                    <a href="tel:{{phone}}" class="btn btn-secondary">
+                        Call Now
+                    </a>
+                    <a href="sms:{{phone}}?body=Hi {{from_name}}, your Top of the Green booking is CONFIRMED! Booking ID: {{booking_id_display}}. Please bring your confirmation email with QR code. See you soon!" class="btn btn-secondary">
+                        Send SMS
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p><strong>⚠️ Response Required:</strong> Please respond to this booking request within 24 hours to maintain customer satisfaction.</p>
+            <p>This automated notification was generated by your Top of the Green booking system.</p>
+            <div class="footer-brand">
+            </div>
+        </div>
+    </div>
+</body>
+</html>
