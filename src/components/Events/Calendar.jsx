@@ -49,15 +49,17 @@ const Calendar = ({ selectedDate, onDateSelect, events }) => {
     if (!date) return null;
     const dayEvents = getEventsForDate(date);
     if (dayEvents.length === 0) return null;
-    
-    // Check if any event is FYI type
-    const hasFyiEvent = dayEvents.some(event => event.type === 'fyi');
-    const hasBookableEvent = dayEvents.some(event => event.type !== 'fyi');
-    
-    // Priority: if there's a bookable event, show that style
+
+    // Supabase raw events use event_type; transformed events use type
+    const isFyi = (event) =>
+      event.event_type === 'special-event' || event.type === 'fyi';
+
+    const hasFyiEvent = dayEvents.some(isFyi);
+    const hasBookableEvent = dayEvents.some((e) => !isFyi(e));
+
     if (hasBookableEvent) return 'bookable';
     if (hasFyiEvent) return 'fyi';
-    return 'bookable'; // default
+    return 'bookable';
   };
 
   const isToday = (date) => {
