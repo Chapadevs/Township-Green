@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import ReactDOM from 'react-dom'
 import { useAuth } from '../../contexts/AuthContext'
 
 export default function LoginModal({ isOpen, onClose, onSwitchToSignup }) {
@@ -35,7 +36,7 @@ export default function LoginModal({ isOpen, onClose, onSwitchToSignup }) {
 
   if (!isOpen) return null
 
-  return (
+  return ReactDOM.createPortal(
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
       <div className="bg-[#1d2d25] rounded-lg p-8 pb-6 max-w-md w-full flex flex-col min-h-[500px]">
         <h2 className="text-2xl font-bold text-white mb-6">Login to Township Green</h2>
@@ -103,6 +104,7 @@ export default function LoginModal({ isOpen, onClose, onSwitchToSignup }) {
           </button>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   )
 }

@@ -71,6 +71,16 @@ const Calendar = ({ selectedDate, onDateSelect, events }) => {
     return date.toDateString() === selectedDate.toDateString();
   };
 
+  const hasEventsInMonth = (year, month) => {
+    if (!events) return false;
+    return events.some(event => {
+      const dateStr = event.event_date || event.date;
+      if (!dateStr) return false;
+      const d = new Date(dateStr);
+      return d.getFullYear() === year && d.getMonth() === month;
+    });
+  };
+
   const navigateMonth = (direction) => {
     const newMonth = new Date(currentMonth);
     if (direction === 'prev') {
@@ -82,22 +92,32 @@ const Calendar = ({ selectedDate, onDateSelect, events }) => {
   };
 
   const days = getDaysInMonth(currentMonth);
+  const prevY = currentMonth.getMonth() === 0 ? currentMonth.getFullYear() - 1 : currentMonth.getFullYear();
+  const prevM = currentMonth.getMonth() === 0 ? 11 : currentMonth.getMonth() - 1;
+  const nextY = currentMonth.getMonth() === 11 ? currentMonth.getFullYear() + 1 : currentMonth.getFullYear();
+  const nextM = currentMonth.getMonth() === 11 ? 0 : currentMonth.getMonth() + 1;
+  const prevHasEvents = hasEventsInMonth(prevY, prevM);
+  const nextHasEvents = hasEventsInMonth(nextY, nextM);
+  const currentHasEvents = hasEventsInMonth(currentMonth.getFullYear(), currentMonth.getMonth());
 
   return (
     <div id="calendar" className="flex-1 min-w-[320px] max-w-md bg-[#1d2d25] p-6 rounded-lg shadow-2xl">
       {/* Calendar Header */}
       <div className="flex items-center justify-between mb-4">
-        <button 
+        <button
           onClick={() => navigateMonth('prev')}
           className="text-white hover:text-[var(--primary-color)] transition-colors"
           aria-label="Previous month"
         >
           <span className="material-symbols-outlined text-3xl">arrow_back_ios</span>
         </button>
-        <h3 className="text-white text-2xl font-bold">
+        <h3 className="flex items-center gap-2 text-white text-2xl font-bold">
           {monthNames[currentMonth.getMonth()]} {currentMonth.getFullYear()}
+          {currentHasEvents && (
+            <span className="w-2.5 h-2.5 bg-[var(--primary-color)] rounded-full flex-shrink-0" />
+          )}
         </h3>
-        <button 
+        <button
           onClick={() => navigateMonth('next')}
           className="text-white hover:text-[var(--primary-color)] transition-colors"
           aria-label="Next month"

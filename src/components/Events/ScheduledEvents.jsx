@@ -37,23 +37,25 @@ const ScheduledEvents = ({ onBookNow }) => {
   };
 
   return (
-    <section className="md:pb-12 md:mb-6 bg-[var(--background-dark)]" id="events">
-      <div className="container mx-auto px-6 sm:px-8 lg:px-10 max-w-6xl py-8">
-        <div className="text-center mb-6">
-          <div className="relative mb-2">
-            <h2 className="text-4xl font-black tracking-tight text-white sm:text-5xl font-['Space_Grotesk'] relative z-10">
-              <span className="relative inline-block">
-                <span className="text-white relative z-10">NEXT</span>
-              </span>
-              <span className="relative inline-block ml-4">
-                <span className="relative z-10">EVENTS</span>
-                <div className="absolute inset-0 bg-[var(--primary-color)] opacity-15 blur-lg transform scale-110"></div>
-              </span>
-            </h2>
+    <section
+      className="bg-[var(--background-dark)]"
+      id="events"
+      style={{ padding: 'clamp(56px, 7vw, 88px) clamp(20px, 5vw, 40px)' }}
+    >
+      <div style={{ maxWidth: '1152px', margin: '0 auto' }}>
+        <div className="text-center" style={{ maxWidth: '720px', margin: '0 auto 52px' }}>
+          <div className="inline-flex items-center gap-3 mb-4">
+            <span className="w-[26px] h-[2px] bg-[#23a867] flex-shrink-0"></span>
+            <span className="text-[#23a867] font-['Space_Grotesk'] text-xs font-semibold tracking-[0.2em] uppercase whitespace-nowrap">Mark your calendar</span>
+            <span className="w-[26px] h-[2px] bg-[#23a867] flex-shrink-0"></span>
           </div>
-          <p className="text-lg text-[var(--text-secondary)] font-['Space_Grotesk'] font-medium">
-            EVENTS SCHEDULE - NOVEMBER 2025
-          </p>
+          <h2
+            className="text-white font-['Space_Grotesk'] font-bold tracking-[-0.02em] leading-[1.08]"
+            style={{ fontSize: 'clamp(30px, 4.5vw, 46px)' }}
+          >
+            Next events
+          </h2>
+          <p className="text-[#9ca3af] text-lg leading-[1.65] mt-[18px]">Events schedule — November 2025</p>
         </div>
         
         {/* Enhanced Event Cards Layout with Bigger Images */}
@@ -67,14 +69,29 @@ const ScheduledEvents = ({ onBookNow }) => {
             <p className="text-gray-400 text-lg">No upcoming events at this time</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
+          <div
+            className={
+              displayEvents.length === 1
+                ? 'flex justify-center'
+                : displayEvents.length === 2
+                ? 'grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto'
+                : 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6'
+            }
+          >
             {displayEvents.map((event, index) => (
-            <div 
+            <div
               key={event.id}
-              className="group relative bg-[var(--background-card)] rounded-xl shadow-2xl overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:shadow-3xl"
+              className={`group relative flex flex-col bg-[var(--background-card)] border border-white/[0.06] rounded-2xl overflow-hidden shadow-[0_12px_32px_rgba(0,0,0,0.28)] transition-all duration-300 hover:-translate-y-[5px] hover:border-[rgba(35,168,103,0.5)] ${
+                displayEvents.length === 1 ? 'w-full max-w-lg' : ''
+              }`}
             >
               {/* Large Event Image */}
-              <div className="relative overflow-hidden h-48 sm:h-56 md:h-64 cursor-pointer" onClick={() => handleImageClick(event)}>
+              <div
+                className={`relative overflow-hidden cursor-pointer ${
+                  displayEvents.length === 1 ? 'h-[320px]' : 'h-[230px]'
+                }`}
+                onClick={() => handleImageClick(event)}
+              >
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent z-10"></div>
                 <img 
                   src={event.image} 
@@ -102,7 +119,7 @@ const ScheduledEvents = ({ onBookNow }) => {
               </div>
 
               {/* Event Content */}
-              <div className="p-3 sm:p-4 space-y-2 sm:space-y-3">
+              <div className="p-[22px] flex flex-col gap-3 flex-1">
                 {/* Time Header */}
                 <div className="flex items-center gap-2">
                   <span className="material-symbols-outlined text-[var(--primary-color)] text-base">schedule</span>
@@ -145,9 +162,9 @@ const ScheduledEvents = ({ onBookNow }) => {
                         {event.highlight} →
                       </a>
                     ) : (
-                      <button 
+                      <button
                         onClick={() => onBookNow && onBookNow(event.originalEvent)}
-                        className="w-full bg-[var(--primary-color)] hover:bg-[var(--primary-color)]/90 text-white px-3 py-2 sm:px-4 sm:py-2.5 rounded-lg text-xs sm:text-sm font-bold font-['Space_Grotesk'] transition-all duration-300 hover:scale-105 shadow-lg"
+                        className="w-full bg-[#23a867] hover:bg-[#1e8f57] text-white py-3 px-4 rounded-[10px] font-['Lora',serif] font-bold text-[15px] transition-all duration-300"
                       >
                         Reserve Now
                       </button>
@@ -182,9 +199,9 @@ const ScheduledEvents = ({ onBookNow }) => {
               {/* Close Button */}
               <button
                 onClick={closeModal}
-                className="absolute top-3 right-3 z-60 bg-black/50 hover:bg-black/70 text-white rounded-full p-2 transition-all duration-300 backdrop-blur-sm"
+                className="absolute top-3 right-3 z-[60] bg-black/70 hover:bg-black/90 text-white rounded-full p-2 transition-all duration-300 backdrop-blur-sm shadow-lg"
               >
-                <span className="material-symbols-outlined text-xl">close</span>
+                <span className="material-symbols-outlined text-xl leading-none">close</span>
               </button>
 
               {/* Event Image - Left Side */}

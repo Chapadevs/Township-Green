@@ -77,9 +77,10 @@ const Header = ({ onOpenSignup, showSignupModal: propShowSignupModal, onCloseSig
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#254637] px-10 shadow-md bg-[var(--background-dark)]">
+    <>
+    <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between whitespace-nowrap px-10 shadow-md backdrop-blur-[10px]" style={{ background: 'rgba(18,33,26,0.92)' }}>
       <div className="flex items-center gap-8 text-white">
-        <button 
+        <button
           onClick={goToHome}
           className="cursor-pointer hover:opacity-80 transition-opacity p-2"
           aria-label="Go to home"
@@ -87,7 +88,7 @@ const Header = ({ onOpenSignup, showSignupModal: propShowSignupModal, onCloseSig
           <img
             src="/assets/Logo.png"
             alt="Top of the Green Logo"
-            className="h-12 w-12 object-contain"
+            className="h-[50px] w-[50px] object-contain"
           />
         </button>
         {/* Desktop Navigation */}
@@ -152,15 +153,15 @@ const Header = ({ onOpenSignup, showSignupModal: propShowSignupModal, onCloseSig
             </div>
           ) : (
             <div className="flex items-center gap-3">
-              <button 
+              <button
                 onClick={openLoginModal}
-                className="border-2 border-[#1d8c56] text-[#1d8c56] hover:text-white hover:bg-[#1d8c56] px-3 py-1.5 rounded-md font-semibold transition-all text-sm"
+                className="border border-[#1d8c56] text-[#1d8c56] hover:text-white hover:bg-[#1d8c56] px-[18px] py-2 rounded-[9px] font-semibold transition-all text-sm"
               >
                 Login
               </button>
-              <button 
+              <button
                 onClick={openSignupModal}
-                className="border-2 border-[#1d8c56] text-[#1d8c56] hover:text-white hover:bg-[#1d8c56] px-3 py-1.5 rounded-md font-semibold transition-all text-sm"
+                className="bg-[#23a867] border border-[#23a867] text-white hover:bg-[#1e8f57] hover:border-[#1e8f57] px-[18px] py-2 rounded-[9px] font-semibold transition-all text-sm"
               >
                 Sign Up
               </button>
@@ -182,79 +183,113 @@ const Header = ({ onOpenSignup, showSignupModal: propShowSignupModal, onCloseSig
         </button>
       </div>
 
-      {/* Mobile Menu */}
+    </header>
+
+      {/* Mobile Menu - Full Screen Overlay — rendered outside <header> to escape backdrop-blur stacking context */}
       {isMobileMenuOpen && (
-        <div className="absolute top-full left-0 right-0 bg-[#1d2d25] border-b border-[#254637] md:hidden z-50">
-          <div className="flex flex-col p-4 gap-4">
-            <button 
+        <div className="fixed inset-0 bg-[#0d1f16] z-[100] md:hidden flex flex-col">
+          {/* Top bar */}
+          <div className="flex items-center justify-between px-6 h-[70px] border-b border-white/[0.08] flex-shrink-0">
+            <button onClick={goToHome} className="hover:opacity-80 transition-opacity">
+              <img src="/assets/Logo.png" alt="Top of the Green Logo" className="h-[44px] w-[44px] object-contain" />
+            </button>
+            <button
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="text-white p-2"
+              aria-label="Close menu"
+            >
+              <span className="material-symbols-outlined text-2xl">close</span>
+            </button>
+          </div>
+
+          {/* Nav Items */}
+          <nav className="flex flex-col flex-1 px-6 pt-2 overflow-y-auto">
+            <button
               onClick={() => scrollToSection('about')}
-              className="text-white nav-button text-base font-medium text-left py-2"
+              className="flex items-center justify-between py-3 border-b border-white/[0.08] text-white font-['Space_Grotesk'] font-bold text-xl tracking-tight text-left hover:text-[#23a867] transition-colors"
             >
               About
+              <span className="text-xl font-light opacity-60">→</span>
             </button>
-            <button 
+            <button
               onClick={() => scrollToSection('events')}
-              className="text-white nav-button text-base font-medium text-left py-2"
+              className="flex items-center justify-between py-3 border-b border-white/[0.08] text-white font-['Space_Grotesk'] font-bold text-xl tracking-tight text-left hover:text-[#23a867] transition-colors"
             >
               Events
+              <span className="text-xl font-light opacity-60">→</span>
             </button>
-            <button 
-              onClick={() => { 
-                navigate('/blog')
-                setIsMobileMenuOpen(false)
-                // Scroll to top after navigation
-                setTimeout(() => {
-                  window.scrollTo({ top: 0, behavior: 'smooth' })
-                }, 100)
+            <button
+              onClick={() => {
+                navigate('/blog');
+                setIsMobileMenuOpen(false);
+                setTimeout(() => window.scrollTo({ top: 0, behavior: 'smooth' }), 100);
               }}
-              className="text-white nav-button text-base font-medium text-left py-2"
+              className="flex items-center justify-between py-3 border-b border-white/[0.08] text-white font-['Space_Grotesk'] font-bold text-xl tracking-tight text-left hover:text-[#23a867] transition-colors"
             >
               News
+              <span className="text-xl font-light opacity-60">→</span>
             </button>
+
+            {/* Reserve a Spot — guests only */}
+            {!loading && !user && (
+              <button
+                onClick={() => scrollToSection('calendar')}
+                className="flex items-center justify-between py-3 border-b border-white/[0.08] text-[#23a867] font-['Space_Grotesk'] font-bold text-xl tracking-tight text-left"
+              >
+                Reserve a Spot
+                <span className="text-xl font-light">→</span>
+              </button>
+            )}
+
+            {/* Admin Panel */}
+            {!loading && user && isAdmin && !isAdminPage && (
+              <button
+                onClick={() => { navigate('/admin'); setIsMobileMenuOpen(false); }}
+                className="flex items-center justify-between py-3 border-b border-white/[0.08] text-[#23a867] font-['Space_Grotesk'] font-bold text-xl tracking-tight text-left"
+              >
+                Admin Panel
+                <span className="text-xl font-light">→</span>
+              </button>
+            )}
+            {!loading && user && isAdminPage && (
+              <button
+                onClick={() => { navigate('/'); setIsMobileMenuOpen(false); }}
+                className="flex items-center justify-between py-3 border-b border-white/[0.08] text-[#23a867] font-['Space_Grotesk'] font-bold text-xl tracking-tight text-left"
+              >
+                Back to Home
+                <span className="text-xl font-light">→</span>
+              </button>
+            )}
+          </nav>
+
+          {/* Bottom auth section */}
+          <div className="px-6 pb-10 pt-4 space-y-3 flex-shrink-0">
             {!loading && (
               user ? (
                 <>
-                  <div className="text-white text-sm py-2 border-t border-[#254637] mt-2 pt-4">
+                  <p className="text-white/40 text-sm text-center font-['Space_Grotesk'] mb-4">
                     Hi, {profile?.full_name || user.email?.split('@')[0]}
-                  </div>
-                  {isAdmin && !isAdminPage && (
-                    <button
-                      onClick={() => { navigate('/admin'); setIsMobileMenuOpen(false); }}
-                      className="border-2 border-[#23a867] text-[#23a867] hover:text-white px-4 py-2.5 rounded-lg font-bold transition-all flex items-center gap-2"
-                    >
-                      <span className="material-symbols-outlined">admin_panel_settings</span>
-                      Admin Panel
-                    </button>
-                  )}
-                  {isAdminPage && (
-                    <button
-                      onClick={() => { navigate('/'); setIsMobileMenuOpen(false); }}
-                      className="text-white text-base font-medium text-left py-2 flex items-center gap-2 hover:text-white transition-colors"
-                    >
-                      <span className="material-symbols-outlined">home</span>
-                      Home
-                    </button>
-                  )}
-                  <button 
+                  </p>
+                  <button
                     onClick={handleLogout}
-                    className="text-white text-base font-medium text-left py-2 hover:text-white transition-colors"
+                    className="w-full border border-white/20 text-white py-[10px] rounded-xl font-['Space_Grotesk'] font-bold text-sm transition-all hover:bg-white/10"
                   >
                     Logout
                   </button>
                 </>
               ) : (
                 <>
-                  <button 
-                    onClick={openLoginModal}
-                    className="border-2 border-[#1d8c56] text-[#1d8c56] hover:text-white hover:bg-[#1d8c56] px-4 py-2.5 rounded-lg font-bold transition-all"
-                  >
-                    Login
-                  </button>
-                  <button 
+                  <button
                     onClick={openSignupModal}
-                    className="border-2 border-[#1d8c56] text-[#1d8c56] hover:text-white hover:bg-[#1d8c56] px-4 py-2.5 rounded-lg font-bold transition-all"
+                    className="w-full bg-[#23a867] text-white py-[10px] rounded-xl font-['Space_Grotesk'] font-bold text-sm transition-all hover:bg-[#1e8f57]"
                   >
                     Sign Up
+                  </button>
+                  <button
+                    onClick={openLoginModal}
+                    className="w-full border border-white/20 text-white py-[10px] rounded-xl font-['Space_Grotesk'] font-bold text-sm transition-all hover:bg-white/10"
+                  >
+                    Login
                   </button>
                 </>
               )
@@ -264,7 +299,7 @@ const Header = ({ onOpenSignup, showSignupModal: propShowSignupModal, onCloseSig
       )}
 
       {/* Auth Modals */}
-      <LoginModal 
+      <LoginModal
         isOpen={showLoginModal}
         onClose={() => setShowLoginModal(false)}
         onSwitchToSignup={() => {
@@ -272,7 +307,7 @@ const Header = ({ onOpenSignup, showSignupModal: propShowSignupModal, onCloseSig
           handleOpenSignup();
         }}
       />
-      <SignupModal 
+      <SignupModal
         isOpen={showSignupModal}
         onClose={handleCloseSignup}
         onSwitchToLogin={() => {
@@ -280,7 +315,7 @@ const Header = ({ onOpenSignup, showSignupModal: propShowSignupModal, onCloseSig
           setShowLoginModal(true);
         }}
       />
-    </header>
+    </>
   );
 };
 

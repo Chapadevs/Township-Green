@@ -17,66 +17,49 @@ const EventsSection = ({ onBookNow }) => {
   };
 
   return (
-    <section className="py-16 px-10 bg-[var(--secondary-color)] bg-opacity-20" id="booking">
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-3 mb-4">
-            <div className="relative">
-              <h2 className="text-white text-5xl md:text-6xl font-black leading-tight tracking-tight font-['Space_Grotesk'] relative z-10">
-                <span className="relative inline-block">
-                  <span className="text-white relative z-10">Reserve</span>
-                </span>
-                <span className="text-white mx-3">Your</span>
-                <span className="relative inline-block">
-                  <span className="relative z-10">Spot</span>
-                  <div className="absolute inset-0 bg-[var(--primary-color)] opacity-15 blur-lg transform scale-110"></div>
-                </span>
-              </h2>
-            </div>
-          </div>
-          <p className="text-[var(--text-secondary)] text-lg font-['Noto_Sans'] max-w-2xl mx-auto">
-            Book an event or host your own private session. We'll handle the details.
-          </p>
+    <section
+      id="booking"
+      style={{ padding: 'clamp(56px, 7vw, 88px) clamp(20px, 5vw, 40px)', background: 'radial-gradient(120% 80% at 50% 0%, rgba(29,85,76,0.30) 0%, rgba(18,33,26,0) 58%), #12211a' }}
+    >
+      <div style={{ maxWidth: '1152px', margin: '0 auto' }}>
+        <div className="flex items-center justify-center gap-4" style={{ margin: '0 auto 52px' }}>
+          <span className="w-[26px] h-[2px] bg-[#23a867] flex-shrink-0"></span>
+          <h2
+            className="text-white font-['Space_Grotesk'] font-bold tracking-[-0.02em] leading-[1.08] text-center"
+            style={{ fontSize: 'clamp(30px, 4.5vw, 46px)' }}
+          >
+            Reserve your spot
+          </h2>
+          <span className="w-[26px] h-[2px] bg-[#23a867] flex-shrink-0"></span>
         </div>
-      <div className="max-w-5xl mx-auto">
-              {/* Event Features */}
-      <div className="mb-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <div className="bg-[var(--background-card)] rounded-lg p-6 text-center hover:bg-opacity-80 transition-all duration-300">
-            <div className="text-[var(--primary-color)] mb-4">
-              <span className="material-symbols-outlined text-4xl">brush</span>
-            </div>
-            <h4 className="text-white font-bold mb-2 font-['Space_Grotesk']">All Materials Provided</h4>
-            <p className="text-gray-400 text-sm font-['Noto_Sans']">We supply everything you need for your creative session</p>
+        {/* Event Features */}
+        <div className="mb-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+          <div className="bg-[var(--background-card)] border border-white/[0.06] rounded-2xl p-[26px] text-center transition-all duration-300 hover:-translate-y-1 hover:border-[rgba(35,168,103,0.5)]">
+            <span className="material-symbols-outlined text-[36px] text-[#23a867]">brush</span>
+            <h4 className="text-white font-bold mt-[14px] mb-2 font-['Space_Grotesk'] text-base">All Materials Provided</h4>
+            <p className="text-gray-400 text-[13.5px] leading-relaxed font-['Noto_Sans']">We supply everything you need for your creative session.</p>
           </div>
-          
-          <div className="bg-[var(--background-card)] rounded-lg p-6 text-center hover:bg-opacity-80 transition-all duration-300">
-            <div className="text-[var(--primary-color)] mb-4">
-              <span className="material-symbols-outlined text-4xl">schedule</span>
-            </div>
-            <h4 className="text-white font-bold mb-2 font-['Space_Grotesk']">Flexible Sessions</h4>
-            <p className="text-gray-400 text-sm font-['Noto_Sans']">Multiple time slots available throughout the week</p>
+          <div className="bg-[var(--background-card)] border border-white/[0.06] rounded-2xl p-[26px] text-center transition-all duration-300 hover:-translate-y-1 hover:border-[rgba(35,168,103,0.5)]">
+            <span className="material-symbols-outlined text-[36px] text-[#23a867]">schedule</span>
+            <h4 className="text-white font-bold mt-[14px] mb-2 font-['Space_Grotesk'] text-base">Flexible Sessions</h4>
+            <p className="text-gray-400 text-[13.5px] leading-relaxed font-['Noto_Sans']">Multiple time slots available throughout the week.</p>
           </div>
-          
-          <div className="bg-[var(--background-card)] rounded-lg p-6 text-center hover:bg-opacity-80 transition-all duration-300">
-            <div className="text-[var(--primary-color)] mb-4">
-              <span className="material-symbols-outlined text-4xl">group</span>
-            </div>
-            <h4 className="text-white font-bold mb-2 font-['Space_Grotesk']">Small Groups</h4>
-            <p className="text-gray-400 text-sm font-['Noto_Sans']">Intimate sessions with limited capacity for personal attention</p>
+          <div className="bg-[var(--background-card)] border border-white/[0.06] rounded-2xl p-[26px] text-center transition-all duration-300 hover:-translate-y-1 hover:border-[rgba(35,168,103,0.5)]">
+            <span className="material-symbols-outlined text-[36px] text-[#23a867]">group</span>
+            <h4 className="text-white font-bold mt-[14px] mb-2 font-['Space_Grotesk'] text-base">Small Groups</h4>
+            <p className="text-gray-400 text-[13.5px] leading-relaxed font-['Noto_Sans']">Intimate sessions with limited capacity for personal attention.</p>
           </div>
-          
-          <div className="bg-[var(--background-card)] rounded-lg p-6 text-center hover:bg-opacity-80 transition-all duration-300">
-            <div className="text-[var(--primary-color)] mb-4">
-              <span className="material-symbols-outlined text-4xl">verified</span>
-            </div>
-            <h4 className="text-white font-bold mb-2 font-['Space_Grotesk']">Safe Environment</h4>
-            <p className="text-gray-400 text-sm font-['Noto_Sans']">Legal, clean, and professionally managed space</p>
+          <div className="bg-[var(--background-card)] border border-white/[0.06] rounded-2xl p-[26px] text-center transition-all duration-300 hover:-translate-y-1 hover:border-[rgba(35,168,103,0.5)]">
+            <span className="material-symbols-outlined text-[36px] text-[#23a867]">verified</span>
+            <h4 className="text-white font-bold mt-[14px] mb-2 font-['Space_Grotesk'] text-base">Safe Environment</h4>
+            <p className="text-gray-400 text-[13.5px] leading-relaxed font-['Noto_Sans']">Legal, clean, and professionally managed space.</p>
           </div>
         </div>
         
         {/* Calendar and Event Sessions Section */}
-        <div className="flex flex-wrap items-start justify-center gap-12">
+        <div className="grid gap-7" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))' }}>
           {/* Left Side - Calendar */}
-          <div className="flex-1 min-w-[320px] max-w-md">
+          <div>
             <Calendar 
               selectedDate={selectedDate}
               onDateSelect={handleDateSelect}
@@ -85,7 +68,7 @@ const EventsSection = ({ onBookNow }) => {
           </div>
           
           {/* Right Side - Event Sessions */}
-          <div className="flex-1 min-w-[320px] max-w-2xl">
+          <div>
             {loading ? (
               <div className="bg-[var(--background-card)] rounded-xl p-8 text-center">
                 <div className="text-gray-400 mb-4">

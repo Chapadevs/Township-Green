@@ -1,82 +1,65 @@
 const Footer = () => {
   return (
-    <footer className="bg-[#1d2d25] py-8 px-10" id="contact">
-      <div className="max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-6">
-        <div className="text-center md:text-left">
-          <p className="text-gray-400">© 2025 Top of the Green. All rights reserved.</p>
-          <div className="flex justify-center md:justify-start gap-4 mt-2">
-            <a 
-              href="/privacy-policy.html" 
-              className="text-gray-400 hover:text-white transition-colors text-sm"
-              aria-label="Privacy Policy"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Privacy Policy
-            </a>
-            <a 
-              href="/terms-of-service.html" 
-              className="text-gray-400 hover:text-white transition-colors text-sm"
-              aria-label="Terms of Service"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Terms of Service
-            </a>
+    <footer
+      id="contact"
+      style={{ background: '#1d2d25', padding: 'clamp(48px, 6vw, 64px) clamp(20px, 5vw, 40px) 40px' }}
+    >
+      <div style={{ maxWidth: '1152px', margin: '0 auto' }}>
+        {/* Top row: logo + Instagram */}
+        <div className="flex flex-wrap items-center justify-between gap-6 pb-8 border-b border-white/10">
+          <div className="flex items-center gap-4">
+            <img src="/assets/Logo.png" alt="Top of the Green" style={{ height: '44px', width: '44px', objectFit: 'contain' }} />
+            <div>
+              <p className="text-white font-['Space_Grotesk'] font-bold text-base">Top of the Green</p>
+              <p className="text-[#6b7280] text-[13px]">© 2025 — All rights reserved.</p>
+            </div>
           </div>
-        </div>
-        
-        <div className="flex justify-center items-center gap-6">
-          <a 
-            href="https://www.instagram.com/townshipgreen/" 
-            className="text-gray-400 hover:text-white transition-colors"
-            aria-label="Follow us on Instagram"
+          <a
+            href="https://www.instagram.com/townshipgreen/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 text-[#9ca3af] hover:text-white transition-colors"
           >
-            <svg 
-              className="w-8 h-8" 
-              fill="none" 
-              stroke="currentColor" 
-              strokeLinecap="round" 
-              strokeLinejoin="round" 
-              strokeWidth="2" 
-              viewBox="0 0 24 24"
-            >
+            <svg width="26" height="26" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24">
               <rect height="20" rx="5" ry="5" width="20" x="2" y="2"></rect>
               <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
               <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
             </svg>
+            <span className="text-sm font-medium">@townshipgreen</span>
           </a>
         </div>
-      </div>
 
-      {/* Contact Information */}
-      <div className="max-w-6xl mx-auto mt-8 pt-8 border-t border-gray-600">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
+        {/* 4-column info grid */}
+        <div
+          className="grid gap-8 py-8"
+          style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))' }}
+        >
           <div>
-            <h4 className="text-white font-bold mb-2">Contact Us</h4>
-            <p className="text-gray-400 text-sm">Email: admin@topofgreen.com</p>
-            <p className="text-gray-400 text-sm">Phone: (609) 325-1339</p>
+            <h4 className="text-white font-['Space_Grotesk'] font-bold text-[15px] mb-3">Contact Us</h4>
+            <p className="text-[#9ca3af] text-sm leading-[1.8]">admin@topofgreen.com<br />(609) 325-1339</p>
           </div>
-          
           <div>
-            <h4 className="text-white font-bold mb-2">Location</h4>
-            <p className="text-gray-400 text-sm">17 E. Scott Street, Riverside<br></br> NJ 08075</p>
+            <h4 className="text-white font-['Space_Grotesk'] font-bold text-[15px] mb-3">Location</h4>
+            <p className="text-[#9ca3af] text-sm leading-[1.8]">17 E. Scott Street<br />Riverside, NJ 08075</p>
           </div>
-          
           <div>
-            <h4 className="text-white font-bold mb-2">Hours</h4>
-            <p className="text-gray-400 text-sm">Monday - Thursday: 6PM - 11PM</p>
-            <p className="text-gray-400 text-sm">Friday - Saturday: 5PM - 12AM</p>
-            <p className="text-gray-400 text-sm">Sunday: Closed</p>
+            <h4 className="text-white font-['Space_Grotesk'] font-bold text-[15px] mb-3">Hours</h4>
+            <p className="text-[#9ca3af] text-sm leading-[1.8]">Mon – Thu: 6PM – 11PM<br />Fri – Sat: 5PM – 12AM<br />Sunday: Closed</p>
+          </div>
+          <div>
+            <h4 className="text-white font-['Space_Grotesk'] font-bold text-[15px] mb-3">Legal</h4>
+            <p className="text-[#9ca3af] text-sm leading-[1.8]">
+              <a href="/privacy-policy.html" target="_blank" rel="noopener noreferrer" className="text-[#9ca3af] hover:text-white transition-colors">Privacy Policy</a>
+              <br />
+              <a href="/terms-of-service.html" target="_blank" rel="noopener noreferrer" className="text-[#9ca3af] hover:text-white transition-colors">Terms of Service</a>
+            </p>
           </div>
         </div>
-        
-        <div className="text-center mt-8">
-          <p className="text-gray-500 text-xs">
-            Please consume responsibly. Must be 21+ with valid ID. 
-            Compliance with all local and state cannabis regulations.
-          </p>
-        </div>
+
+        {/* Disclaimer */}
+        <p className="text-center text-[#52606b] text-xs leading-relaxed pt-6 border-t border-white/[0.06]">
+          Please consume responsibly. Must be 21+ with valid ID. Compliance with all local and state cannabis regulations.
+        </p>
       </div>
     </footer>
   );
